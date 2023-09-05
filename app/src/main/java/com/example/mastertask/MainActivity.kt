@@ -15,13 +15,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        lbTeste = findViewById(R.id.lbTeste)
+        //lbTeste = findViewById(R.id.lbTeste)
 
-        db.collection("usuarios").get().addOnSuccessListener {
-            result ->
-            for (document in result) {
-                lbTeste.text = lbTeste.text.toString().plus("${document.data}")
-            }
-        }
+//        db.collection("usuarios").get().addOnSuccessListener {
+//            result ->
+//            for (document in result) {
+//                lbTeste.text = lbTeste.text.toString().plus("${document.data}")
+//            }
+//        }
     }
 }
