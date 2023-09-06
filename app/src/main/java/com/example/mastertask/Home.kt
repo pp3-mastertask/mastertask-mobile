@@ -14,7 +14,7 @@ class Home : AppCompatActivity() {
         bottomNav.setOnNavigationItemSelectedListener(navListener)
 
         // as soon as the application opens the first fragment should
-        // be shown to the user in this case it is algorithm fragment
+        // be shown to the user in this case it is home fragment
         supportFragmentManager.beginTransaction().replace(R.id.fragment_container, HomeFragment()).commit()
     }
 
