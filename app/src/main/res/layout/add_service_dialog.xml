@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="20dp"
+    >
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Crie ou edite seu serviço"
+        android:fontFamily="@font/montserrat_bold"
+        android:textSize="20sp"
+        android:textColor="@color/text_primary"
+        />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Serviço:"
+        android:fontFamily="@font/montserrat_medium"
+        android:textSize="15sp"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/text_primary"
+        />
+
+    <EditText
+        android:id="@+id/add_service_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        android:hint="Digite o nome do serviço"
+        android:paddingHorizontal="10dp"
+        android:textColor="@color/text_primary"
+        android:textColorHint="@color/text_terciary"
+        />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Preço:"
+        android:fontFamily="@font/montserrat_medium"
+        android:textSize="15sp"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/text_primary"
+        />
+
+    <EditText
+        android:id="@+id/add_service_price"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="numberDecimal"
+        android:hint="Digite o preço do serviço"
+        android:paddingHorizontal="10dp"
+        android:textColor="@color/text_primary"
+        android:textColorHint="@color/text_terciary"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        >
+
+        <Button
+            android:id="@+id/add_service_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="1"
+            android:backgroundTint="#FFFFFF"
+            android:fontFamily="@font/montserrat_medium"
+            android:text="Cancelar"
+            android:textAllCaps="false"
+            android:textColor="@color/red"
+            app:strokeColor="@color/red"
+            app:strokeWidth="1dp" />
+
+        <Button
+            android:id="@+id/add_service_confirm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/green"
+            android:fontFamily="@font/montserrat_medium"
+            android:text="Adicionar"
+            android:textAllCaps="false" />
+    </LinearLayout>
+</LinearLayout>

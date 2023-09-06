@@ -54,7 +54,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginTop="16dp"
                     android:orientation="vertical"
-                    android:padding="10dp"
+                    android:padding="20dp"
                     app:layout_constraintTop_toBottomOf="@+id/textView3">
 
                     <TextView
@@ -66,7 +66,7 @@
                         android:textSize="15dp" />
 
                     <EditText
-                        android:id="@+id/txtCpf"
+                        android:id="@+id/criarConta_txtCpf"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
@@ -85,7 +85,7 @@
                         android:textSize="15dp" />
 
                     <EditText
-                        android:id="@+id/txtDataNascimento"
+                        android:id="@+id/criarConta_txtDataNascimento"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
@@ -104,7 +104,7 @@
                         android:textSize="15sp" />
 
                     <EditText
-                        android:id="@+id/txtTelefone"
+                        android:id="@+id/criarConta_txtTelefone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
@@ -123,7 +123,7 @@
                         android:textSize="15sp" />
 
                     <EditText
-                        android:id="@+id/txtLocalidade"
+                        android:id="@+id/criarConta_txtLocalidade"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
@@ -138,9 +138,27 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:fontFamily="@font/montserrat_bold"
-                        android:text="Selecione suas Habilidades"
+                        android:text="Adicione serviços (opcional)"
                         android:textColor="@color/text_primary"
                         android:textSize="15sp" />
+
+                    <Button
+                        android:id="@+id/criarConta_addService"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginVertical="10dp"
+                        android:backgroundTint="@color/green"
+                        android:fontFamily="@font/montserrat_medium"
+                        android:text="Clique para adicionar"
+                        android:textSize="12sp"
+                        android:textAllCaps="false"
+                        />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/criarConta_recyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -154,16 +172,16 @@
                     <CalendarView
                         android:id="@+id/calendarView"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="296dp" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginTop="20dp"
+                        android:layout_marginTop="10dp"
                         android:orientation="horizontal">
 
                         <Button
-                            android:id="@+id/btnCancelar"
+                            android:id="@+id/criarConta_btnCancelar"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="8dp"
@@ -178,7 +196,7 @@
                             app:strokeWidth="2dp" />
 
                         <Button
-                            android:id="@+id/btnCriar"
+                            android:id="@+id/criarConta_btnCriar"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"

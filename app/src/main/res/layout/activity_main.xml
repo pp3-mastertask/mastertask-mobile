@@ -41,7 +41,7 @@
         app:srcCompat="@drawable/mt" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/main_btnGoogleAuth"
         style="@style/Widget.MaterialComponents.Button.Icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
