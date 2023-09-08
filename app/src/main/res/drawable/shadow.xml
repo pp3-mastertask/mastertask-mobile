@@ -1,26 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <!-- most important is order of layers -->
-
-    <!-- Bottom right side 2dp Shadow -->
-    <item >
-        <shape android:shape="rectangle">
-            <solid android:color="#000000" />
-        </shape>
+    <!--the shadow comes from here-->
+    <item
+        android:bottom="0dp"
+        android:drawable="@android:drawable/dialog_holo_light_frame"
+        android:left="0dp"
+        android:right="0dp"
+        android:top="0dp">
     </item>
 
-    <!-- Bottom 2dp Shadow -->
-    <item>
+    <item
+        android:bottom="0dp"
+        android:left="0dp"
+        android:right="0dp"
+        android:top="0dp">
         <shape android:shape="rectangle">
-            <solid android:color="#000000" />
-        </shape>
-    </item>
+            <solid android:color="@android:color/white" />
 
-    <!-- White Top color -->
-    <item android:bottom="3px" android:right="3px">
-        <shape android:shape="rectangle">
-            <solid android:color="#FFFFFF" />
+            <padding android:left="1dp"
+                android:top="1dp"
+                android:right="1dp"
+                android:bottom="1dp" />
+
+            <corners android:bottomRightRadius="40dp" android:bottomLeftRadius="40dp"
+                android:topLeftRadius="40dp" android:topRightRadius="40dp"/>
         </shape>
     </item>
 </layer-list>

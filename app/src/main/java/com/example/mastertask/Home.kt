@@ -11,7 +11,7 @@ class Home : AppCompatActivity() {
         setContentView(R.layout.activity_home)
 
         val bottomNav = findViewById<BottomNavigationView>(R.id.navigation_view)
-        bottomNav.setOnNavigationItemSelectedListener(navListener)
+        bottomNav.setOnItemSelectedListener(navListener)
 
         // as soon as the application opens the first fragment should
         // be shown to the user in this case it is home fragment
