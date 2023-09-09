@@ -1,10 +1,13 @@
 package com.example.mastertask
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -33,8 +36,34 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        val rootView: View = inflater.inflate(R.layout.fragment_home, container, false)
+
+        val recyclerView : RecyclerView = rootView.findViewById(R.id.recycler_view_novos)
+        val recyclerViewLayoutManager : RecyclerView.LayoutManager =
+            LinearLayoutManager(activity?.applicationContext)
+
+        recyclerView.layoutManager = recyclerViewLayoutManager
+
+        val source = ArrayList<User>()
+        AddItemsToRecyclerViewArrayList(source)
+
+        val horizontalLayout = LinearLayoutManager(activity?.applicationContext,
+            LinearLayoutManager.HORIZONTAL, false)
+        recyclerView.layoutManager = horizontalLayout
+
+        val adapter = RecyclerViewAdapter(source)
+        recyclerView.adapter = adapter
+
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home, container, false)
+    }
+
+    // Function to add items in RecyclerView.
+    fun AddItemsToRecyclerViewArrayList(source: ArrayList<User>) {
+        source.add(User("Marcos", "Campinas - SP", "19984474403", 4.7))
+        source.add(User("Cleyton", "Valinhos - SP", "19933452522", 5.0))
+        source.add(User("Richard", "Jaguariúna - SP", "19982823482", 3.4))
     }
 
     companion object {
