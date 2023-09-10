@@ -39,31 +39,33 @@ class HomeFragment : Fragment() {
 
         val rootView: View = inflater.inflate(R.layout.fragment_home, container, false)
 
-        val recyclerView : RecyclerView = rootView.findViewById(R.id.recycler_view_novos)
-        val recyclerViewLayoutManager : RecyclerView.LayoutManager =
-            LinearLayoutManager(activity?.applicationContext)
-
-        recyclerView.layoutManager = recyclerViewLayoutManager
-
-        val source = ArrayList<User>()
-        AddItemsToRecyclerViewArrayList(source)
-
-        val horizontalLayout = LinearLayoutManager(activity?.applicationContext,
-            LinearLayoutManager.HORIZONTAL, false)
-        recyclerView.layoutManager = horizontalLayout
-
-        val adapter = RecyclerViewAdapter(source)
-        recyclerView.adapter = adapter
+        var source = ArrayList<User>()
+        addItemsToRecyclerViewArrayList(source)
+        setUpRecyclerView(rootView, R.id.recycler_view_novos, source)
+        setUpRecyclerView(rootView, R.id.recycler_view_recomendacoes, source)
+        setUpRecyclerView(rootView, R.id.recycler_view_jacontratados, source)
 
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
-    // Function to add items in RecyclerView.
-    fun AddItemsToRecyclerViewArrayList(source: ArrayList<User>) {
-        source.add(User("Marcos", "Campinas - SP", "19984474403", 4.7))
-        source.add(User("Cleyton", "Valinhos - SP", "19933452522", 5.0))
-        source.add(User("Richard", "Jaguariúna - SP", "19982823482", 3.4))
+    fun setUpRecyclerView(rootView: View, id: Int, source: ArrayList<User>) {
+        val horizontalLayout = LinearLayoutManager(activity?.applicationContext,
+            LinearLayoutManager.HORIZONTAL, false)
+        val adapter = CardViewAdapter(source)
+
+        val recyclerView : RecyclerView = rootView.findViewById(id)
+        recyclerView.layoutManager = horizontalLayout
+        recyclerView.adapter = adapter
+    }
+
+    fun addItemsToRecyclerViewArrayList(source: ArrayList<User>) {
+        source.add(User("Marcos", "Campinas - SP", "19984474403", 4.7,
+            listOf("Pintura", "Elétrica")))
+        source.add(User("Cleyton", "Valinhos - SP", "19933452522", 5.0,
+            listOf("Enanador", "Mecânico")))
+        source.add(User("Richard", "Jaguariúna - SP", "19982823482", 3.4,
+            listOf("Formatação PC", "Conserto de eletrodomêsticos")))
     }
 
     companion object {
