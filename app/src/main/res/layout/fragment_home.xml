@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="10dp"
     android:scrollbars="vertical">
@@ -69,9 +69,11 @@
         android:paddingBottom="15dp"
         android:paddingEnd="20dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
+        tools:ignore="RtlSymmetry">
 
         <SearchView
+            android:id="@+id/search_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:iconifiedByDefault="false"
@@ -81,79 +83,21 @@
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <TextView
-        android:id="@+id/textView2"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/home_tabs_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="28dp"
-        android:fontFamily="@font/montserrat_bold"
-        android:text="Você pode gostar"
-        android:textSize="20sp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="23dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="503dp"
+        android:padding="10dp"
+        android:scrollbarStyle="insideOverlay"
+        android:scrollbars="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/search"
-        tools:ignore="HardCodedText" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view_recomendacoes"
-        android:layout_width="379dp"
-        android:layout_height="103dp"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="24dp"
-        android:scrollbars="horizontal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="140dp"
-        android:fontFamily="@font/montserrat_bold"
-        android:text="Novos serviços"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
-        tools:ignore="HardCodedText" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view_novos"
-        android:layout_width="375dp"
-        android:layout_height="101dp"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="20dp"
-        android:scrollbars="horizontal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="140dp"
-        android:fontFamily="@font/montserrat_bold"
-        android:text="Profissionais já contratados"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3"
-        tools:ignore="HardCodedText" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view_jacontratados"
-        android:layout_width="375dp"
-        android:layout_height="101dp"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="176dp"
-        android:scrollbars="horizontal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintVertical_bias="0.666" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
