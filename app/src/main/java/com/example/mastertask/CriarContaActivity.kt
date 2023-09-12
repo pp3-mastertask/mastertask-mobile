@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.Window
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mastertask.Adapters.CreateAccountServicesAdapter
@@ -15,12 +16,19 @@ class CriarContaActivity : AppCompatActivity() {
 
     private lateinit var btnAddService: Button
 
+    private lateinit var lbAuthTest: TextView
+
     private var list_servicos = ArrayList<ServiceModel>()
     private lateinit var recyclerAdapter:CreateAccountServicesAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_criar_conta)
+
+        val email = intent.getStringExtra("email")
+
+        lbAuthTest = findViewById(R.id.txtTesteAuth)
+        lbAuthTest.text = email
 
         this.btnAddService = this.findViewById(R.id.criarConta_addService)
         btnAddService.setOnClickListener({ createAddServiceDialog() })
