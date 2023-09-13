@@ -5,20 +5,20 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.mastertask.Models.ServiceModel
+import com.example.mastertask.Models.SkillModel
 import com.example.mastertask.R
 
-class CreateAccountServicesAdapter(private var lista_servicos: List<ServiceModel>)
-    : RecyclerView.Adapter<CreateAccountServicesAdapter.ServicesViewHolder>()
+class EditAccountSkillsAdapter(private var lista_servicos: List<SkillModel>)
+    : RecyclerView.Adapter<EditAccountSkillsAdapter.ServicesViewHolder>()
 {
     inner class ServicesViewHolder(view: View): RecyclerView.ViewHolder(view) {
-        var serviceTextView: TextView = view.findViewById(R.id.lbServiceBadge)
+        var serviceTextView: TextView = view.findViewById(R.id.lbSkillBadge)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ServicesViewHolder {
         val servicesView = LayoutInflater
             .from(parent.context)
-            .inflate(R.layout.service_badge, parent, false)
+            .inflate(R.layout.skill_badge, parent, false)
 
         return ServicesViewHolder(servicesView)
     }

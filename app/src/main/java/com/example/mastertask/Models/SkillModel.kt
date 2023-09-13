@@ -1,6 +1,6 @@
 package com.example.mastertask.Models
 
-data class ServiceModel(
+data class SkillModel(
     var nome: String,
     var preco: Double
 )

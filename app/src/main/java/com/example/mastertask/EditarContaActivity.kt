@@ -9,17 +9,17 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.mastertask.Adapters.CreateAccountServicesAdapter
-import com.example.mastertask.Models.ServiceModel
+import com.example.mastertask.Adapters.EditAccountSkillsAdapter
+import com.example.mastertask.Models.SkillModel
 
-class CriarContaActivity : AppCompatActivity() {
+class EditarContaActivity : AppCompatActivity() {
 
-    private lateinit var btnAddService: Button
+    private lateinit var btnAddSkill: Button
 
     private lateinit var lbAuthTest: TextView
 
-    private var list_servicos = ArrayList<ServiceModel>()
-    private lateinit var recyclerAdapter:CreateAccountServicesAdapter
+    private var list_skills = ArrayList<SkillModel>()
+    private lateinit var recyclerAdapter:EditAccountSkillsAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,10 +30,10 @@ class CriarContaActivity : AppCompatActivity() {
         lbAuthTest = findViewById(R.id.txtTesteAuth)
         lbAuthTest.text = email
 
-        this.btnAddService = this.findViewById(R.id.criarConta_addService)
-        btnAddService.setOnClickListener({ createAddServiceDialog() })
+        this.btnAddSkill = this.findViewById(R.id.criarConta_addSkill)
+        btnAddSkill.setOnClickListener({ createAddSkillDialog() })
 
-        this.recyclerAdapter = CreateAccountServicesAdapter(this.list_servicos)
+        this.recyclerAdapter = EditAccountSkillsAdapter(this.list_skills)
 
         val recyclerView: RecyclerView = findViewById(R.id.criarConta_recyclerView)
         val layoutManager = LinearLayoutManager(this)
@@ -41,30 +41,30 @@ class CriarContaActivity : AppCompatActivity() {
         recyclerView.adapter = recyclerAdapter
     }
 
-    private fun createAddServiceDialog() {
+    private fun createAddSkillDialog() {
         val dg: Dialog = Dialog(this)
 
         dg.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dg.setCancelable(true)
-        dg.setContentView(R.layout.add_service_dialog)
+        dg.setContentView(R.layout.add_skill_dialog)
 
-        val txtNomeServico: EditText = dg.findViewById(R.id.add_service_name)
-        val txtPrecoServico: EditText = dg.findViewById(R.id.add_service_price)
+        val txtNomeSkill: EditText = dg.findViewById(R.id.add_skill_name)
+        val txtPrecoSkill: EditText = dg.findViewById(R.id.add_skill_price)
         val btnCancelar: Button = dg.findViewById(R.id.add_service_cancel)
-        val btnAdicionarServico: Button = dg.findViewById(R.id.add_service_confirm)
+        val btnAdicionarSkill: Button = dg.findViewById(R.id.add_service_confirm)
 
         btnCancelar.setOnClickListener({ dg.cancel() })
 
-        btnAdicionarServico.setOnClickListener {
-            this.list_servicos.add(ServiceModel(
-                txtNomeServico.text.toString(),
-                txtPrecoServico.text.toString().toDouble()
+        btnAdicionarSkill.setOnClickListener {
+            this.list_skills.add(SkillModel(
+                txtNomeSkill.text.toString(),
+                txtPrecoSkill.text.toString().toDouble()
             ))
 
             this.recyclerAdapter.notifyDataSetChanged()
 
-            txtNomeServico.text.clear()
-            txtPrecoServico.text.clear()
+            txtNomeSkill.text.clear()
+            txtPrecoSkill.text.clear()
         }
 
         dg.show()

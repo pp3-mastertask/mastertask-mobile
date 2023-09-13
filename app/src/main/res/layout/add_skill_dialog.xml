@@ -29,7 +29,7 @@
         />
 
     <EditText
-        android:id="@+id/add_service_name"
+        android:id="@+id/add_skill_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -52,7 +52,7 @@
         />
 
     <EditText
-        android:id="@+id/add_service_price"
+        android:id="@+id/add_skill_price"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"

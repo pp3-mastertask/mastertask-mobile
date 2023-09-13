@@ -5,9 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
-import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -17,7 +15,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.tasks.Task
 
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.GoogleAuthCredential
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -55,21 +52,24 @@ class MainActivity : AppCompatActivity() {
     private val launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult())
     { result ->
         if (result.resultCode == Activity.RESULT_OK) {
+            // User selected (ok) an email
             val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
             this.handleAuthenticationResult(task)
         }
     }
 
     private fun authenticateWithGoogle() {
+        // Initialize google intent for select email
         val authIntent = this.googleSignInClient.signInIntent
         this.launcher.launch(authIntent)
     }
 
     private fun handleAuthenticationResult(task: Task<GoogleSignInAccount>) {
         if (task.isSuccessful) {
+            // Get the account, insert to database and go to home page
             val account: GoogleSignInAccount? = task.result
             if (account != null) {
-                //this.insertAccountIntoDatabase(account)
+                this.insertAccountIntoDatabase(account)
                 this.handleShowHomePage(account)
             }
         }
@@ -78,11 +78,24 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun insertAccountIntoDatabase(account: GoogleSignInAccount) {
-        db.collection("usuarios").get().addOnSuccessListener {
-            result ->
-            for (document in result) {
-                //lbTeste.text = lbTeste.text.toString().plus("${document.data}")
-            }
+        try {
+            val createdUserData = hashMapOf(
+                "contato" to "",
+                "cpf" to "",
+                "dataNascimento" to null,
+                "endereco" to "",
+                "habilidades" to null,
+                "mediaAtual" to 0.0,
+                "nome" to account.displayName.toString(),
+                "numServicosFeitos" to 0
+            )
+
+            this.db.collection("usuarios")
+                .document(account.email.toString())
+                .set(createdUserData)
+        }
+        catch (error: Exception) {
+            Toast.makeText(this, "Um erro ocorreu ao cadastrar o usuário", Toast.LENGTH_LONG).show()
         }
     }
 
@@ -90,7 +103,7 @@ class MainActivity : AppCompatActivity() {
         val credential = GoogleAuthProvider.getCredential(account.idToken, null)
         this.auth.signInWithCredential(credential).addOnCompleteListener {
             if (it.isSuccessful) {
-                val intent = Intent(this, CriarContaActivity::class.java)
+                val intent = Intent(this, EditarContaActivity::class.java)
                 intent.putExtra("email", account.email)
                 startActivity(intent)
             }
