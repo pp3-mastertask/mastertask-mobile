@@ -13,7 +13,7 @@
         android:theme="@style/Theme.Mastertask"
         tools:targetApi="31">
         <activity
-            android:name=".CriarContaActivity"
+            android:name=".EditarContaActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
