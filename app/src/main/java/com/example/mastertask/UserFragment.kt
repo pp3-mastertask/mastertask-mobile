@@ -1,15 +1,26 @@
 package com.example.mastertask
 
+import BadgeAdapter
+import android.annotation.SuppressLint
+import android.graphics.drawable.ClipDrawable.HORIZONTAL
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.LinearLayout
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
+private lateinit var  recyclerView: RecyclerView
+private lateinit var  badgeAdapter: BadgeAdapter
+private val badgeList = mutableListOf<String>()
 
 /**
  * A simple [Fragment] subclass.
@@ -33,6 +44,12 @@ class UserFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        recyclerView = container!!.findViewById(R.id.rvHabilidades)
+
+        badgeAdapter = BadgeAdapter(badgeList)
+        recyclerView.adapter = badgeAdapter
+        recyclerView.layoutManager = GridLayoutManager(activity?.applicationContext, 3, RecyclerView.VERTICAL, false)
+
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_user, container, false)
     }
@@ -57,3 +74,4 @@ class UserFragment : Fragment() {
             }
     }
 }
+
