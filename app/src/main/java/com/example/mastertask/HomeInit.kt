@@ -39,9 +39,9 @@ class HomeInit : Fragment() {
 
         val source = ArrayList<User>()
         addItemsToRecyclerViewArrayList(source)
-        setUpRecyclerView(rootView, R.id.recycler_view_novos, source)
-        setUpRecyclerView(rootView, R.id.recycler_view_recomendacoes, source)
-        setUpRecyclerView(rootView, R.id.recycler_view_jacontratados, source)
+//        setUpRecyclerView(rootView, R.id.recycler_view_novos, source)
+//        setUpRecyclerView(rootView, R.id.recycler_view_recomendacoes, source)
+//        setUpRecyclerView(rootView, R.id.recycler_view_jacontratados, source)
 
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home_init, container, false)

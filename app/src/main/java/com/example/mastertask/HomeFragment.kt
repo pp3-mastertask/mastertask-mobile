@@ -38,15 +38,15 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        definirEventListeners()
+        // definirEventListeners(container)
 
-        parentFragmentManager.beginTransaction().replace(R.id.home_tabs_container, HomeInit()).commit()
+        // parentFragmentManager.beginTransaction().replace(R.id.home_tabs_container, HomeInit()).commit()
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
-    fun definirEventListeners() {
-        searchView = view?.findViewById(R.id.search_view) as SearchView
+    fun definirEventListeners(container: ViewGroup?) {
+        searchView = container?.findViewById(R.id.search_view) as SearchView
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {

@@ -19,7 +19,7 @@
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/imageView"
-            android:layout_width="53dp"
+            android:layout_width="50dp"
             android:layout_height="50dp"
             android:contentDescription="Profile icon"
             app:layout_constraintStart_toStartOf="parent"

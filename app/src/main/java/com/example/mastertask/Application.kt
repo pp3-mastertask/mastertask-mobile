@@ -26,7 +26,7 @@ class Application : AppCompatActivity() {
             R.id.home -> {
                 selectedFragment = HomeFragment()
             }
-            R.id.servicos -> {
+            R.id.services -> {
                 selectedFragment = ServicesFragment()
             }
             R.id.user -> {
