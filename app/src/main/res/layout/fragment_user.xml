@@ -129,10 +129,10 @@
 
     <Button
         android:id="@+id/btnEditarPerfil"
-        android:layout_width="137dp"
-        android:layout_height="42dp"
-        android:layout_marginStart="264dp"
-        android:layout_marginTop="380dp"
+        android:layout_width="146dp"
+        android:layout_height="51dp"
+        android:layout_marginStart="248dp"
+        android:layout_marginTop="376dp"
         android:backgroundTint="#30A499"
         android:text="Editar"
         android:textSize="16dp"
@@ -140,11 +140,14 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvHabilidades"
         android:layout_width="356dp"
         android:layout_height="127dp"
-        tools:layout_editor_absoluteX="28dp"
-        tools:layout_editor_absoluteY="582dp"
+        android:layout_marginStart="24dp"
 
-        />
+        android:layout_marginTop="588dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
