@@ -43,7 +43,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:fontFamily="@font/montserrat_bold"
-                    android:text="Crie sua Conta"
+                    android:text="Edite sua Conta"
                     android:textColor="@color/text_primary"
                     android:textSize="25sp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -67,7 +67,7 @@
                         android:textSize="15dp" />
 
                     <EditText
-                        android:id="@+id/criarConta_txtCpf"
+                        android:id="@+id/editarConta_txtCpf"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
@@ -87,7 +87,7 @@
                         android:textSize="15dp" />
 
                     <EditText
-                        android:id="@+id/criarConta_txtDataNascimento"
+                        android:id="@+id/editarConta_txtDataNascimento"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
@@ -107,7 +107,7 @@
                         android:textSize="15sp" />
 
                     <EditText
-                        android:id="@+id/criarConta_txtTelefone"
+                        android:id="@+id/editarConta_txtTelefone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
@@ -128,7 +128,7 @@
                         android:textSize="15sp" />
 
                     <EditText
-                        android:id="@+id/criarConta_txtLocalidade"
+                        android:id="@+id/editarConta_txtLocalidade"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
@@ -150,7 +150,7 @@
                         android:textSize="15sp" />
 
                     <Button
-                        android:id="@+id/criarConta_addSkill"
+                        android:id="@+id/editarConta_btnAddSkill"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginVertical="10dp"
@@ -163,7 +163,7 @@
                         tools:ignore="TextContrastCheck" />
 
                     <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/criarConta_recyclerView"
+                        android:id="@+id/editarConta_recyclerView"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
 
@@ -177,7 +177,7 @@
                         android:textSize="15dp" />
 
                     <CalendarView
-                        android:id="@+id/calendarView"
+                        android:id="@+id/editarConta_calendarioDisponibilidade"
                         android:layout_width="match_parent"
                         android:layout_height="296dp" />
 
@@ -188,7 +188,7 @@
                         android:orientation="horizontal">
 
                         <Button
-                            android:id="@+id/criarConta_btnCancelar"
+                            android:id="@+id/editarConta_btnCancelar"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="8dp"
@@ -203,7 +203,7 @@
                             app:strokeWidth="2dp" />
 
                         <Button
-                            android:id="@+id/criarConta_btnCriar"
+                            android:id="@+id/editarConta_btnConfirmar"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
