@@ -40,7 +40,7 @@ class HomeFragment : Fragment() {
 
         // definirEventListeners(container)
 
-        // parentFragmentManager.beginTransaction().replace(R.id.home_tabs_container, HomeInit()).commit()
+        parentFragmentManager.beginTransaction().replace(R.id.home_tabs_container, HomeInit()).commit()
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
