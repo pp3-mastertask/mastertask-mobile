@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.mastertask.Adapters.CardViewAdapter
+import com.example.mastertask.Models.User
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -62,12 +64,18 @@ class HomeInit : Fragment() {
     }
 
     fun addItemsToRecyclerViewArrayList(source: ArrayList<User>) {
-        source.add(User("Marcos", "Campinas - SP", "19984474403", 4.7,
-            listOf("Pintura", "Elétrica")))
-        source.add(User("Cleyton", "Valinhos - SP", "19933452522", 5.0,
-            listOf("Enanador", "Mecânico")))
-        source.add(User("Richard", "Jaguariúna - SP", "19982823482", 3.4,
-            listOf("Formatação PC", "Conserto de eletrodomêsticos")))
+        source.add(
+            User("Marcos", "Campinas - SP", "19984474403", 4.7,
+            listOf("Pintura", "Elétrica"))
+        )
+        source.add(
+            User("Cleyton", "Valinhos - SP", "19933452522", 5.0,
+            listOf("Enanador", "Mecânico"))
+        )
+        source.add(
+            User("Richard", "Jaguariúna - SP", "19982823482", 3.4,
+            listOf("Formatação PC", "Conserto de eletrodomêsticos"))
+        )
     }
 
     companion object {

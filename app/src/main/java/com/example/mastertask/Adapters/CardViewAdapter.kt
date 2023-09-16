@@ -1,4 +1,4 @@
-package com.example.mastertask
+package com.example.mastertask.Adapters
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.mastertask.R
+import com.example.mastertask.Models.User
 
 
 class CardViewAdapter (private val list: List<User>) :
