@@ -5,7 +5,8 @@
     android:id="@+id/linearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Application">
+    tools:context=".Application"
+    android:background="@color/white">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/fragment_container"
@@ -24,7 +25,6 @@
         android:id="@+id/navigation_view"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:padding="10dp"
         app:itemBackground="@color/white"
         app:itemIconTint="@drawable/navigation_view_colored"
         app:itemTextColor="@color/text_primary"

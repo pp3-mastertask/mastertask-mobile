@@ -35,24 +35,30 @@ class HomeInit : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val source = ArrayList<User>()
-        addItemsToRecyclerViewArrayList(source)
-        setUpRecyclerView(R.id.recycler_view_novos, source)
-        setUpRecyclerView(R.id.recycler_view_recomendacoes, source)
-        setUpRecyclerView(R.id.recycler_view_jacontratados, source)
 
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home_init, container, false)
     }
 
-    fun setUpRecyclerView(id: Int, source: ArrayList<User>) {
-        val horizontalLayout = LinearLayoutManager(activity?.applicationContext,
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val source = ArrayList<User>()
+        addItemsToRecyclerViewArrayList(source)
+        setUpRecyclerView(view, R.id.recycler_view_novos, source)
+        setUpRecyclerView(view, R.id.recycler_view_recomendacoes, source)
+        setUpRecyclerView(view, R.id.recycler_view_jacontratados, source)
+    }
+
+    fun setUpRecyclerView(view: View, id: Int, source: ArrayList<User>) {
+        val horizontalLayout = LinearLayoutManager(context,
             LinearLayoutManager.HORIZONTAL, false)
         val adapter = CardViewAdapter(source)
 
-        val recyclerView : RecyclerView? = activity?.findViewById(id)
-        recyclerView?.layoutManager = horizontalLayout
-        recyclerView?.adapter = adapter
+        val recyclerView : RecyclerView = view.findViewById(id)
+
+        recyclerView.layoutManager = horizontalLayout
+        recyclerView.adapter = adapter
+        adapter.notifyDataSetChanged()
     }
 
     fun addItemsToRecyclerViewArrayList(source: ArrayList<User>) {

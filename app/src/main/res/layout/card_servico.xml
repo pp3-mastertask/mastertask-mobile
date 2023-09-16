@@ -41,7 +41,7 @@
                 android:fontFamily="@font/montserrat_bold"
                 android:paddingBottom="5dp"
                 android:text="Nome"
-                android:textColor="@color/black"
+                android:textColor="@color/text_primary"
                 android:textSize="12sp"
                 tools:ignore="HardcodedText" />
 
@@ -66,7 +66,7 @@
                     android:text="Cidade - Estado"
                     android:textColor="@color/text_primary"
                     android:textSize="10sp"
-                    tools:ignore="HardcodedText" />
+                    tools:ignore="HardcodedText,SmallSp" />
             </LinearLayout>
 
             <LinearLayout
@@ -90,7 +90,7 @@
                     android:text="(XX) XXXXX-XXXX"
                     android:textColor="@color/text_primary"
                     android:textSize="10sp"
-                    tools:ignore="HardcodedText" />
+                    tools:ignore="HardcodedText,SmallSp" />
             </LinearLayout>
 
             <LinearLayout
@@ -113,7 +113,7 @@
                     android:text="N.N"
                     android:textColor="@color/text_primary"
                     android:textSize="10sp"
-                    tools:ignore="HardcodedText" />
+                    tools:ignore="HardcodedText,SmallSp" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

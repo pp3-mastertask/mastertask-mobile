@@ -63,6 +63,7 @@ class CardViewAdapter (private val list: List<User>) :
 
         val badgeViewAdapter = BadgeViewAdapter(list[position].skills)
         holder.recyclerView.adapter = badgeViewAdapter
+        badgeViewAdapter.notifyDataSetChanged()
     }
 
     override fun getItemCount(): Int {

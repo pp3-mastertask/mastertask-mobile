@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.SearchView
 import androidx.fragment.app.Fragment
 
@@ -38,15 +39,18 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        // definirEventListeners(container)
-
-        parentFragmentManager.beginTransaction().replace(R.id.home_tabs_container, HomeInit()).commit()
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
-    fun definirEventListeners(container: ViewGroup?) {
-        searchView = container?.findViewById(R.id.search_view) as SearchView
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        definirEventListeners(view)
+        parentFragmentManager.beginTransaction().replace(R.id.home_tabs_container, HomeInit()).commit()
+    }
+
+    fun definirEventListeners(view: View) {
+        searchView = view.findViewById(R.id.search_view) as SearchView
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
