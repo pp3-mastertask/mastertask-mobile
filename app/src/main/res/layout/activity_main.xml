@@ -26,9 +26,12 @@
         android:text="Comece sua jornada agora mesmo!"
         android:textColor="@color/white"
         android:textSize="20sp"
+        android:textAlignment="center"
+        android:padding="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        tools:ignore="HardcodedText" />
 
     <ImageView
         android:id="@+id/imageView2"
@@ -54,6 +57,7 @@
         android:textAllCaps="false"
         android:textColor="@color/green"
         android:textSize="20sp"
+        android:minHeight="10dip"
         app:cornerRadius="30dp"
         app:icon="@drawable/googleg_standard_color_18"
         app:iconPadding="20dp"
@@ -61,6 +65,7 @@
         app:iconTint="@color/green"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        tools:ignore="HardcodedText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
