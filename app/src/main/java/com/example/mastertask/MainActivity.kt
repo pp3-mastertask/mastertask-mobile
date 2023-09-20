@@ -39,7 +39,6 @@ class MainActivity : AppCompatActivity() {
             .requestEmail()
             .build()
 
-        Log.d("AUTHENTICATION", gso.serverClientId.toString())
         this.googleSignInClient = GoogleSignIn.getClient(this, gso)
 
         this.btnGoogleAuth = findViewById(R.id.main_btnGoogleAuth)
@@ -104,8 +103,9 @@ class MainActivity : AppCompatActivity() {
         this.auth.signInWithCredential(credential).addOnCompleteListener {
             if (it.isSuccessful) {
                 val intent = Intent(this, EditarContaActivity::class.java)
-                intent.putExtra("email", account.email)
+                intent.putExtra("email", account.email.toString())
                 startActivity(intent)
+                this.finish()
             }
         }
     }

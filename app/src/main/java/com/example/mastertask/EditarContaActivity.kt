@@ -5,8 +5,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Window
 import android.widget.Button
+import android.widget.CalendarView
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mastertask.Adapters.EditAccountSkillsAdapter
@@ -25,11 +27,9 @@ class EditarContaActivity : AppCompatActivity() {
     private lateinit var txtNascimento: EditText
     private lateinit var txtContato   : EditText
     private lateinit var txtLocalidade: EditText
-    private lateinit var dtDisponibilidade: EditText
+    private lateinit var dtDisponibilidade: CalendarView
 
     private lateinit var lbAuthTest: TextView
-
-    private var currentUser = FirebaseAuth.getInstance().currentUser
 
     private var list_skills = ArrayList<SkillModel>()
     private lateinit var recyclerAdapter:EditAccountSkillsAdapter
@@ -41,12 +41,12 @@ class EditarContaActivity : AppCompatActivity() {
         val email = intent.getStringExtra("email")
 
         lbAuthTest = findViewById(R.id.txtTesteAuth)
-        lbAuthTest.text = email
+        lbAuthTest.text = email.toString()
 
         this.configureElements()
         this.configureRecyclerView()
 
-        this.fillInputs()
+        //this.fillInputs()
     }
 
     private fun configureElements() {
@@ -73,7 +73,7 @@ class EditarContaActivity : AppCompatActivity() {
     }
 
     private fun setEventListeners() {
-        this.btnAddSkill          .setOnClickListener({ createAddSkillDialog() })
+        this.btnAddSkill          .setOnClickListener({ this.createAddSkillDialog() })
         this.btnCancelEditAccount .setOnClickListener({ this.handleCancelEditAccount() })
         this.btnConfirmEditAccount.setOnClickListener({ this.handleConfirmEditAccount() })
     }
