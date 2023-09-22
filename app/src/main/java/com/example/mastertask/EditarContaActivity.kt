@@ -15,6 +15,7 @@ import com.example.mastertask.Adapters.EditAccountSkillsAdapter
 import com.example.mastertask.Models.SkillModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
 class EditarContaActivity : AppCompatActivity() {
@@ -29,19 +30,21 @@ class EditarContaActivity : AppCompatActivity() {
     private lateinit var txtLocalidade: EditText
     private lateinit var dtDisponibilidade: CalendarView
 
-    private lateinit var lbAuthTest: TextView
-
     private var list_skills = ArrayList<SkillModel>()
     private lateinit var recyclerAdapter:EditAccountSkillsAdapter
+
+    private lateinit var received_email: String
+    private lateinit var received_name: String
+
+    private val auth: FirebaseAuth = FirebaseAuth.getInstance()
+    private val db = Firebase.firestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_editar_conta)
 
-        val email = intent.getStringExtra("email")
-
-        lbAuthTest = findViewById(R.id.txtTesteAuth)
-        lbAuthTest.text = email.toString()
+        this.received_email = intent.getStringExtra("email").toString()
+        this.received_name  = intent.getStringExtra("name").toString()
 
         this.configureElements()
         this.configureRecyclerView()
@@ -109,20 +112,32 @@ class EditarContaActivity : AppCompatActivity() {
 
     private fun handleCancelEditAccount() {
         // redirecionar para a primeira pagina de edicao de usuario
+        this.finish()
     }
 
     private fun handleConfirmEditAccount() {
+        Toast.makeText(this, this.dtDisponibilidade.date.toString(), Toast.LENGTH_LONG).show()
         val userUpdatedData = hashMapOf(
-            "contato" to txtContato.text.toString(),
-            "cpf" to txtCpf.text.toString(),
-            "dataNascimento" to null,
-            "disponibilidade" to "",
-            "endereco" to "",
+            "contato" to this.txtContato.text.toString(),
+            "cpf" to this.txtCpf.text.toString(),
+            "dataNascimento" to this.txtNascimento.text.toString(),
+            "disponibilidade" to this.dtDisponibilidade.date.toString(),
+            "endereco" to this.txtLocalidade.text.toString(),
             "habilidades" to null,
             "mediaAtual" to 0.0,
-            "nome" to "",
+            "nome" to this.auth.currentUser!!.displayName,
             "numServicosFeitos" to 0
         )
+
+        this.db.collection("usuarios")
+            .document(this.auth.currentUser!!.email.toString())
+            .update(userUpdatedData as Map<String, Any?>)
+            .addOnSuccessListener {
+                Toast.makeText(this, "Mudanças feitas com sucesso!", Toast.LENGTH_LONG).show()
+            }
+            .addOnFailureListener { e ->
+                Toast.makeText(this, "Não foi possível atualizar o perfil!", Toast.LENGTH_LONG).show()
+            }
     }
 
     private fun fillInputs() {
