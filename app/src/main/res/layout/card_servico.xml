@@ -42,7 +42,7 @@
                 android:paddingBottom="5dp"
                 android:text="Nome"
                 android:textColor="@color/text_primary"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 tools:ignore="HardcodedText" />
 
             <LinearLayout
@@ -65,7 +65,7 @@
                     android:fontFamily="@font/montserrat_medium"
                     android:text="Cidade - Estado"
                     android:textColor="@color/text_primary"
-                    android:textSize="10sp"
+                    android:textSize="12sp"
                     tools:ignore="HardcodedText,SmallSp" />
             </LinearLayout>
 
@@ -89,7 +89,7 @@
                     android:fontFamily="@font/montserrat_medium"
                     android:text="(XX) XXXXX-XXXX"
                     android:textColor="@color/text_primary"
-                    android:textSize="10sp"
+                    android:textSize="12sp"
                     tools:ignore="HardcodedText,SmallSp" />
             </LinearLayout>
 
@@ -112,7 +112,7 @@
                     android:fontFamily="@font/montserrat_medium"
                     android:text="N.N"
                     android:textColor="@color/text_primary"
-                    android:textSize="10sp"
+                    android:textSize="12sp"
                     tools:ignore="HardcodedText,SmallSp" />
             </LinearLayout>
         </LinearLayout>
@@ -121,7 +121,10 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_services"
         android:layout_width="match_parent"
-        android:layout_height="27dp"
+        android:layout_height="45dp"
         android:padding="5dp"
-        android:scrollbars="horizontal" />
+        android:orientation="horizontal"
+        android:scrollbars="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/service_badge" />
 </LinearLayout>

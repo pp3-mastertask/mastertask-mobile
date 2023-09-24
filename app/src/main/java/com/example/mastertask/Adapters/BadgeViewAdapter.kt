@@ -25,7 +25,7 @@ class BadgeViewAdapter (private val list: List<String>) :
         val itemView: View = LayoutInflater
             .from(parent.context)
             .inflate(
-                R.layout.fragment_home,
+                R.layout.service_badge,
                 parent,
                 false
             )

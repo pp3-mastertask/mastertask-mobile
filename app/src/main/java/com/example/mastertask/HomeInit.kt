@@ -52,13 +52,10 @@ class HomeInit : Fragment() {
     }
 
     fun setUpRecyclerView(view: View, id: Int, source: ArrayList<User>) {
-        val horizontalLayout = LinearLayoutManager(context,
-            LinearLayoutManager.HORIZONTAL, false)
         val adapter = CardViewAdapter(source)
 
         val recyclerView : RecyclerView = view.findViewById(id)
 
-        recyclerView.layoutManager = horizontalLayout
         recyclerView.adapter = adapter
         adapter.notifyDataSetChanged()
     }

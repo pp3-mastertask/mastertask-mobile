@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,8 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
         android:scrollbars="vertical">
 
         <TextView
@@ -30,66 +29,75 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view_recomendacoes"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:layout_marginStart="4dp"
             android:layout_marginTop="24dp"
+            android:orientation="horizontal"
             android:scrollbars="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView2" />
+            app:layout_constraintTop_toBottomOf="@+id/textView2"
+            tools:listitem="@layout/card_servico" />
 
         <TextView
             android:id="@+id/textView3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="140dp"
+            android:layout_marginTop="20dp"
             android:fontFamily="@font/montserrat_bold"
             android:text="Novos serviços"
             android:textColor="@color/text_primary"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView2"
+            app:layout_constraintTop_toBottomOf="@+id/recycler_view_recomendacoes"
             tools:ignore="HardCodedText" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view_novos"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:layout_marginStart="8dp"
             android:layout_marginTop="20dp"
+            android:orientation="horizontal"
             android:scrollbars="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView3" />
+            app:layout_constraintTop_toBottomOf="@+id/textView3"
+            tools:listitem="@layout/card_servico" />
 
         <TextView
             android:id="@+id/textView4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="140dp"
+            android:layout_marginTop="20dp"
             android:fontFamily="@font/montserrat_bold"
             android:text="Profissionais já contratados"
             android:textColor="@color/text_primary"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView3"
+            app:layout_constraintTop_toBottomOf="@+id/recycler_view_novos"
             tools:ignore="HardCodedText" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view_jacontratados"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:layout_marginStart="8dp"
             android:layout_marginTop="20dp"
+            android:orientation="horizontal"
             android:scrollbars="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView4" />
+            app:layout_constraintTop_toBottomOf="@+id/textView4"
+            tools:listitem="@layout/card_servico" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

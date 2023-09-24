@@ -1,11 +1,14 @@
 package com.example.mastertask
 
+import android.graphics.Color
+import android.graphics.PorterDuff
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
+import android.widget.ImageView
 import android.widget.SearchView
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 
 
@@ -52,19 +55,38 @@ class HomeFragment : Fragment() {
     fun definirEventListeners(view: View) {
         searchView = view.findViewById(R.id.search_view) as SearchView
 
+        val id =
+            searchView.context.resources.getIdentifier("android:id/search_src_text", null, null)
+        val textView = searchView.findViewById<View>(id) as TextView
+        textView.setTextColor(Color.DKGRAY)
+        textView.setHintTextColor(Color.LTGRAY)
+
+        val searchIcon = searchView.findViewById<ImageView>(androidx.appcompat.R.id.search_mag_icon)
+
+        searchIcon.setColorFilter(
+            resources.getColor(R.color.darker_gray),
+            PorterDuff.Mode.SRC_IN
+        )
+
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
-                changeScreen()
+                if (query != "")
+                    changeScreen(HomeSearch())
+                else
+                    changeScreen(HomeInit())
                 return true
             }
 
             override fun onQueryTextChange(newText: String): Boolean {
-                changeScreen()
+                if (newText != "")
+                    changeScreen(HomeSearch())
+                else
+                    changeScreen(HomeInit())
                 return true
             }
 
-            fun changeScreen() {
-                parentFragmentManager.beginTransaction().replace(R.id.home_tabs_container, HomeSearch()).commit()
+            fun changeScreen(fragment: Fragment) {
+                parentFragmentManager.beginTransaction().replace(R.id.home_tabs_container, fragment).commit()
             }
         })
     }

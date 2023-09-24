@@ -5,6 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.mastertask.Adapters.CardViewAdapter
+import com.example.mastertask.Models.User
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -35,6 +40,35 @@ class HomeSearch : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home_search, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val source = ArrayList<User>()
+        addItemsToRecyclerViewArrayList(source)
+
+        val adapter = CardViewAdapter(source)
+
+        val recyclerView = view.findViewById(R.id.recycler_view_results) as RecyclerView
+
+         recyclerView.adapter = adapter
+         adapter.notifyDataSetChanged()
+    }
+
+    fun addItemsToRecyclerViewArrayList(source: ArrayList<User>) {
+        source.add(
+            User("Marcos", "Campinas - SP", "19984474403", 4.7,
+                listOf("Pintura", "Elétrica"))
+        )
+        source.add(
+            User("Cleyton", "Valinhos - SP", "19933452522", 5.0,
+                listOf("Enanador", "Mecânico"))
+        )
+        source.add(
+            User("Richard", "Jaguariúna - SP", "19982823482", 3.4,
+                listOf("Formatação PC", "Conserto de eletrodomêsticos"))
+        )
     }
 
     companion object {
