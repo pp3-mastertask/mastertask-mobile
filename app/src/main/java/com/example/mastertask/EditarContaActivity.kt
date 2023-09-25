@@ -33,9 +33,6 @@ class EditarContaActivity : AppCompatActivity() {
     private var list_skills = ArrayList<SkillModel>()
     private lateinit var recyclerAdapter:EditAccountSkillsAdapter
 
-    private lateinit var received_email: String
-    private lateinit var received_name: String
-
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
     private val db = Firebase.firestore
 
@@ -43,13 +40,10 @@ class EditarContaActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_editar_conta)
 
-        this.received_email = intent.getStringExtra("email").toString()
-        this.received_name  = intent.getStringExtra("name").toString()
-
         this.configureElements()
         this.configureRecyclerView()
 
-        //this.fillInputs()
+        this.fillInputs()
     }
 
     private fun configureElements() {
@@ -96,23 +90,41 @@ class EditarContaActivity : AppCompatActivity() {
         btnCancelar.setOnClickListener({ dg.cancel() })
 
         btnAdicionarSkill.setOnClickListener {
-            this.list_skills.add(SkillModel(
-                txtNomeSkill.text.toString(),
-                txtPrecoSkill.text.toString().toDouble()
-            ))
+            if (txtNomeSkill.text.toString() != "" && txtPrecoSkill.text.toString() != "") {
+                this.list_skills.add(
+                    SkillModel(
+                        txtNomeSkill.text.toString(),
+                        txtPrecoSkill.text.toString().toDouble()
+                    )
+                )
 
-            this.recyclerAdapter.notifyDataSetChanged()
+                this.recyclerAdapter.notifyDataSetChanged()
 
-            txtNomeSkill.text.clear()
-            txtPrecoSkill.text.clear()
+                txtNomeSkill.text.clear()
+                txtPrecoSkill.text.clear()
+            }
         }
 
         dg.show()
     }
 
     private fun handleCancelEditAccount() {
-        // redirecionar para a primeira pagina de edicao de usuario
-        this.finish()
+        // TODO: Testar se o usuario ja tem esses dados no perfil
+        if (this.txtContato.text.toString() == ""
+            || this.txtCpf.text.toString() == ""
+            || this.txtNascimento.text.toString() == ""
+            || this.dtDisponibilidade.date.toString() == ""
+            || this.txtLocalidade.text.toString()  == "")
+        {
+            val dg: Dialog = Dialog(this)
+
+            dg.requestWindowFeature(Window.FEATURE_NO_TITLE)
+            dg.setCancelable(true)
+            dg.setContentView(R.layout.add_skill_dialog)
+            dg.show()
+        }
+        else
+            this.finish()
     }
 
     private fun handleConfirmEditAccount() {
@@ -128,6 +140,8 @@ class EditarContaActivity : AppCompatActivity() {
             "nome" to this.auth.currentUser!!.displayName,
             "numServicosFeitos" to 0
         )
+        // Adicionar habilidades incluidas
+
 
         this.db.collection("usuarios")
             .document(this.auth.currentUser!!.email.toString())
@@ -141,6 +155,9 @@ class EditarContaActivity : AppCompatActivity() {
     }
 
     private fun fillInputs() {
-        // testar se o usuario tem dados, se tiver, preencher os inputs
+        // TODO: testar se o usuario tem dados, se tiver, preencher os inputs
+        // pegar email do usuario
+        // usar como chave para achar seu registro na collection
+        // pegar dados da collection e preencher inputs
     }
 }

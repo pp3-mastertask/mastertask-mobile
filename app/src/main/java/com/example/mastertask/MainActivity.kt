@@ -103,7 +103,6 @@ class MainActivity : AppCompatActivity() {
         this.auth.signInWithCredential(credential).addOnCompleteListener {
             if (it.isSuccessful) {
                 val intent = Intent(this, EditarContaActivity::class.java)
-                intent.putExtra("email", account.email.toString())
                 startActivity(intent)
                 this.finish()
             }

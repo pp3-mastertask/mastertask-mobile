@@ -63,11 +63,22 @@
         android:textColorHint="@color/text_terciary"
         />
 
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Obs: Preencha ambos os campos"
+        android:fontFamily="@font/montserrat_medium"
+        android:textSize="15sp"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/text_terciary"
+        />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         >
 
         <Button
