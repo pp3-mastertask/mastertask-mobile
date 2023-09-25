@@ -64,7 +64,7 @@ class HomeFragment : Fragment() {
         val searchIcon = searchView.findViewById<ImageView>(androidx.appcompat.R.id.search_mag_icon)
 
         searchIcon.setColorFilter(
-            resources.getColor(R.color.darker_gray),
+            resources.getColor(R.color.text_primary),
             PorterDuff.Mode.SRC_IN
         )
 
