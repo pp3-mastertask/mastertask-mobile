@@ -39,7 +39,7 @@ class CardViewAdapter (private val list: List<User>) :
         val itemView: View = LayoutInflater
             .from(context)
             .inflate(
-                R.layout.fragment_home,
+                R.layout.card_servico,
                 parent,
                 false
             )
@@ -51,16 +51,17 @@ class CardViewAdapter (private val list: List<User>) :
         holder: Card,
         position: Int
     ) {
-        holder.nome.text = list[position].name
-        holder.endereco.text = list[position].location
-        holder.telefone.text = list[position].phone
-        holder.estrelas.text = list[position].stars.toString()
+        val user : User = list[position]
+        holder.nome.text = user.name
+        holder.endereco.text = user.location
+        holder.telefone.text = user.phone
+        holder.estrelas.text = user.stars.toString()
 
         val layoutManager: RecyclerView.LayoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         holder.recyclerView.layoutManager = layoutManager
 
-        val badgeViewAdapter = BadgeViewAdapter(list[position].skills)
+        val badgeViewAdapter = BadgeViewAdapter(user.skills)
         holder.recyclerView.adapter = badgeViewAdapter
     }
 

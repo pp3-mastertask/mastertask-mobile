@@ -11,6 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Elétrica"
+        android:textSize="12sp"
         android:paddingHorizontal="20dp"
         android:paddingVertical="5dp"
         android:fontFamily="@font/montserrat_bold"
