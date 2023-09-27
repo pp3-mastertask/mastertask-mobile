@@ -15,8 +15,13 @@ import com.example.mastertask.Adapters.EditAccountSkillsAdapter
 import com.example.mastertask.Models.SkillModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firestore.v1.Document
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class EditarContaActivity : AppCompatActivity() {
 
@@ -109,7 +114,6 @@ class EditarContaActivity : AppCompatActivity() {
     }
 
     private fun handleCancelEditAccount() {
-        // TODO: Testar se o usuario ja tem esses dados no perfil
         if (this.txtContato.text.toString() == ""
             || this.txtCpf.text.toString() == ""
             || this.txtNascimento.text.toString() == ""
@@ -129,19 +133,38 @@ class EditarContaActivity : AppCompatActivity() {
 
     private fun handleConfirmEditAccount() {
         Toast.makeText(this, this.dtDisponibilidade.date.toString(), Toast.LENGTH_LONG).show()
+
+        val skillCollectionRef = this.db.collection("habilidades")
+        val skillsReferencesList = ArrayList<DocumentReference>()
+        // Para cada skill adicionada, vamos criar o dado, inserir no banco e adicionar sua
+        // referencia em um array para podermos inserir isso no usuario
+        this.list_skills.forEach {
+            val skillDocumentRef = skillCollectionRef.document()
+            val data = hashMapOf (
+                "habilidade" to it.nome,
+                "preco" to it.preco
+            )
+
+            skillDocumentRef
+                .set(data)
+                .addOnFailureListener {
+                    Toast.makeText(this, "Não foi possível criar a habilidade!", Toast.LENGTH_SHORT).show()
+                }
+
+            skillsReferencesList.add(skillDocumentRef)
+        }
+
         val userUpdatedData = hashMapOf(
             "contato" to this.txtContato.text.toString(),
             "cpf" to this.txtCpf.text.toString(),
             "dataNascimento" to this.txtNascimento.text.toString(),
             "disponibilidade" to this.dtDisponibilidade.date.toString(),
             "endereco" to this.txtLocalidade.text.toString(),
-            "habilidades" to null,
+            "habilidades" to skillsReferencesList,
             "mediaAtual" to 0.0,
             "nome" to this.auth.currentUser!!.displayName,
             "numServicosFeitos" to 0
         )
-        // Adicionar habilidades incluidas
-
 
         this.db.collection("usuarios")
             .document(this.auth.currentUser!!.email.toString())
@@ -155,9 +178,44 @@ class EditarContaActivity : AppCompatActivity() {
     }
 
     private fun fillInputs() {
-        // TODO: testar se o usuario tem dados, se tiver, preencher os inputs
-        // pegar email do usuario
-        // usar como chave para achar seu registro na collection
-        // pegar dados da collection e preencher inputs
+        val currentUserEmail: String = this.auth.currentUser!!.email.toString()
+
+        var currentUserData: Map<String, Any>? = null
+        this.db.collection("usuarios")
+            .document(currentUserEmail)
+            .get()
+            .addOnSuccessListener { it ->
+                if (it.exists()) {
+                    currentUserData = it.data
+                }
+            }
+
+        if (currentUserData != null) {
+            for ((k, v) in currentUserData!!) {
+                when (k) {
+                    "contato" -> this.txtContato.setText(v.toString())
+                    "cpf" -> this.txtCpf.setText(v.toString())
+                    "dataNascimento" -> this.txtNascimento.setText(v.toString())
+                    "disponibilidade" -> {
+                        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.US)
+
+                        try {
+                            // Parse the timestamp string into a Date object
+                            val date = dateFormat.parse(v.toString())
+
+                            // Convert the Date to milliseconds since the epoch
+                            val timeInMillis = date.time
+
+                            // Set the selected date in the CalendarView
+                            this.dtDisponibilidade.date = timeInMillis
+                        } catch (e: Exception) {
+                            // Handle parsing errors
+                        }
+                    }
+                    "endereco" -> this.txtLocalidade.setText(v.toString())
+                    //"habilidades" ->
+                }
+            }
+        }
     }
 }
