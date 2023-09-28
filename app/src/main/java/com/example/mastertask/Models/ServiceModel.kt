@@ -10,7 +10,7 @@ import com.google.firebase.Timestamp
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
-class ProductViewModel: ViewModel() {
+class ServiceViewModel: ViewModel() {
 
     private var db = Firebase.firestore
     private val services = "servicos"
