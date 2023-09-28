@@ -5,10 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mastertask.Adapters.CardViewAdapter
-import com.example.mastertask.Models.User
+import com.example.mastertask.Data.User
+import com.example.mastertask.Models.UserViewModel
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -24,6 +24,14 @@ class HomeInit : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+
+    lateinit var recycler_view_recomendacoes : RecyclerView
+    lateinit var recycler_view_novos : RecyclerView
+    lateinit var recycler_view_jacontratados : RecyclerView
+
+    lateinit var userViewModel : UserViewModel
+
+    lateinit var usersArrayList : ArrayList<User>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,35 +52,51 @@ class HomeInit : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val source = ArrayList<User>()
-        addItemsToRecyclerViewArrayList(source)
-        setUpRecyclerView(view, R.id.recycler_view_novos, source)
-        setUpRecyclerView(view, R.id.recycler_view_recomendacoes, source)
-        setUpRecyclerView(view, R.id.recycler_view_jacontratados, source)
+        initViews(view)
+        initModels()
+
+        setUpRecyclerViews()
     }
 
-    fun setUpRecyclerView(view: View, id: Int, source: ArrayList<User>) {
-        val adapter = CardViewAdapter(source)
+    fun initViews(view : View) {
+        recycler_view_recomendacoes = view.findViewById(R.id.recycler_view_recomendacoes) as RecyclerView
+        recycler_view_novos = view.findViewById(R.id.recycler_view_novos) as RecyclerView
+        recycler_view_jacontratados = view.findViewById(R.id.recycler_view_jacontratados) as RecyclerView
 
-        val recyclerView : RecyclerView = view.findViewById(id)
-
-        recyclerView.adapter = adapter
-        adapter.notifyDataSetChanged()
+        userViewModel.getList()
     }
 
-    fun addItemsToRecyclerViewArrayList(source: ArrayList<User>) {
-        source.add(
-            User("Marcos", "Campinas - SP", "19984474403", 4.7,
-            listOf("Pintura", "Elétrica"))
-        )
-        source.add(
-            User("Cleyton", "Valinhos - SP", "19933452522", 5.0,
-            listOf("Enanador", "Mecânico"))
-        )
-        source.add(
-            User("Richard", "Jaguariúna - SP", "19982823482", 3.4,
-            listOf("Formatação PC", "Conserto de eletrodomêsticos"))
-        )
+    fun initModels() {
+        userViewModel.createLiveData.observe(viewLifecycleOwner) {
+            if (it) {
+                userViewModel.getList()
+            }
+        }
+
+        userViewModel.updateLiveData.observe(viewLifecycleOwner) {
+            if (it) {
+                userViewModel.getList()
+            }
+        }
+
+        userViewModel.deleteLiveData.observe(viewLifecycleOwner) {
+            if (it) {
+                userViewModel.getList()
+            }
+        }
+
+        userViewModel.getListLiveData.observe(viewLifecycleOwner) {
+            usersArrayList = ArrayList()
+            usersArrayList.addAll(it)
+        }
+    }
+
+    fun setUpRecyclerViews() {
+
+
+        val recomendacoes_adapter = CardViewAdapter()
+        recycler_view_recomendacoes.adapter = recomendacoes_adapter
+        recomendacoes_adapter.notifyDataSetChanged()
     }
 
     companion object {
