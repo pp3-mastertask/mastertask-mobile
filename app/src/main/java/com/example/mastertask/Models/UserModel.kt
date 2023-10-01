@@ -72,11 +72,12 @@ class UserViewModel: ViewModel() {
                 user.id = item.id
                 user.contato = item.data!!["contato"] as String?
                 user.cpf = item.data!!["cpf"] as String?
+                user.dataInicio = item.data!!["dataInicio"] as Timestamp?
                 user.dataNascimento = item.data!!["dataNascimento"] as Timestamp?
-                user.endereco = item.data!!["endereco"] as String?
-                user.mediaAtual = item.data!!["mediaAtual"] as Double?
+                user.endereco = item.data!!["endereco"] as String
                 user.nome = item.data!!["nome"] as String?
                 user.numServicosFeitos = item.data!!["numServicosFeitos"] as Int?
+                user.somaAvaliacoes = item.data!!["somaAvaliacoes"] as Double?
                 users.add(user)
             }
 
@@ -95,11 +96,12 @@ class UserViewModel: ViewModel() {
             user.id = it.id
             user.contato = it.data!!["contato"] as String?
             user.cpf = it.data!!["cpf"] as String?
+            user.dataInicio = it.data!!["dataInicio"] as Timestamp?
             user.dataNascimento = it.data!!["dataNascimento"] as Timestamp?
             user.endereco = it.data!!["endereco"] as String?
-            user.mediaAtual = it.data!!["mediaAtual"] as Double?
             user.nome = it.data!!["nome"] as String?
             user.numServicosFeitos = it.data!!["numServicosFeitos"] as Int?
+            user.somaAvaliacoes = it.data!!["somaAvaliacoes"] as Double?
             getItemLiveData.postValue(user)
         }
     }
