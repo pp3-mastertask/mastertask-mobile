@@ -1,5 +1,6 @@
 package com.example.mastertask
 
+import HabilidadeViewModel
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,12 +10,11 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mastertask.Adapters.CardViewAdapter
-import com.example.mastertask.Models.User
+import com.example.mastertask.Data.Habilidade
+import com.example.mastertask.Data.User
+import com.example.mastertask.Models.UserViewModel
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+private const val QUERY = "query"
 
 /**
  * A simple [Fragment] subclass.
@@ -22,15 +22,20 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class HomeSearch : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private var query: String? = null
+
+    lateinit var recycler_view_results : RecyclerView
+
+    lateinit var userViewModel : UserViewModel
+    lateinit var habilidadeViewModel : HabilidadeViewModel
+
+    lateinit var usersArrayList : ArrayList<User>
+    lateinit var habilidadesArrayList : ArrayList<Habilidade>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+            query = it.getString(QUERY)
         }
     }
 
@@ -45,30 +50,107 @@ class HomeSearch : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val source = ArrayList<User>()
-        addItemsToRecyclerViewArrayList(source)
+        initViews(view)
+        initModels()
 
-        val adapter = CardViewAdapter(source)
-
-        val recyclerView = view.findViewById(R.id.recycler_view_results) as RecyclerView
-
-         recyclerView.adapter = adapter
-         adapter.notifyDataSetChanged()
+        setUpRecyclerViews()
     }
 
-    fun addItemsToRecyclerViewArrayList(source: ArrayList<User>) {
-        source.add(
-            User("Marcos", "Campinas - SP", "19984474403", 4.7,
-                listOf("Pintura", "Elétrica"))
-        )
-        source.add(
-            User("Cleyton", "Valinhos - SP", "19933452522", 5.0,
-                listOf("Enanador", "Mecânico"))
-        )
-        source.add(
-            User("Richard", "Jaguariúna - SP", "19982823482", 3.4,
-                listOf("Formatação PC", "Conserto de eletrodomêsticos"))
-        )
+    fun initViews(view : View) {
+        recycler_view_results = view.findViewById(R.id.recycler_view_results) as RecyclerView
+
+        userViewModel.getList()
+    }
+
+    fun initModels() {
+        userViewModel.createLiveData.observe(viewLifecycleOwner) {
+            if (it) {
+                userViewModel.getList()
+            }
+        }
+
+        userViewModel.updateLiveData.observe(viewLifecycleOwner) {
+            if (it) {
+                userViewModel.getList()
+            }
+        }
+
+        userViewModel.deleteLiveData.observe(viewLifecycleOwner) {
+            if (it) {
+                userViewModel.getList()
+            }
+        }
+
+        userViewModel.getListLiveData.observe(viewLifecycleOwner) {
+            usersArrayList = ArrayList()
+            usersArrayList.addAll(it)
+        }
+
+        habilidadeViewModel.getItemLiveData.observe(viewLifecycleOwner) {
+            habilidadesArrayList.add(it)
+        }
+    }
+
+    fun setUpRecyclerViews() {
+        val lista : MutableList<User> = mutableListOf()
+
+        var la : List<User> = usersArrayList.filter {
+            it.nome!!.contains(query!!, true)
+        }
+        lista.addAll(la)
+
+        la = usersArrayList.filter {
+            it.endereco!!.contains(query!!, true)
+        }
+        lista.addAll(la)
+
+        getSkillsFromQuery(lista)
+
+        lista.sortByDescending { it.somaAvaliacoes!!/it.numServicosFeitos!! }
+
+        lista.take(10)
+        setUpRecyclerView(recycler_view_results, lista)
+    }
+
+    fun getSkillsFromQuery(lista : MutableList<User>) {
+        val skills : MutableList<MutableList<Habilidade>> = mutableListOf()
+        usersArrayList.forEach {
+            it.habilidades!!.forEach {
+                habilidadeViewModel.getItem(it)
+            }
+            skills.add(habilidadesArrayList)
+            habilidadesArrayList.clear()
+        }
+
+        skills.forEach {
+            it.forEach {
+                val habilidade = it.habilidade!!
+                if (habilidade.contains(query!!, true)) {
+                    val la = usersArrayList.filter {
+                        it.habilidades!!.contains(habilidade)
+                    }
+                    lista.addAll(la)
+                }
+            }
+        }
+    }
+
+    fun setUpRecyclerView(recyclerView: RecyclerView, lista: List<User>) {
+        val listaHabilidades : MutableList<MutableList<Habilidade>> = mutableListOf()
+
+        lista.forEach {
+            it.habilidades!!.forEach {
+                habilidadeViewModel.getItem(it)
+            }
+            listaHabilidades.add(habilidadesArrayList)
+            habilidadesArrayList.clear()
+        }
+
+        listaHabilidades.take(10)
+
+        val adapter = CardViewAdapter(lista, listaHabilidades)
+        recyclerView.adapter = adapter
+        adapter.notifyDataSetChanged()
     }
 
     companion object {
@@ -76,17 +158,14 @@ class HomeSearch : Fragment() {
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
          *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
+         * @param query Query.
          * @return A new instance of fragment HomeSearch.
          */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
+        fun newInstance(query: String) =
             HomeSearch().apply {
                 arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+                    putString(QUERY, query)
                 }
             }
     }

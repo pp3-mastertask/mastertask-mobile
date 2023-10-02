@@ -5,9 +5,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.mastertask.Data.Habilidade
 import com.example.mastertask.R
 
-class BadgeViewAdapter (private val list: List<String>) :
+class BadgeViewAdapter (private val list: List<Habilidade>) :
     RecyclerView.Adapter<BadgeViewAdapter.Badge>()
 {
     inner class Badge(view: View) : RecyclerView.ViewHolder(view) {
@@ -37,7 +38,7 @@ class BadgeViewAdapter (private val list: List<String>) :
         holder: Badge,
         position: Int
     ) {
-        holder.habilidade.text = list[position]
+        holder.habilidade.text = list[position].habilidade
     }
 
     override fun getItemCount(): Int {

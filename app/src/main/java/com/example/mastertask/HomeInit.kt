@@ -1,12 +1,15 @@
 package com.example.mastertask
 
+import HabilidadeViewModel
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.Recycler
 import com.example.mastertask.Adapters.CardViewAdapter
+import com.example.mastertask.Data.Habilidade
 import com.example.mastertask.Data.User
 import com.example.mastertask.Models.UserViewModel
 
@@ -30,8 +33,10 @@ class HomeInit : Fragment() {
     lateinit var recycler_view_jacontratados : RecyclerView
 
     lateinit var userViewModel : UserViewModel
+    lateinit var habilidadeViewModel: HabilidadeViewModel
 
     lateinit var usersArrayList : ArrayList<User>
+    lateinit var habilidadesArrayList : ArrayList<Habilidade>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -89,14 +94,42 @@ class HomeInit : Fragment() {
             usersArrayList = ArrayList()
             usersArrayList.addAll(it)
         }
+
+        habilidadeViewModel.getItemLiveData.observe(viewLifecycleOwner) {
+            habilidadesArrayList.add(it)
+        }
     }
 
     fun setUpRecyclerViews() {
+        var lista : List<User> =
+            usersArrayList.sortedByDescending { it.somaAvaliacoes!!/it.numServicosFeitos!! }
+        lista.take(10)
+        setUpRecyclerView(recycler_view_recomendacoes, lista)
 
+        lista = usersArrayList.sortedByDescending { it.dataInicio }
+        lista.take(10)
+        setUpRecyclerView(recycler_view_novos, lista)
 
-        val recomendacoes_adapter = CardViewAdapter()
-        recycler_view_recomendacoes.adapter = recomendacoes_adapter
-        recomendacoes_adapter.notifyDataSetChanged()
+        // para pegar trabalhadores já contratados, é necessário ter o email do usuário
+        // (parte de cadastro precisa estar pronta)
+    }
+
+    fun setUpRecyclerView(recyclerView: RecyclerView, lista: List<User>) {
+        val listaHabilidades : MutableList<MutableList<Habilidade>> = mutableListOf()
+
+        lista.forEach {
+            it.habilidades!!.forEach {
+                habilidadeViewModel.getItem(it)
+            }
+            listaHabilidades.add(habilidadesArrayList)
+            habilidadesArrayList.clear()
+        }
+
+        listaHabilidades.take(10)
+
+        val adapter = CardViewAdapter(lista, listaHabilidades)
+        recyclerView.adapter = adapter
+        adapter.notifyDataSetChanged()
     }
 
     companion object {

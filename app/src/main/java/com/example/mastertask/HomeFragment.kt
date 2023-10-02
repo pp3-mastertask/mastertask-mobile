@@ -70,16 +70,20 @@ class HomeFragment : Fragment() {
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
-                if (query != "")
-                    changeScreen(HomeSearch())
+                if (query != "") {
+                    val s = HomeSearch.newInstance(query)
+                    changeScreen(s)
+                }
                 else
                     changeScreen(HomeInit())
                 return true
             }
 
             override fun onQueryTextChange(newText: String): Boolean {
-                if (newText != "")
-                    changeScreen(HomeSearch())
+                if (newText != "") {
+                    val s = HomeSearch.newInstance(newText)
+                    changeScreen(s)
+                }
                 else
                     changeScreen(HomeInit())
                 return true
