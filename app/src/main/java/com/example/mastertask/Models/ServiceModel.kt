@@ -100,6 +100,9 @@ class ServiceViewModel: ViewModel() {
             service.status = it.data!!["status"] as Status?
             service.terminado = it.data!!["terminado"] as Boolean?
             getItemLiveData.postValue(service)
+        }.addOnFailureListener {
+            Log.d("get", it.localizedMessage!!)
+            getItemLiveData.postValue(null)
         }
     }
 }

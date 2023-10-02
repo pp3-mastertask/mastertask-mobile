@@ -1,6 +1,7 @@
 package com.example.mastertask.Data
 
 import com.google.firebase.Timestamp
+import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.Exclude
 import com.google.firebase.firestore.IgnoreExtraProperties
 
@@ -12,10 +13,10 @@ data class User (
     var dataInicio: Timestamp? = null,
     var dataNascimento: Timestamp? = null,
     var endereco: String? = null,
-    var habilidades: List<String>? = null,
+    var habilidades: List<DocumentReference>? = null,
     var nome: String? = null,
-    var numServicosFeitos: Int? = null,
-    var somaAvaliacoes: Double? = null,
+    var numServicosFeitos: Long? = null,
+    var somaAvaliacoes: Long? = null,
 ) {
     @Exclude
     fun toMap(): Map<String, Any?> {
