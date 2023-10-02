@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.mastertask.Data.User
 import com.google.firebase.Timestamp
+import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
@@ -36,7 +37,7 @@ class UserViewModel: ViewModel() {
     fun create(user: User) {
         val docRef = db.collection(users)
         docRef.add(user.toMap()).addOnSuccessListener {
-            createLiveData.postValue(true)
+            createLiveData.setValue(true)
         }.addOnFailureListener {
             Log.d("create", it.localizedMessage!!)
             createLiveData.postValue(false)
@@ -46,7 +47,7 @@ class UserViewModel: ViewModel() {
     fun update(user: User) {
         val docRef = db.collection(users)
         docRef.document(user.id!!).update(user.toMap()).addOnSuccessListener {
-            updateLiveData.postValue(true)
+            updateLiveData.setValue(true)
         }.addOnFailureListener {
             Log.d("update", it.localizedMessage!!)
             updateLiveData.postValue(false)
@@ -56,7 +57,7 @@ class UserViewModel: ViewModel() {
     fun delete(id: String) {
         val docRef = db.collection(users)
         docRef.document(id).delete().addOnSuccessListener {
-            deleteLiveData.postValue(true)
+            deleteLiveData.setValue(true)
         }.addOnFailureListener {
             Log.d("delete", it.localizedMessage!!)
             deleteLiveData.postValue(false)
@@ -75,13 +76,14 @@ class UserViewModel: ViewModel() {
                 user.dataInicio = item.data!!["dataInicio"] as Timestamp?
                 user.dataNascimento = item.data!!["dataNascimento"] as Timestamp?
                 user.endereco = item.data!!["endereco"] as String
+                user.habilidades = item.data!!["habilidades"] as List<DocumentReference>?
                 user.nome = item.data!!["nome"] as String?
-                user.numServicosFeitos = item.data!!["numServicosFeitos"] as Int?
-                user.somaAvaliacoes = item.data!!["somaAvaliacoes"] as Double?
+                user.numServicosFeitos = item.data!!["numServicosFeitos"] as Long?
+                user.somaAvaliacoes = item.data!!["somaAvaliacoes"] as Long?
                 users.add(user)
             }
 
-            getListLiveData.postValue(users)
+            getListLiveData.setValue(users)
         }.addOnFailureListener {
             Log.d("get", it.localizedMessage!!)
             getListLiveData.postValue(null)
@@ -93,16 +95,18 @@ class UserViewModel: ViewModel() {
         docRef.document(id).get().addOnSuccessListener {
             val user = User()
             user.id = it.id
-            user.id = it.id
             user.contato = it.data!!["contato"] as String?
             user.cpf = it.data!!["cpf"] as String?
             user.dataInicio = it.data!!["dataInicio"] as Timestamp?
             user.dataNascimento = it.data!!["dataNascimento"] as Timestamp?
             user.endereco = it.data!!["endereco"] as String?
             user.nome = it.data!!["nome"] as String?
-            user.numServicosFeitos = it.data!!["numServicosFeitos"] as Int?
-            user.somaAvaliacoes = it.data!!["somaAvaliacoes"] as Double?
-            getItemLiveData.postValue(user)
+            user.numServicosFeitos = it.data!!["numServicosFeitos"] as Long?
+            user.somaAvaliacoes = it.data!!["somaAvaliacoes"] as Long?
+            getItemLiveData.setValue(user)
+        }.addOnFailureListener {
+            Log.d("get", it.localizedMessage!!)
+            getItemLiveData.postValue(null)
         }
     }
 }
