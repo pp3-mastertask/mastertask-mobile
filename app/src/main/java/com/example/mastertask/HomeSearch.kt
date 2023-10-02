@@ -6,13 +6,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mastertask.Adapters.CardViewAdapter
 import com.example.mastertask.Data.Habilidade
 import com.example.mastertask.Data.User
 import com.example.mastertask.Models.UserViewModel
+import com.google.firebase.firestore.DocumentReference
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 private const val QUERY = "query"
 
@@ -24,13 +26,15 @@ private const val QUERY = "query"
 class HomeSearch : Fragment() {
     private var query: String? = null
 
+    private var db = Firebase.firestore
+
     lateinit var recycler_view_results : RecyclerView
 
-    lateinit var userViewModel : UserViewModel
-    lateinit var habilidadeViewModel : HabilidadeViewModel
+    val userViewModel : UserViewModel by viewModels()
+    val habilidadeViewModel : HabilidadeViewModel by viewModels()
 
-    lateinit var usersArrayList : ArrayList<User>
-    lateinit var habilidadesArrayList : ArrayList<Habilidade>
+    var usersArrayList : ArrayList<User> = ArrayList()
+    var habilidadesArrayList : ArrayList<Habilidade> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,10 +54,8 @@ class HomeSearch : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initViews(view)
         initModels()
-
-        setUpRecyclerViews()
+        initViews(view)
     }
 
     fun initViews(view : View) {
@@ -84,6 +86,8 @@ class HomeSearch : Fragment() {
         userViewModel.getListLiveData.observe(viewLifecycleOwner) {
             usersArrayList = ArrayList()
             usersArrayList.addAll(it)
+
+            setUpRecyclerViews()
         }
 
         habilidadeViewModel.getItemLiveData.observe(viewLifecycleOwner) {
@@ -109,7 +113,8 @@ class HomeSearch : Fragment() {
         lista.sortByDescending { it.somaAvaliacoes!!/it.numServicosFeitos!! }
 
         lista.take(10)
-        setUpRecyclerView(recycler_view_results, lista)
+        if (lista.size != 0)
+            setUpRecyclerView(recycler_view_results, lista)
     }
 
     fun getSkillsFromQuery(lista : MutableList<User>) {
@@ -124,10 +129,11 @@ class HomeSearch : Fragment() {
 
         skills.forEach {
             it.forEach {
-                val habilidade = it.habilidade!!
-                if (habilidade.contains(query!!, true)) {
+                val habilidade = it
+                if (habilidade.habilidade!!.contains(query!!, true)) {
                     val la = usersArrayList.filter {
-                        it.habilidades!!.contains(habilidade)
+                        it.habilidades!!.contains(
+                            db.document("habilidades/${habilidade.id!!}"))
                     }
                     lista.addAll(la)
                 }

@@ -6,8 +6,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.Recycler
 import com.example.mastertask.Adapters.CardViewAdapter
 import com.example.mastertask.Data.Habilidade
 import com.example.mastertask.Data.User
@@ -32,11 +33,11 @@ class HomeInit : Fragment() {
     lateinit var recycler_view_novos : RecyclerView
     lateinit var recycler_view_jacontratados : RecyclerView
 
-    lateinit var userViewModel : UserViewModel
-    lateinit var habilidadeViewModel: HabilidadeViewModel
+    val userViewModel : UserViewModel by viewModels()
+    val habilidadeViewModel: HabilidadeViewModel by viewModels()
 
-    lateinit var usersArrayList : ArrayList<User>
-    lateinit var habilidadesArrayList : ArrayList<Habilidade>
+    var usersArrayList : ArrayList<User> = ArrayList()
+    var habilidadesArrayList : ArrayList<Habilidade> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,10 +58,8 @@ class HomeInit : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initViews(view)
         initModels()
-
-        setUpRecyclerViews()
+        initViews(view)
     }
 
     fun initViews(view : View) {
@@ -93,6 +92,8 @@ class HomeInit : Fragment() {
         userViewModel.getListLiveData.observe(viewLifecycleOwner) {
             usersArrayList = ArrayList()
             usersArrayList.addAll(it)
+
+            setUpRecyclerViews()
         }
 
         habilidadeViewModel.getItemLiveData.observe(viewLifecycleOwner) {

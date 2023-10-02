@@ -6,6 +6,7 @@ import com.example.mastertask.Data.Habilidade
 import com.example.mastertask.Data.Service
 import com.example.mastertask.Data.Status
 import com.google.firebase.Timestamp
+import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
@@ -83,14 +84,16 @@ class HabilidadeViewModel: ViewModel() {
         }
     }
 
-    fun getItem(id: String) {
-        val docRef = db.collection(skills)
-        docRef.document(id).get().addOnSuccessListener {
+    fun getItem(reference: DocumentReference) {
+        reference.get().addOnSuccessListener {
             val skill = Habilidade()
             skill.id = it.id
             skill.habilidade = it.data!!["habilidade"] as String?
             skill.preco = it.data!!["preco"] as Double?
-            getItemLiveData.postValue(skill)
+            getItemLiveData.setValue(skill)
+        }.addOnFailureListener {
+            Log.d("get", it.localizedMessage!!)
+            getItemLiveData.postValue(null)
         }
     }
 }

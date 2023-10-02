@@ -61,12 +61,12 @@ class HomeFragment : Fragment() {
         textView.setTextColor(Color.DKGRAY)
         textView.setHintTextColor(Color.LTGRAY)
 
-        val searchIcon = searchView.findViewById<ImageView>(androidx.appcompat.R.id.search_mag_icon)
-
-        searchIcon.setColorFilter(
-            resources.getColor(R.color.text_primary),
-            PorterDuff.Mode.SRC_IN
-        )
+//        val searchIcon = searchView.findViewById<ImageView>(androidx.appcompat.R.id.)
+//
+//        searchIcon.setColorFilter(
+//            resources.getColor(R.color.text_primary),
+//            PorterDuff.Mode.SRC_IN
+//        )
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
