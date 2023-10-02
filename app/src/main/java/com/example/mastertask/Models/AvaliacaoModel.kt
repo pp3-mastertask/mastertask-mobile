@@ -95,6 +95,9 @@ class AvaliacaoViewModel: ViewModel() {
             evaluation.estrelas = it.data!!["estrelas"] as Double?
             evaluation.servico = it.data!!["servico"] as String?
             getItemLiveData.postValue(evaluation)
+        }.addOnFailureListener {
+            Log.d("get", it.localizedMessage!!)
+            getItemLiveData.postValue(null)
         }
     }
 }
