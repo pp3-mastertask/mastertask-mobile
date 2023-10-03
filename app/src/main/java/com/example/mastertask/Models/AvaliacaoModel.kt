@@ -74,7 +74,12 @@ class AvaliacaoViewModel: ViewModel() {
                 val evaluation = Avaliacao()
                 evaluation.id = item.id
                 evaluation.comentario = item.data!!["comentario"] as String?
-                evaluation.estrelas = item.data!!["estrelas"] as Double?
+                try {
+                    evaluation.estrelas = item.data!!["estrelas"] as Double?
+                } catch (e: Exception) {
+                    val a = item.data!!["estrelas"] as Long?
+                    evaluation.estrelas = a?.toDouble()
+                }
                 evaluation.servico = item.data!!["servico"] as String?
                 evaluations.add(evaluation)
             }
@@ -92,7 +97,12 @@ class AvaliacaoViewModel: ViewModel() {
             val evaluation = Avaliacao()
             evaluation.id = it.id
             evaluation.comentario = it.data!!["comentario"] as String?
-            evaluation.estrelas = it.data!!["estrelas"] as Double?
+            try {
+                evaluation.estrelas = it.data!!["estrelas"] as Double?
+            } catch (e: Exception) {
+                val a = it.data!!["estrelas"] as Long?
+                evaluation.estrelas = a?.toDouble()
+            }
             evaluation.servico = it.data!!["servico"] as String?
             getItemLiveData.postValue(evaluation)
         }.addOnFailureListener {
