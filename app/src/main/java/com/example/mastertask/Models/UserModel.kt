@@ -76,7 +76,7 @@ class UserViewModel: ViewModel() {
                 user.dataInicio = item.data!!["dataInicio"] as Timestamp?
                 user.dataNascimento = item.data!!["dataNascimento"] as Timestamp?
                 user.endereco = item.data!!["endereco"] as String
-                user.habilidades = item.data!!["habilidades"] as List<DocumentReference>?
+                user.habilidades = item.data!!["habilidades"] as List<Map<String?, Any?>>?
                 user.nome = item.data!!["nome"] as String?
                 user.numServicosFeitos = item.data!!["numServicosFeitos"] as Long?
                 user.somaAvaliacoes = item.data!!["somaAvaliacoes"] as Long?
