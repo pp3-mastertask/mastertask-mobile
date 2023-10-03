@@ -1,16 +1,13 @@
 package com.example.mastertask
 
-import HabilidadeViewModel
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mastertask.Adapters.CardViewAdapter
-import com.example.mastertask.Data.Habilidade
 import com.example.mastertask.Data.User
 import com.example.mastertask.Models.UserViewModel
 
@@ -34,10 +31,8 @@ class HomeInit : Fragment() {
     lateinit var recycler_view_jacontratados : RecyclerView
 
     val userViewModel : UserViewModel by viewModels()
-    val habilidadeViewModel: HabilidadeViewModel by viewModels()
 
     var usersArrayList : ArrayList<User> = ArrayList()
-    var habilidadesArrayList : ArrayList<Habilidade> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -95,19 +90,17 @@ class HomeInit : Fragment() {
 
             setUpRecyclerViews()
         }
-
-        habilidadeViewModel.getItemLiveData.observe(viewLifecycleOwner) {
-            habilidadesArrayList.add(it)
-        }
     }
 
     fun setUpRecyclerViews() {
         var lista : List<User> =
-            usersArrayList.sortedByDescending { it.somaAvaliacoes!!/it.numServicosFeitos!! }
+            usersArrayList.filter { it.habilidades!!.isNotEmpty() }
+                .sortedByDescending { it.somaAvaliacoes!!/it.numServicosFeitos!! }
         lista.take(10)
         setUpRecyclerView(recycler_view_recomendacoes, lista)
 
-        lista = usersArrayList.sortedByDescending { it.dataInicio }
+        lista = usersArrayList.filter { it.habilidades!!.isNotEmpty() }
+            .sortedByDescending { it.dataInicio }
         lista.take(10)
         setUpRecyclerView(recycler_view_novos, lista)
 
@@ -116,19 +109,7 @@ class HomeInit : Fragment() {
     }
 
     fun setUpRecyclerView(recyclerView: RecyclerView, lista: List<User>) {
-        val listaHabilidades : MutableList<MutableList<Habilidade>> = mutableListOf()
-
-        lista.forEach {
-            it.habilidades!!.forEach {
-                habilidadeViewModel.getItem(it)
-            }
-            listaHabilidades.add(habilidadesArrayList)
-            habilidadesArrayList.clear()
-        }
-
-        listaHabilidades.take(10)
-
-        val adapter = CardViewAdapter(lista, listaHabilidades)
+        val adapter = CardViewAdapter(lista)
         recyclerView.adapter = adapter
         adapter.notifyDataSetChanged()
     }

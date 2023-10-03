@@ -13,7 +13,7 @@ data class User (
     var dataInicio: Timestamp? = null,
     var dataNascimento: Timestamp? = null,
     var endereco: String? = null,
-    var habilidades: List<DocumentReference>? = null,
+    var habilidades: List<Map<String?, Any?>>? = null,
     var nome: String? = null,
     var numServicosFeitos: Long? = null,
     var somaAvaliacoes: Long? = null,

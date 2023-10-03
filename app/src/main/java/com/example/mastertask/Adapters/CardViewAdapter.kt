@@ -6,12 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.mastertask.Data.Habilidade
 import com.example.mastertask.R
 import com.example.mastertask.Data.User
 
 
-class CardViewAdapter (private val list: List<User>, private val habilidades: List<List<Habilidade>>) :
+class CardViewAdapter (private val list: List<User>) :
     RecyclerView.Adapter<CardViewAdapter.Card>()
 {
     lateinit var context : Context
@@ -55,14 +54,13 @@ class CardViewAdapter (private val list: List<User>, private val habilidades: Li
         position: Int
     ) {
         val user : User = list[position]
-        val skills : List<Habilidade> = habilidades[position]
 
         holder.nome.text = user.nome
         holder.endereco.text = user.endereco
         holder.telefone.text = user.contato
         holder.estrelas.text = (user.somaAvaliacoes!!/user.numServicosFeitos!!).toString()
 
-        val badgeViewAdapter = BadgeViewAdapter(skills)
+        val badgeViewAdapter = BadgeViewAdapter(user.habilidades)
         holder.recyclerView.adapter = badgeViewAdapter
         badgeViewAdapter.notifyDataSetChanged()
     }
