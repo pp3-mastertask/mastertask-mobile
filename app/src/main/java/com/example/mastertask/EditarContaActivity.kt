@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mastertask.Adapters.EditAccountSkillsAdapter
 import com.example.mastertask.Models.SkillModel
+import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.DocumentReference
@@ -90,10 +91,12 @@ class EditarContaActivity : AppCompatActivity() {
 
         val txtNomeSkill: EditText = dg.findViewById(R.id.add_skill_name)
         val txtPrecoSkill: EditText = dg.findViewById(R.id.add_skill_price)
-        val btnCancelar: Button = dg.findViewById(R.id.add_skill_cancel)
+        val btnCancelAddSkill: Button = dg.findViewById(R.id.add_skill_cancel)
         val btnAdicionarSkill: Button = dg.findViewById(R.id.add_skill_confirm)
 
-        btnCancelar.setOnClickListener({ dg.cancel() })
+        btnCancelAddSkill.setOnClickListener({
+            dg.cancel()
+        })
 
         btnAdicionarSkill.setOnClickListener {
             if (txtNomeSkill.text.toString() != "" && txtPrecoSkill.text.toString() != "") {
@@ -115,25 +118,41 @@ class EditarContaActivity : AppCompatActivity() {
     }
 
     private fun handleCancelEditAccount() {
-        if (this.txtContato.text.toString() == ""
-            || this.txtCpf.text.toString() == ""
-            || this.txtNascimento.text.toString() == ""
-            || this.dtDisponibilidade.date.toString() == ""
-            || this.txtLocalidade.text.toString()  == "")
-        {
+        if (this.areFieldsEmpty()) {
             val dg: Dialog = Dialog(this)
 
             dg.requestWindowFeature(Window.FEATURE_NO_TITLE)
             dg.setCancelable(true)
-            dg.setContentView(R.layout.add_skill_dialog)
+            dg.setContentView(R.layout.cancel_edit_account_dialog)
             dg.show()
         }
         else
             this.finish()
     }
 
+    private fun areFieldsEmpty(): Boolean {
+        if (this.txtContato.text.toString() == ""
+            || this.txtCpf.text.toString() == ""
+            || this.txtNascimento.text.toString() == ""
+            || this.dtDisponibilidade.date.toString() == ""
+            || this.txtLocalidade.text.toString()  == "") {
+            return true
+        }
+
+        return false
+    }
+
     private fun handleConfirmEditAccount() {
-        Toast.makeText(this, this.dtDisponibilidade.date.toString(), Toast.LENGTH_LONG).show()
+
+        if (this.areFieldsEmpty()) {
+            val dg: Dialog = Dialog(this)
+
+            dg.requestWindowFeature(Window.FEATURE_NO_TITLE)
+            dg.setCancelable(true)
+            dg.setContentView(R.layout.cancel_edit_account_dialog)
+            dg.show()
+            return
+        }
 
         val skillsHashMapList = ArrayList<Any>()
         // Para cada skill adicionada, vamos criar um hashmap, inserí-lo em um array e
@@ -147,14 +166,17 @@ class EditarContaActivity : AppCompatActivity() {
             skillsHashMapList.add(data)
         }
 
+        val timestampList = ArrayList<Timestamp>()
+        timestampList.add(Timestamp(this.dtDisponibilidade.date, 0))
         val userUpdatedData = hashMapOf(
             "contato" to this.txtContato.text.toString(),
             "cpf" to this.txtCpf.text.toString(),
-            "dataNascimento" to this.txtNascimento.text.toString(),
-            "disponibilidade" to this.dtDisponibilidade.date.toString(),
+            "dataInicio" to Timestamp.now(),
+            "dataNascimento" to Timestamp(this.txtNascimento.text.toString().toLong(), 0),
+            "disponibilidade" to timestampList,
             "endereco" to this.txtLocalidade.text.toString(),
             "habilidades" to skillsHashMapList,
-            "mediaAtual" to 0.0,
+            "somaAvaliacoes" to 0.0,
             "nome" to this.auth.currentUser!!.displayName,
             "numServicosFeitos" to 0
         )
@@ -174,56 +196,59 @@ class EditarContaActivity : AppCompatActivity() {
         val currentUserEmail: String = this.auth.currentUser!!.email.toString()
 
         var currentUserData: Map<String, Any>? = null
+
         this.db.collection("usuarios")
             .document(currentUserEmail)
             .get()
             .addOnSuccessListener { it ->
                 if (it.exists()) {
                     currentUserData = it.data
-                }
-            }
 
-        if (currentUserData != null) {
-            for ((k, v) in currentUserData!!) {
-                when (k) {
-                    "contato" -> this.txtContato.setText(v.toString())
-                    "cpf" -> this.txtCpf.setText(v.toString())
-                    "dataNascimento" -> this.txtNascimento.setText(v.toString())
-                    "disponibilidade" -> {
-                        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.US)
-
-                        try {
-                            // Parse the timestamp string into a Date object
-                            val date = dateFormat.parse(v.toString())
-
-                            // Convert the Date to milliseconds since the epoch
-                            val timeInMillis = date.time
-
-                            // Set the selected date in the CalendarView
-                            this.dtDisponibilidade.date = timeInMillis
-                        } catch (e: Exception) {
-                            Toast.makeText(this, "Não foi possível carregar a data de disponibilidade!", Toast.LENGTH_LONG).show()
+                    if (currentUserData != null) {
+                        Toast.makeText(this, currentUserData.toString(), Toast.LENGTH_SHORT).show()
+                        for ((k, v) in currentUserData!!) {
+                            Toast.makeText(this, k.toString(), Toast.LENGTH_LONG).show()
+//                            when (k) {
+//                                "contato" -> this.txtContato.setText(v.toString())
+//                                "cpf" -> this.txtCpf.setText(v.toString())
+//                                "dataNascimento" -> this.txtNascimento.setText(v.toString())
+//                                "disponibilidade" -> {
+//                                    val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.US)
+//
+//                                    try {
+//                                        // Parse the timestamp string into a Date object
+//                                        val date = dateFormat.parse(v.toString())
+//
+//                                        // Convert the Date to milliseconds since the epoch
+//                                        val timeInMillis = date.time
+//
+//                                        // Set the selected date in the CalendarView
+//                                        this.dtDisponibilidade.date = timeInMillis
+//                                    } catch (e: Exception) {
+//                                        Toast.makeText(this, "Não foi possível carregar a data de disponibilidade!", Toast.LENGTH_LONG).show()
+//                                    }
+//                                }
+//                                "endereco" -> this.txtLocalidade.setText(v.toString())
+//                                "habilidades" -> {
+//                                    val skillsHashMapList = v as ArrayList<Any>
+//
+//                                    for (hashMap in skillsHashMapList) {
+//                                        if (hashMap is HashMap<*, *>) {
+//                                            this.list_skills.add(
+//                                                SkillModel(
+//                                                    hashMap["habilidade"]?.toString() ?: "",
+//                                                    hashMap["preco"]?.toString()?.toDouble() ?: 0.0
+//                                                )
+//                                            )
+//
+//                                            this.recyclerAdapter.notifyDataSetChanged()
+//                                        }
+//                                    }
+//                                }
+//                            }
                         }
                     }
-                    "endereco" -> this.txtLocalidade.setText(v.toString())
-                    "habilidades" -> {
-                        val skillsHashMapList = v as ArrayList<Any>
-
-                        for (hashMap in skillsHashMapList) {
-                            if (hashMap is HashMap<*, *>) {
-                                this.list_skills.add(
-                                    SkillModel(
-                                        hashMap["habilidade"]?.toString() ?: "",
-                                        hashMap["preco"]?.toString()?.toDouble() ?: 0.0
-                                    )
-                                )
-
-                                this.recyclerAdapter.notifyDataSetChanged()
-                            }
-                        }
-                    }
                 }
             }
-        }
     }
 }

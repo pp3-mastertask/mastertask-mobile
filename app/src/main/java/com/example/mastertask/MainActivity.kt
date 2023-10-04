@@ -13,6 +13,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.tasks.Task
+import com.google.firebase.Timestamp
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
@@ -79,12 +80,14 @@ class MainActivity : AppCompatActivity() {
     private fun insertAccountIntoDatabase(account: GoogleSignInAccount) {
         try {
             val createdUserData = hashMapOf(
+                "dataInicio" to Timestamp.now(),
                 "contato" to "",
                 "cpf" to "",
-                "dataNascimento" to null,
+                "dataNascimento" to Timestamp(-1, 0),
+                "disponibilidade" to ArrayList<Timestamp>(),
                 "endereco" to "",
-                "habilidades" to null,
-                "mediaAtual" to 0.0,
+                "habilidades" to ArrayList<HashMap<*,*>>(),
+                "somaAvaliacoes" to 0.0,
                 "nome" to account.displayName.toString(),
                 "numServicosFeitos" to 0
             )
