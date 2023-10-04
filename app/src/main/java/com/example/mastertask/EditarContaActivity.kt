@@ -22,8 +22,12 @@ import com.google.firebase.ktx.Firebase
 import com.google.firestore.v1.Document
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.concurrent.TimeUnit
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
+import kotlin.time.Duration.Companion.minutes
+import kotlin.time.Duration.Companion.seconds
+import kotlin.time.DurationUnit
 
 class EditarContaActivity : AppCompatActivity() {
 
@@ -167,7 +171,10 @@ class EditarContaActivity : AppCompatActivity() {
         }
 
         val timestampList = ArrayList<Timestamp>()
-        timestampList.add(Timestamp(this.dtDisponibilidade.date, 0))
+        Toast.makeText(this, "1", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, this.dtDisponibilidade.date.toString(), Toast.LENGTH_SHORT).show()
+        timestampList.add(Timestamp(TimeUnit.SECONDS.toSeconds(this.dtDisponibilidade.date), 0))
+        Toast.makeText(this, "2", Toast.LENGTH_SHORT).show()
         val userUpdatedData = hashMapOf(
             "contato" to this.txtContato.text.toString(),
             "cpf" to this.txtCpf.text.toString(),
@@ -180,6 +187,7 @@ class EditarContaActivity : AppCompatActivity() {
             "nome" to this.auth.currentUser!!.displayName,
             "numServicosFeitos" to 0
         )
+        Toast.makeText(this, "3", Toast.LENGTH_SHORT).show()
 
         this.db.collection("usuarios")
             .document(this.auth.currentUser!!.email.toString())
