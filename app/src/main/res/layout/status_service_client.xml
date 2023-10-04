@@ -42,9 +42,9 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="80dp"
+        android:layout_marginStart="68dp"
         android:layout_marginTop="144dp"
-        android:text="Cliente"
+        android:text="Prestador"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -89,8 +89,8 @@
         android:id="@+id/imageView2"
         android:layout_width="227dp"
         android:layout_height="242dp"
-        android:layout_marginStart="192dp"
-        android:layout_marginTop="104dp"
+        android:layout_marginStart="180dp"
+        android:layout_marginTop="108dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/radiussquare" />
@@ -303,8 +303,8 @@
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="236dp"
-        android:layout_marginTop="136dp"
+        android:layout_marginStart="220dp"
+        android:layout_marginTop="144dp"
         android:text="Serviço solicitado"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -328,22 +328,10 @@
 
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="256dp"
+        android:layout_marginStart="260dp"
         android:layout_marginTop="452dp"
-        android:text="Total a receber"
+        android:text="Total a pagar"
         android:textSize="18dp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="580dp"
-        android:text="Endereço"
-        android:textSize="16dp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -359,38 +347,38 @@
         app:srcCompat="@drawable/radiussquare3" />
 
     <TextView
+        android:id="@+id/textView8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
         android:layout_marginTop="580dp"
-        android:text="Endereço"
-        android:textSize="18dp"
+        android:text="Status do serviço"
+        android:textSize="16dp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/textView9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="604dp"
-        android:text="Rua XXX, n YYY, Jd. AAA"
-        android:textColor="#72000000"
-        android:textSize="15sp"
+        android:layout_marginStart="156dp"
+        android:layout_marginTop="608dp"
+        android:text="Pendente"
+        android:textColor="#FDC527"
+        android:textSize="16dp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="624dp"
-        android:text="10min"
-        android:textColor="#B4000000"
-        android:textSize="12sp"
-        android:textStyle="bold"
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="37dp"
+        android:layout_height="39dp"
+        android:layout_marginStart="228dp"
+        android:layout_marginTop="600dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/loadin" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
