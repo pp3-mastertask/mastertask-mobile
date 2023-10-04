@@ -22,6 +22,7 @@ import com.google.firestore.v1.Document
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 class EditarContaActivity : AppCompatActivity() {
 
@@ -134,24 +135,16 @@ class EditarContaActivity : AppCompatActivity() {
     private fun handleConfirmEditAccount() {
         Toast.makeText(this, this.dtDisponibilidade.date.toString(), Toast.LENGTH_LONG).show()
 
-        val skillCollectionRef = this.db.collection("habilidades")
-        val skillsReferencesList = ArrayList<DocumentReference>()
-        // Para cada skill adicionada, vamos criar o dado, inserir no banco e adicionar sua
-        // referencia em um array para podermos inserir isso no usuario
+        val skillsHashMapList = ArrayList<Any>()
+        // Para cada skill adicionada, vamos criar um hashmap, inserí-lo em um array e
+        // adicionar esse array no document do usuario
         this.list_skills.forEach {
-            val skillDocumentRef = skillCollectionRef.document()
             val data = hashMapOf (
                 "habilidade" to it.nome,
                 "preco" to it.preco
             )
 
-            skillDocumentRef
-                .set(data)
-                .addOnFailureListener {
-                    Toast.makeText(this, "Não foi possível criar a habilidade!", Toast.LENGTH_SHORT).show()
-                }
-
-            skillsReferencesList.add(skillDocumentRef)
+            skillsHashMapList.add(data)
         }
 
         val userUpdatedData = hashMapOf(
@@ -160,7 +153,7 @@ class EditarContaActivity : AppCompatActivity() {
             "dataNascimento" to this.txtNascimento.text.toString(),
             "disponibilidade" to this.dtDisponibilidade.date.toString(),
             "endereco" to this.txtLocalidade.text.toString(),
-            "habilidades" to skillsReferencesList,
+            "habilidades" to skillsHashMapList,
             "mediaAtual" to 0.0,
             "nome" to this.auth.currentUser!!.displayName,
             "numServicosFeitos" to 0
@@ -209,11 +202,26 @@ class EditarContaActivity : AppCompatActivity() {
                             // Set the selected date in the CalendarView
                             this.dtDisponibilidade.date = timeInMillis
                         } catch (e: Exception) {
-                            // Handle parsing errors
+                            Toast.makeText(this, "Não foi possível carregar a data de disponibilidade!", Toast.LENGTH_LONG).show()
                         }
                     }
                     "endereco" -> this.txtLocalidade.setText(v.toString())
-                    //"habilidades" ->
+                    "habilidades" -> {
+                        val skillsHashMapList = v as ArrayList<Any>
+
+                        for (hashMap in skillsHashMapList) {
+                            if (hashMap is HashMap<*, *>) {
+                                this.list_skills.add(
+                                    SkillModel(
+                                        hashMap["habilidade"]?.toString() ?: "",
+                                        hashMap["preco"]?.toString()?.toDouble() ?: 0.0
+                                    )
+                                )
+
+                                this.recyclerAdapter.notifyDataSetChanged()
+                            }
+                        }
+                    }
                 }
             }
         }
