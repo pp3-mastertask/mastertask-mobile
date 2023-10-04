@@ -11,7 +11,7 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="44dp"
+        android:layout_marginStart="48dp"
         android:layout_marginTop="96dp"
         android:text="Confirmação de serviço"
         android:textSize="30dp"
@@ -198,7 +198,8 @@
         android:layout_marginStart="248dp"
         android:layout_marginTop="504dp"
         android:fontFamily="@font/montserrat_bold"
-        android:text="Total a pagar"
+        android:text="Total a receber
+"
         android:textSize="18dp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
