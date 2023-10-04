@@ -75,7 +75,7 @@ class ServiceViewModel: ViewModel() {
                 service.dataHora = item.data!!["dataHora"] as Timestamp?
                 service.emailCliente = item.data!!["emailCliente"] as ContactsContract.CommonDataKinds.Email?
                 service.emailTrab = item.data!!["emailTrab"] as ContactsContract.CommonDataKinds.Email?
-                service.habilidade = item.data!!["habilidade"] as String?
+                service.habilidades = item.data!!["habilidades"] as List<Map<String?, Any?>>?
                 service.status = item.data!!["status"] as Status?
                 service.terminado = item.data!!["terminado"] as Boolean?
                 services.add(service)
@@ -96,7 +96,7 @@ class ServiceViewModel: ViewModel() {
             service.dataHora = it.data!!["dataHora"] as Timestamp?
             service.emailCliente = it.data!!["emailCliente"] as ContactsContract.CommonDataKinds.Email?
             service.emailTrab = it.data!!["emailTrab"] as ContactsContract.CommonDataKinds.Email?
-            service.habilidade = it.data!!["habilidade"] as String?
+            service.habilidades = it.data!!["habilidades"] as List<Map<String?, Any?>>?
             service.status = it.data!!["status"] as Status?
             service.terminado = it.data!!["terminado"] as Boolean?
             getItemLiveData.postValue(service)

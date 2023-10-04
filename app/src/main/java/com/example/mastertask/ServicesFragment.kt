@@ -6,6 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.mastertask.Adapters.CardViewAdapter
+import com.example.mastertask.Data.Service
+import com.example.mastertask.Models.UserViewModel
+import com.example.mastertask.Data.User
+import com.example.mastertask.Models.ServiceViewModel
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -21,6 +26,19 @@ class ServicesFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+
+    val userViewModel : UserViewModel by viewModels()
+    val serviceViewModel : ServiceViewModel by viewModels()
+
+    var usersArrayList : ArrayList<User> = ArrayList()
+    var serviceArrayList : ArrayList<Service> = ArrayList()
+
+    var currentUser : User = User()
+    var ja : Boolean = false
+
+    lateinit var recycler_view_novas_solicitacoes : RecyclerView
+    lateinit var recycler_view_servicos_a_serem_feitos_por_voce : RecyclerView
+    lateinit var recycler_view_servicos_solicitados_por_voce : RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,35 +59,111 @@ class ServicesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val source = ArrayList<User>()
-        addItemsToRecyclerViewArrayList(source)
-        setUpRecyclerView(view, R.id.recycler_view_novas_solicitacoes_de_servicos, source)
-        setUpRecyclerView(view, R.id.recycler_view_servicos_a_serem_feitos_por_voce, source)
-        setUpRecyclerView(view, R.id.recycler_view_servicos_solicitados_por_voce, source)
+        initModels()
+        initViews(view)
     }
 
-    fun setUpRecyclerView(view: View, id: Int, source: ArrayList<User>) {
-        val adapter = CardViewAdapter(source)
+    fun initViews(view : View) {
+        recycler_view_servicos_solicitados_por_voce = view.findViewById(R.id.recycler_view_servicos_solicitados_por_voce) as RecyclerView
+        recycler_view_novas_solicitacoes = view.findViewById(R.id.recycler_view_novas_solicitacoes_de_servicos) as RecyclerView
+        recycler_view_servicos_a_serem_feitos_por_voce = view.findViewById(R.id.recycler_view_servicos_a_serem_feitos_por_voce) as RecyclerView
 
-        val recyclerView : RecyclerView = view.findViewById(id)
+        userViewModel.getList()
+    }
 
+    fun initModels() {
+        userViewModel.createLiveData.observe(viewLifecycleOwner) {
+            if (it) {
+                userViewModel.getList()
+            }
+        }
+
+        userViewModel.updateLiveData.observe(viewLifecycleOwner) {
+            if (it) {
+                userViewModel.getList()
+            }
+        }
+
+        userViewModel.deleteLiveData.observe(viewLifecycleOwner) {
+            if (it) {
+                userViewModel.getList()
+            }
+        }
+
+        userViewModel.getListLiveData.observe(viewLifecycleOwner) {
+            usersArrayList = ArrayList()
+            usersArrayList.addAll(it)
+        }
+
+        userViewModel.getItemLiveData.observe(viewLifecycleOwner) {
+            currentUser = it!!
+        }
+
+        serviceViewModel.createLiveData.observe(viewLifecycleOwner) {
+            if (it) {
+                serviceViewModel.getList()
+            }
+        }
+
+        serviceViewModel.updateLiveData.observe(viewLifecycleOwner) {
+            if (it) {
+                serviceViewModel.getList()
+            }
+        }
+
+        serviceViewModel.deleteLiveData.observe(viewLifecycleOwner) {
+            if (it) {
+                serviceViewModel.getList()
+            }
+        }
+
+        serviceViewModel.getListLiveData.observe(viewLifecycleOwner) {
+            serviceArrayList = ArrayList()
+            serviceArrayList.addAll(it)
+
+            setUpRecyclerViews()
+        }
+    }
+
+    fun setUpRecyclerViews() {
+        // mudar depois
+        val seuEmail = ""
+
+        var lista : List<Service> = serviceArrayList.filter { it.emailCliente.toString() == seuEmail }
+            .sortedByDescending { it.dataHora }
+        lista.take(10)
+        setUpRecyclerView(recycler_view_servicos_solicitados_por_voce, lista)
+    }
+
+    fun setUpRecyclerView(recyclerView: RecyclerView, lista: List<Service>) {
+        val listUsers : List<User> = getListUsersFromServices(lista)
+
+        val adapter = CardViewAdapter(listUsers)
         recyclerView.adapter = adapter
         adapter.notifyDataSetChanged()
     }
 
-    fun addItemsToRecyclerViewArrayList(source: ArrayList<User>) {
-        source.add(
-            User("Marcos", "Campinas - SP", "19984474403", 4.7,
-                listOf("Pintura", "Elétrica"))
-        )
-        source.add(
-            User("Cleyton", "Valinhos - SP", "19933452522", 5.0,
-                listOf("Enanador", "Mecânico"))
-        )
-        source.add(
-            User("Richard", "Jaguariúna - SP", "19982823482", 3.4,
-                listOf("Formatação PC", "Conserto de eletrodomêsticos"))
-        )
+    fun getListUsersFromServices(lista : List<Service>): List<User> {
+        val listUsers = ArrayList<User>()
+
+        lista.forEach {
+            val user = User()
+            user.id = it.emailTrab.toString()
+
+            userViewModel.getItem(it.emailTrab.toString())
+            user.contato = currentUser.contato
+            user.nome = currentUser.nome
+            user.endereco = currentUser.endereco
+            user.cpf = currentUser.cpf
+            user.dataInicio = currentUser.dataInicio
+            user.dataNascimento = currentUser.dataNascimento
+            user.somaAvaliacoes = currentUser.somaAvaliacoes
+            user.numServicosFeitos = currentUser.numServicosFeitos
+
+            user.habilidades = it.habilidades!!
+        }
+
+        return listUsers
     }
 
     companion object {

@@ -11,7 +11,7 @@ data class Service(
     var dataHora: Timestamp? = null,
     var emailCliente: Email? = null,
     var emailTrab: Email? = null,
-    var habilidade: String? = null,
+    var habilidades: List<Map<String?, Any?>>? = null,
     var status: Status? = null,
     var terminado: Boolean? = null
 ) {
@@ -22,7 +22,7 @@ data class Service(
             "dataHora" to dataHora,
             "emailCliente" to emailCliente,
             "emailTrab" to emailTrab,
-            "habilidade" to habilidade,
+            "habilidades" to habilidades,
             "status" to status,
             "terminado" to terminado
         )

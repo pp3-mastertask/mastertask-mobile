@@ -1,4 +1,4 @@
-package com.example.mastertask
+package com.example.mastertask.Adapters
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.mastertask.Data.User
+import com.example.mastertask.R
 
 class CardViewAdapter (private val list: List<User>) :
     RecyclerView.Adapter<CardViewAdapter.Card>()
@@ -52,16 +54,16 @@ class CardViewAdapter (private val list: List<User>) :
         position: Int
     ) {
         val user : User = list[position]
-        holder.nome.text = user.name
-        holder.endereco.text = user.location
-        holder.telefone.text = user.phone
-        holder.estrelas.text = user.stars.toString()
+        holder.nome.text = user.nome
+        holder.endereco.text = user.endereco
+        holder.telefone.text = user.contato
+        holder.estrelas.text = (user.somaAvaliacoes?.div(user.numServicosFeitos!!)).toString()
 
         val layoutManager: RecyclerView.LayoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         holder.recyclerView.layoutManager = layoutManager
 
-        val badgeViewAdapter = BadgeViewAdapter(user.skills)
+        val badgeViewAdapter = BadgeViewAdapter(user.habilidades)
         holder.recyclerView.adapter = badgeViewAdapter
     }
 
