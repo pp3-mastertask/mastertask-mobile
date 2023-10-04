@@ -41,7 +41,7 @@
         android:id="@+id/btnEditarPerfil"
         android:layout_width="112dp"
         android:layout_height="36dp"
-        android:layout_marginStart="260dp"
+        android:layout_marginStart="256dp"
         android:layout_marginTop="312dp"
         android:backgroundTint="#30A499"
         android:text="Alterar"
@@ -119,8 +119,8 @@
         android:id="@+id/btnEditarPerfil2"
         android:layout_width="135dp"
         android:layout_height="46dp"
-        android:layout_marginStart="228dp"
-        android:layout_marginTop="624dp"
+        android:layout_marginStart="244dp"
+        android:layout_marginTop="625dp"
         android:backgroundTint="#30A499"
         android:text="Confirmar"
         android:textSize="11dp"
@@ -130,9 +130,9 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:layout_width="130dp"
-        android:layout_height="35dp"
-        android:layout_marginStart="72dp"
+        android:layout_width="133dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="64dp"
         android:layout_marginTop="632dp"
         android:background="@drawable/background_button"
         android:text="Cancelar"
@@ -384,5 +384,11 @@
         android:src="@drawable/starIcon"
         tools:layout_editor_absoluteX="67dp"
         tools:layout_editor_absoluteY="334dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="137dp"
+        android:layout_height="92dp"
+        tools:layout_editor_absoluteX="241dp"
+        tools:layout_editor_absoluteY="209dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
