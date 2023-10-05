@@ -172,7 +172,18 @@ class EditarContaActivity : AppCompatActivity() {
 
         val timestampList = ArrayList<Timestamp>()
         Toast.makeText(this, "1", Toast.LENGTH_SHORT).show()
-        Toast.makeText(this, this.dtDisponibilidade.date.toString(), Toast.LENGTH_SHORT).show()
+        //Toast.makeText(this, this.dtDisponibilidade.date.toString(), Toast.LENGTH_SHORT).show()
+
+        // Método 1 para tentar
+        val idk = this.dtDisponibilidade.date
+        Toast.makeText(this, "${idk}", Toast.LENGTH_SHORT).show()
+
+        // Método 2 para tentar
+        val milis = this.dtDisponibilidade.date // miliseconds
+        val Idka = Timestamp(Date(milis))
+        Toast.makeText(this, "${Idka.toDate()}", Toast.LENGTH_SHORT).show()
+
+
         timestampList.add(Timestamp(TimeUnit.SECONDS.toSeconds(this.dtDisponibilidade.date), 0))
         Toast.makeText(this, "2", Toast.LENGTH_SHORT).show()
         val userUpdatedData = hashMapOf(
