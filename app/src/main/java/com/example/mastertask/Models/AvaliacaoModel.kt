@@ -81,6 +81,8 @@ class AvaliacaoViewModel: ViewModel() {
                     evaluation.estrelas = a?.toDouble()
                 }
                 evaluation.servico = item.data!!["servico"] as String?
+                evaluation.terminado = item.data!!["terminado"] as Boolean?
+
                 evaluations.add(evaluation)
             }
 
@@ -104,6 +106,8 @@ class AvaliacaoViewModel: ViewModel() {
                 evaluation.estrelas = a?.toDouble()
             }
             evaluation.servico = it.data!!["servico"] as String?
+            evaluation.terminado = it.data!!["terminado"] as Boolean?
+
             getItemLiveData.postValue(evaluation)
         }.addOnFailureListener {
             Log.d("get", it.localizedMessage!!)

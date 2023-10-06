@@ -9,11 +9,10 @@ import com.google.firebase.firestore.IgnoreExtraProperties
 data class Service(
     var id: String? = null,
     var dataHora: Timestamp? = null,
-    var emailCliente: Email? = null,
-    var emailTrab: Email? = null,
-    var habilidade: String? = null,
-    var status: Status? = null,
-    var terminado: Boolean? = null
+    var emailCliente: String? = null,
+    var emailTrab: String? = null,
+    var habilidades: List<Map<String?, Any?>>? = null,
+    var status: String? = null
 ) {
     @Exclude
     fun toMap(): Map<String, Any?> {
@@ -22,9 +21,9 @@ data class Service(
             "dataHora" to dataHora,
             "emailCliente" to emailCliente,
             "emailTrab" to emailTrab,
-            "habilidade" to habilidade,
+            "habilidades" to habilidades,
             "status" to status,
-            "terminado" to terminado
         )
     }
 }
+

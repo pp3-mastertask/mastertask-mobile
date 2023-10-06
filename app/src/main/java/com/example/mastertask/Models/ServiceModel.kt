@@ -73,11 +73,10 @@ class ServiceViewModel: ViewModel() {
                 val service = Service()
                 service.id = item.id
                 service.dataHora = item.data!!["dataHora"] as Timestamp?
-                service.emailCliente = item.data!!["emailCliente"] as ContactsContract.CommonDataKinds.Email?
-                service.emailTrab = item.data!!["emailTrab"] as ContactsContract.CommonDataKinds.Email?
-                service.habilidade = item.data!!["habilidade"] as String?
-                service.status = item.data!!["status"] as Status?
-                service.terminado = item.data!!["terminado"] as Boolean?
+                service.emailCliente = item.data!!["emailCliente"] as String?
+                service.emailTrab = item.data!!["emailTrab"] as String?
+                service.habilidades = item.data!!["habilidades"] as List<Map<String?, Any?>>?
+                service.status = item.data!!["status"] as String?
                 services.add(service)
             }
 
@@ -94,11 +93,10 @@ class ServiceViewModel: ViewModel() {
             val service = Service()
             service.id = it.id
             service.dataHora = it.data!!["dataHora"] as Timestamp?
-            service.emailCliente = it.data!!["emailCliente"] as ContactsContract.CommonDataKinds.Email?
-            service.emailTrab = it.data!!["emailTrab"] as ContactsContract.CommonDataKinds.Email?
-            service.habilidade = it.data!!["habilidade"] as String?
-            service.status = it.data!!["status"] as Status?
-            service.terminado = it.data!!["terminado"] as Boolean?
+            service.emailCliente = it.data!!["emailCliente"] as String?
+            service.emailTrab = it.data!!["emailTrab"] as String?
+            service.habilidades = it.data!!["habilidades"] as List<Map<String?, Any?>>?
+            service.status = it.data!!["status"] as String?
             getItemLiveData.postValue(service)
         }.addOnFailureListener {
             Log.d("get", it.localizedMessage!!)
