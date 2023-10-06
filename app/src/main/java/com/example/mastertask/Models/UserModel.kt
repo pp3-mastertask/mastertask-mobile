@@ -8,6 +8,7 @@ import com.google.firebase.Timestamp
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import kotlin.reflect.typeOf
 
 class UserViewModel: ViewModel() {
 
@@ -79,7 +80,12 @@ class UserViewModel: ViewModel() {
                 user.habilidades = item.data!!["habilidades"] as List<Map<String?, Any?>>?
                 user.nome = item.data!!["nome"] as String?
                 user.numServicosFeitos = item.data!!["numServicosFeitos"] as Long?
-                user.somaAvaliacoes = item.data!!["somaAvaliacoes"] as Long?
+                try {
+                    user.somaAvaliacoes = (item.data!!["somaAvaliacoes"] as Long).toDouble()
+                }
+                catch (e: Exception) {
+                    user.somaAvaliacoes = item.data!!["somaAvaliacoes"] as Double?
+                }
                 users.add(user)
             }
 
@@ -102,7 +108,12 @@ class UserViewModel: ViewModel() {
             user.endereco = it.data!!["endereco"] as String?
             user.nome = it.data!!["nome"] as String?
             user.numServicosFeitos = it.data!!["numServicosFeitos"] as Long?
-            user.somaAvaliacoes = it.data!!["somaAvaliacoes"] as Long?
+            try {
+                user.somaAvaliacoes = (it.data!!["somaAvaliacoes"] as Long).toDouble()
+            }
+            catch (e: Exception) {
+                user.somaAvaliacoes = it.data!!["somaAvaliacoes"] as Double?
+            }
             getItemLiveData.setValue(user)
         }.addOnFailureListener {
             Log.d("get", it.localizedMessage!!)

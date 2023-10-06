@@ -9,10 +9,10 @@ import com.google.firebase.firestore.IgnoreExtraProperties
 data class Service(
     var id: String? = null,
     var dataHora: Timestamp? = null,
-    var emailCliente: Email? = null,
-    var emailTrab: Email? = null,
+    var emailCliente: String? = null,
+    var emailTrab: String? = null,
     var habilidades: List<Map<String?, Any?>>? = null,
-    var status: Status? = null,
+    var status: String? = null,
     var terminado: Boolean? = null
 ) {
     @Exclude

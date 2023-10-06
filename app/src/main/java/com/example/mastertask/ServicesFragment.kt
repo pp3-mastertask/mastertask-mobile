@@ -5,9 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mastertask.Adapters.CardViewAdapter
+import com.example.mastertask.Adapters.CardViewAdapterServices
+import com.example.mastertask.Data.CardServiceInfo
 import com.example.mastertask.Data.Service
+import com.example.mastertask.Data.Status
 import com.example.mastertask.Models.UserViewModel
 import com.example.mastertask.Data.User
 import com.example.mastertask.Models.ServiceViewModel
@@ -34,7 +38,8 @@ class ServicesFragment : Fragment() {
     var serviceArrayList : ArrayList<Service> = ArrayList()
 
     var currentUser : User = User()
-    var ja : Boolean = false
+    var currentService : Service = Service()
+    var listCardServiceInfo = ArrayList<CardServiceInfo>()
 
     lateinit var recycler_view_novas_solicitacoes : RecyclerView
     lateinit var recycler_view_servicos_a_serem_feitos_por_voce : RecyclerView
@@ -97,6 +102,7 @@ class ServicesFragment : Fragment() {
 
         userViewModel.getItemLiveData.observe(viewLifecycleOwner) {
             currentUser = it!!
+            addToList()
         }
 
         serviceViewModel.createLiveData.observe(viewLifecycleOwner) {
@@ -127,43 +133,51 @@ class ServicesFragment : Fragment() {
 
     fun setUpRecyclerViews() {
         // mudar depois
-        val seuEmail = ""
+        val seuEmail = "mcvsk.filho@gmail.com"
 
-        var lista : List<Service> = serviceArrayList.filter { it.emailCliente.toString() == seuEmail }
+        var lista : List<Service> = serviceArrayList.filter { it.emailCliente == seuEmail }
             .sortedByDescending { it.dataHora }
         lista.take(10)
-        setUpRecyclerView(recycler_view_servicos_solicitados_por_voce, lista)
+        if (!lista.isEmpty())
+            setUpRecyclerView(recycler_view_servicos_solicitados_por_voce, lista)
+
+        lista = serviceArrayList.filter { it.emailTrab == seuEmail && it.status == Status.Aceito.toString() }
+            .sortedByDescending { it.dataHora }
+        lista.take(10)
+        if (!lista.isEmpty())
+            setUpRecyclerView(recycler_view_servicos_a_serem_feitos_por_voce, lista)
+
+        lista = serviceArrayList.filter { it.emailTrab == seuEmail && it.status == Status.Pendente.toString() }
+        lista.take(10)
+        if (!lista.isEmpty())
+            setUpRecyclerView(recycler_view_novas_solicitacoes, lista)
     }
 
     fun setUpRecyclerView(recyclerView: RecyclerView, lista: List<Service>) {
-        val listUsers : List<User> = getListUsersFromServices(lista)
+        getListFromServices(lista)
 
-        val adapter = CardViewAdapter(listUsers)
+        val adapter = CardViewAdapterServices(listCardServiceInfo)
         recyclerView.adapter = adapter
         adapter.notifyDataSetChanged()
     }
 
-    fun getListUsersFromServices(lista : List<Service>): List<User> {
-        val listUsers = ArrayList<User>()
+    fun addToList() {
+        val user = currentUser
+        val service = currentService
 
+        val data = CardServiceInfo(
+            user.nome, user.endereco, user.contato, user.somaAvaliacoes, user.numServicosFeitos,
+            service.dataHora, service.emailCliente, service.emailTrab, service.habilidades,
+            service.status, service.terminado)
+
+        listCardServiceInfo.add(data)
+    }
+
+    fun getListFromServices(lista : List<Service>) {
         lista.forEach {
-            val user = User()
-            user.id = it.emailTrab.toString()
-
-            userViewModel.getItem(it.emailTrab.toString())
-            user.contato = currentUser.contato
-            user.nome = currentUser.nome
-            user.endereco = currentUser.endereco
-            user.cpf = currentUser.cpf
-            user.dataInicio = currentUser.dataInicio
-            user.dataNascimento = currentUser.dataNascimento
-            user.somaAvaliacoes = currentUser.somaAvaliacoes
-            user.numServicosFeitos = currentUser.numServicosFeitos
-
-            user.habilidades = it.habilidades!!
+            currentService = it
+            userViewModel.getItem(it.emailTrab!!)
         }
-
-        return listUsers
     }
 
     companion object {
