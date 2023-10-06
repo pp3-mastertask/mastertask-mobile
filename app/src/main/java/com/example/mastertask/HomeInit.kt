@@ -8,7 +8,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mastertask.Adapters.CardViewAdapter
+import com.example.mastertask.Data.Service
 import com.example.mastertask.Data.User
+import com.example.mastertask.Models.ServiceViewModel
 import com.example.mastertask.Models.UserViewModel
 
 // TODO: Rename parameter arguments, choose names that match
@@ -31,8 +33,12 @@ class HomeInit : Fragment() {
     lateinit var recycler_view_jacontratados : RecyclerView
 
     val userViewModel : UserViewModel by viewModels()
+    val serviceViewModel : ServiceViewModel by viewModels()
 
     var usersArrayList : ArrayList<User> = ArrayList()
+    var servicesArrayList : ArrayList<Service> = ArrayList()
+
+    val seuEmail = "mcvsk.filho@gmail.com"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,50 +68,46 @@ class HomeInit : Fragment() {
         recycler_view_novos = view.findViewById(R.id.recycler_view_novos) as RecyclerView
         recycler_view_jacontratados = view.findViewById(R.id.recycler_view_jacontratados) as RecyclerView
 
+        serviceViewModel.getList()
         userViewModel.getList()
     }
 
     fun initModels() {
-        userViewModel.createLiveData.observe(viewLifecycleOwner) {
-            if (it) {
-                userViewModel.getList()
-            }
-        }
-
-        userViewModel.updateLiveData.observe(viewLifecycleOwner) {
-            if (it) {
-                userViewModel.getList()
-            }
-        }
-
-        userViewModel.deleteLiveData.observe(viewLifecycleOwner) {
-            if (it) {
-                userViewModel.getList()
-            }
-        }
-
         userViewModel.getListLiveData.observe(viewLifecycleOwner) {
             usersArrayList = ArrayList()
             usersArrayList.addAll(it)
 
             setUpRecyclerViews()
         }
+
+        serviceViewModel.getListLiveData.observe(viewLifecycleOwner) {
+            servicesArrayList = ArrayList()
+            servicesArrayList.addAll(it)
+        }
     }
 
     fun setUpRecyclerViews() {
         var lista : List<User> =
-            usersArrayList.filter { it.habilidades!!.isNotEmpty() }
+            usersArrayList.filter { it.habilidades!!.isNotEmpty() && it.id != seuEmail }
                 .sortedByDescending { it.somaAvaliacoes!!/it.numServicosFeitos!! }
         lista.take(10)
         setUpRecyclerView(recycler_view_recomendacoes, lista)
 
-        lista = usersArrayList.filter { it.habilidades!!.isNotEmpty() }
+        lista = usersArrayList.filter { it.habilidades!!.isNotEmpty() && it.id != seuEmail }
             .sortedByDescending { it.dataInicio }
         lista.take(10)
         setUpRecyclerView(recycler_view_novos, lista)
 
-        // para pegar trabalhadores já contratados, é necessário ter o email do usuário
-        // (parte de cadastro precisa estar pronta)
+        val listaEmailsTrabalhadoresServicosSolicitados = ArrayList<String>()
+        servicesArrayList.forEach {
+            if (it.emailCliente == seuEmail)
+                listaEmailsTrabalhadoresServicosSolicitados.add(it.emailTrab!!)
+        }
+
+        lista = usersArrayList.filter { it.id in listaEmailsTrabalhadoresServicosSolicitados }
+            .sortedByDescending { it.dataInicio }
+        lista.take(10)
+        setUpRecyclerView(recycler_view_jacontratados, lista)
     }
 
     fun setUpRecyclerView(recyclerView: RecyclerView, lista: List<User>) {
