@@ -53,17 +53,17 @@ class CardViewAdapterServices (private val list: List<CardServiceInfo>) :
         holder: Card,
         position: Int
     ) {
-        val user : CardServiceInfo = list[position]
-        holder.nome.text = user.nome
-        holder.endereco.text = user.endereco
-        holder.telefone.text = user.contato
-        holder.estrelas.text = (user.somaAvaliacoes!!.div(user.numServicosFeitos!!)).toString()
+        val dado : CardServiceInfo = list[position]
+        holder.nome.text = dado.nome
+        holder.endereco.text = dado.endereco
+        holder.telefone.text = dado.contato
+        holder.estrelas.text = (dado.somaAvaliacoes!!.div(dado.numServicosFeitos!!)).toString()
 
         val layoutManager: RecyclerView.LayoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         holder.recyclerView.layoutManager = layoutManager
 
-        val badgeViewAdapter = BadgeViewAdapter(user.habilidades)
+        val badgeViewAdapter = BadgeViewAdapter(dado.habilidades)
         holder.recyclerView.adapter = badgeViewAdapter
     }
 

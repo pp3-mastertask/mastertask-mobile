@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mastertask.Adapters.CardViewAdapter
@@ -39,6 +40,7 @@ class ServicesFragment : Fragment() {
 
     var currentUser : User = User()
     var currentService : Service = Service()
+    lateinit var currentRecyclerView : RecyclerView
     var listCardServiceInfo = ArrayList<CardServiceInfo>()
 
     lateinit var recycler_view_novas_solicitacoes : RecyclerView
@@ -73,7 +75,7 @@ class ServicesFragment : Fragment() {
         recycler_view_novas_solicitacoes = view.findViewById(R.id.recycler_view_novas_solicitacoes_de_servicos) as RecyclerView
         recycler_view_servicos_a_serem_feitos_por_voce = view.findViewById(R.id.recycler_view_servicos_a_serem_feitos_por_voce) as RecyclerView
 
-        userViewModel.getList()
+        serviceViewModel.getList()
     }
 
     fun initModels() {
@@ -140,7 +142,6 @@ class ServicesFragment : Fragment() {
         lista.take(10)
         if (!lista.isEmpty())
             setUpRecyclerView(recycler_view_servicos_solicitados_por_voce, lista)
-
         lista = serviceArrayList.filter { it.emailTrab == seuEmail && it.status == Status.Aceito.toString() }
             .sortedByDescending { it.dataHora }
         lista.take(10)
@@ -154,11 +155,8 @@ class ServicesFragment : Fragment() {
     }
 
     fun setUpRecyclerView(recyclerView: RecyclerView, lista: List<Service>) {
+        currentRecyclerView = recyclerView
         getListFromServices(lista)
-
-        val adapter = CardViewAdapterServices(listCardServiceInfo)
-        recyclerView.adapter = adapter
-        adapter.notifyDataSetChanged()
     }
 
     fun addToList() {
@@ -171,6 +169,10 @@ class ServicesFragment : Fragment() {
             service.status, service.terminado)
 
         listCardServiceInfo.add(data)
+
+        val adapter = CardViewAdapterServices(listCardServiceInfo)
+        currentRecyclerView.adapter = adapter
+        adapter.notifyDataSetChanged()
     }
 
     fun getListFromServices(lista : List<Service>) {
