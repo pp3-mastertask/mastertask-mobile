@@ -77,7 +77,6 @@ class ServiceViewModel: ViewModel() {
                 service.emailTrab = item.data!!["emailTrab"] as String?
                 service.habilidades = item.data!!["habilidades"] as List<Map<String?, Any?>>?
                 service.status = item.data!!["status"] as String?
-                service.terminado = item.data!!["terminado"] as Boolean?
                 services.add(service)
             }
 
@@ -98,7 +97,6 @@ class ServiceViewModel: ViewModel() {
             service.emailTrab = it.data!!["emailTrab"] as String?
             service.habilidades = it.data!!["habilidades"] as List<Map<String?, Any?>>?
             service.status = it.data!!["status"] as String?
-            service.terminado = it.data!!["terminado"] as Boolean?
             getItemLiveData.postValue(service)
         }.addOnFailureListener {
             Log.d("get", it.localizedMessage!!)

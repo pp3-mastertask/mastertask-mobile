@@ -38,14 +38,11 @@ class ServicesFragment : Fragment() {
     var usersArrayList : ArrayList<User> = ArrayList()
     var serviceArrayList : ArrayList<Service> = ArrayList()
 
-    var currentUser : User = User()
-    var currentService : Service = Service()
-    lateinit var currentRecyclerView : RecyclerView
-    var listCardServiceInfo = ArrayList<CardServiceInfo>()
-
     lateinit var recycler_view_novas_solicitacoes : RecyclerView
     lateinit var recycler_view_servicos_a_serem_feitos_por_voce : RecyclerView
     lateinit var recycler_view_servicos_solicitados_por_voce : RecyclerView
+
+    val seuEmail = "mcvsk.filho@gmail.com"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,6 +73,7 @@ class ServicesFragment : Fragment() {
         recycler_view_servicos_a_serem_feitos_por_voce = view.findViewById(R.id.recycler_view_servicos_a_serem_feitos_por_voce) as RecyclerView
 
         serviceViewModel.getList()
+        userViewModel.getList()
     }
 
     fun initModels() {
@@ -100,11 +98,6 @@ class ServicesFragment : Fragment() {
         userViewModel.getListLiveData.observe(viewLifecycleOwner) {
             usersArrayList = ArrayList()
             usersArrayList.addAll(it)
-        }
-
-        userViewModel.getItemLiveData.observe(viewLifecycleOwner) {
-            currentUser = it!!
-            addToList()
         }
 
         serviceViewModel.createLiveData.observe(viewLifecycleOwner) {
@@ -134,9 +127,6 @@ class ServicesFragment : Fragment() {
     }
 
     fun setUpRecyclerViews() {
-        // mudar depois
-        val seuEmail = "mcvsk.filho@gmail.com"
-
         var lista : List<Service> = serviceArrayList.filter { it.emailCliente == seuEmail }
             .sortedByDescending { it.dataHora }
         lista.take(10)
@@ -155,31 +145,31 @@ class ServicesFragment : Fragment() {
     }
 
     fun setUpRecyclerView(recyclerView: RecyclerView, lista: List<Service>) {
-        currentRecyclerView = recyclerView
-        getListFromServices(lista)
-    }
+        var listCardServiceInfo = ArrayList<CardServiceInfo>()
 
-    fun addToList() {
-        val user = currentUser
-        val service = currentService
-
-        val data = CardServiceInfo(
-            user.nome, user.endereco, user.contato, user.somaAvaliacoes, user.numServicosFeitos,
-            service.dataHora, service.emailCliente, service.emailTrab, service.habilidades,
-            service.status, service.terminado)
-
-        listCardServiceInfo.add(data)
+        lista.forEach {
+            val user: User
+            if (it.emailCliente == seuEmail) {
+                val emailTrab = it.emailTrab
+                user = usersArrayList.filter {
+                    it.id == emailTrab
+                }.get(0)
+            }
+            else {
+                val emailCliente = it.emailCliente
+                user = usersArrayList.filter {
+                    it.id == emailCliente
+                }.get(0)
+            }
+            val data = CardServiceInfo(
+                user.nome, user.endereco, user.contato, user.somaAvaliacoes, user.numServicosFeitos,
+                it.dataHora, it.emailCliente, it.emailTrab, it.habilidades, it.status)
+            listCardServiceInfo.add(data)
+        }
 
         val adapter = CardViewAdapterServices(listCardServiceInfo)
-        currentRecyclerView.adapter = adapter
+        recyclerView.adapter = adapter
         adapter.notifyDataSetChanged()
-    }
-
-    fun getListFromServices(lista : List<Service>) {
-        lista.forEach {
-            currentService = it
-            userViewModel.getItem(it.emailTrab!!)
-        }
     }
 
     companion object {

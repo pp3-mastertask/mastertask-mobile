@@ -12,8 +12,7 @@ data class Service(
     var emailCliente: String? = null,
     var emailTrab: String? = null,
     var habilidades: List<Map<String?, Any?>>? = null,
-    var status: String? = null,
-    var terminado: Boolean? = null
+    var status: String? = null
 ) {
     @Exclude
     fun toMap(): Map<String, Any?> {
@@ -24,7 +23,6 @@ data class Service(
             "emailTrab" to emailTrab,
             "habilidades" to habilidades,
             "status" to status,
-            "terminado" to terminado
         )
     }
 }

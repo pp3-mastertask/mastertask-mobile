@@ -5,19 +5,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="0dp">
 
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="229dp"
         android:layout_height="88dp"
+        android:layout_marginStart="182dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/corner_circles" />
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="600dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -41,6 +44,7 @@
                 android:fontFamily="@font/montserrat_bold"
                 android:text="Seus serviços"
                 android:textSize="28sp"
+                android:textColor="@color/text_primary"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -86,7 +90,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="14dp"
-                android:layout_marginTop="14dp"
                 android:fontFamily="@font/montserrat_bold"
                 android:text="Serviços a serem feitos por você"
                 android:textColor="@color/text_primary"

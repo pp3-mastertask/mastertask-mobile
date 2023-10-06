@@ -6,4 +6,4 @@ class CardServiceInfo (var nome: String?, var endereco: String?, var contato: St
                        var somaAvaliacoes: Double?, var numServicosFeitos: Long?,
                        var dataHora: Timestamp?, var emailCliente: String?,
                        var emailTrab: String?, var habilidades: List<Map<String?, Any?>>?,
-                       var status: String?, var terminado: Boolean?)
+                       var status: String?)

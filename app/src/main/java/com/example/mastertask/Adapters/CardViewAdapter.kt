@@ -57,7 +57,10 @@ class CardViewAdapter (private val list: List<User>) :
         holder.nome.text = user.nome
         holder.endereco.text = user.endereco
         holder.telefone.text = user.contato
-        holder.estrelas.text = (user.somaAvaliacoes?.div(user.numServicosFeitos!!)).toString()
+        if (user.numServicosFeitos != 0L)
+            holder.estrelas.text = (user.somaAvaliacoes?.div(user.numServicosFeitos!!)).toString()
+        else
+            holder.estrelas.text = "0"
 
         val layoutManager: RecyclerView.LayoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
