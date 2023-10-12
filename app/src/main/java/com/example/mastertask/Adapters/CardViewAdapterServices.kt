@@ -10,10 +10,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.mastertask.Data.CardServiceInfo
 import com.example.mastertask.R
 
-class CardViewAdapterServices (private val list: List<CardServiceInfo>) :
+
+class CardViewAdapterServices (private val list: List<CardServiceInfo>,
+                               private val listener : OnItemClickListener):
     RecyclerView.Adapter<CardViewAdapterServices.Card>()
 {
     lateinit var context : Context
+    interface OnItemClickListener {
+        fun onItemClick(item: CardServiceInfo?)
+    }
 
     inner class Card(view: View) : RecyclerView.ViewHolder(view) {
         val nome: TextView
@@ -28,6 +33,22 @@ class CardViewAdapterServices (private val list: List<CardServiceInfo>) :
             telefone = view.findViewById<View>(R.id.phone) as TextView
             estrelas = view.findViewById<View>(R.id.stars) as TextView
             recyclerView = view.findViewById<View>(R.id.recycler_view_services) as RecyclerView
+        }
+
+        fun bind(item: CardServiceInfo, listener: OnItemClickListener) {
+            nome.text = item.nome
+            endereco.text = item.endereco
+            telefone.text = item.contato
+            estrelas.text = (item.somaAvaliacoes!!.div(item.numServicosFeitos!!)).toString()
+
+            val layoutManager: RecyclerView.LayoutManager =
+                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            recyclerView.layoutManager = layoutManager
+
+            itemView.setOnClickListener { listener.onItemClick(item) }
+
+            val badgeViewAdapter = BadgeViewAdapter(item.habilidades)
+            recyclerView.adapter = badgeViewAdapter
         }
     }
 
@@ -53,18 +74,7 @@ class CardViewAdapterServices (private val list: List<CardServiceInfo>) :
         holder: Card,
         position: Int
     ) {
-        val dado : CardServiceInfo = list[position]
-        holder.nome.text = dado.nome
-        holder.endereco.text = dado.endereco
-        holder.telefone.text = dado.contato
-        holder.estrelas.text = (dado.somaAvaliacoes!!.div(dado.numServicosFeitos!!)).toString()
-
-        val layoutManager: RecyclerView.LayoutManager =
-            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        holder.recyclerView.layoutManager = layoutManager
-
-        val badgeViewAdapter = BadgeViewAdapter(dado.habilidades)
-        holder.recyclerView.adapter = badgeViewAdapter
+        holder.bind(list[position], listener)
     }
 
     override fun getItemCount(): Int {

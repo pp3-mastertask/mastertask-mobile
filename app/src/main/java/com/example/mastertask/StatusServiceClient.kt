@@ -13,10 +13,10 @@ private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [ServiceConfirm.newInstance] factory method to
+ * Use the [ServiceConfirmClient.newInstance] factory method to
  * create an instance of this fragment.
  */
-class ServiceConfirm : Fragment() {
+class StatusServiceClient : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -34,7 +34,7 @@ class ServiceConfirm : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_service_confirm, container, false)
+        return inflater.inflate(R.layout.fragment_status_service_client, container, false)
     }
 
     companion object {
@@ -49,7 +49,7 @@ class ServiceConfirm : Fragment() {
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            ServiceConfirm().apply {
+            ServiceConfirmClient().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)

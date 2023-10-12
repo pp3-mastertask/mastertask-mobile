@@ -1,21 +1,20 @@
 package com.example.mastertask
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
-import com.example.mastertask.Adapters.CardViewAdapter
 import com.example.mastertask.Adapters.CardViewAdapterServices
 import com.example.mastertask.Data.CardServiceInfo
 import com.example.mastertask.Data.Service
 import com.example.mastertask.Data.Status
-import com.example.mastertask.Models.UserViewModel
 import com.example.mastertask.Data.User
 import com.example.mastertask.Models.ServiceViewModel
+import com.example.mastertask.Models.UserViewModel
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -127,25 +126,58 @@ class ServicesFragment : Fragment() {
     }
 
     fun setUpRecyclerViews() {
+
         var lista : List<Service> = serviceArrayList.filter { it.emailCliente == seuEmail }
             .sortedByDescending { it.dataHora }
         lista.take(10)
-        if (!lista.isEmpty())
-            setUpRecyclerView(recycler_view_servicos_solicitados_por_voce, lista)
+        if (!lista.isEmpty()) {
+            val x = setUpRecyclerView(recycler_view_servicos_solicitados_por_voce, lista)
+            val adapter = CardViewAdapterServices(x, object :
+                CardViewAdapterServices.OnItemClickListener {
+                override fun onItemClick(item: CardServiceInfo?) {
+                    parentFragmentManager.beginTransaction()
+                        .replace(R.id.fragment_container, StatusServiceClient()).commit()
+                }
+            })
+            recycler_view_servicos_solicitados_por_voce.adapter = adapter
+            adapter.notifyDataSetChanged()
+        }
+
         lista = serviceArrayList.filter { it.emailTrab == seuEmail && it.status == Status.Aceito.toString() }
             .sortedByDescending { it.dataHora }
         lista.take(10)
-        if (!lista.isEmpty())
-            setUpRecyclerView(recycler_view_servicos_a_serem_feitos_por_voce, lista)
+        if (!lista.isEmpty()) {
+            val x = setUpRecyclerView(recycler_view_servicos_a_serem_feitos_por_voce, lista)
+            val adapter = CardViewAdapterServices(x, object :
+                CardViewAdapterServices.OnItemClickListener {
+                override fun onItemClick(item: CardServiceInfo?) {
+                    parentFragmentManager.beginTransaction()
+                        .replace(R.id.fragment_container, StatusServiceWorker()).commit()
+                }
+            })
+            recycler_view_servicos_a_serem_feitos_por_voce.adapter = adapter
+            adapter.notifyDataSetChanged()
+        }
 
         lista = serviceArrayList.filter { it.emailTrab == seuEmail && it.status == Status.Pendente.toString() }
         lista.take(10)
-        if (!lista.isEmpty())
-            setUpRecyclerView(recycler_view_novas_solicitacoes, lista)
+        if (!lista.isEmpty()) {
+            val x = setUpRecyclerView(recycler_view_novas_solicitacoes, lista)
+            val adapter = CardViewAdapterServices(x, object :
+                CardViewAdapterServices.OnItemClickListener {
+                override fun onItemClick(item: CardServiceInfo?) {
+                    parentFragmentManager.beginTransaction()
+                        .replace(R.id.fragment_container, StatusServiceWorker()).commit()
+                }
+            })
+            recycler_view_novas_solicitacoes.adapter = adapter
+            adapter.notifyDataSetChanged()
+        }
     }
 
-    fun setUpRecyclerView(recyclerView: RecyclerView, lista: List<Service>) {
-        var listCardServiceInfo = ArrayList<CardServiceInfo>()
+    fun setUpRecyclerView(recyclerView: RecyclerView, lista: List<Service>)
+    : ArrayList<CardServiceInfo> {
+        val listCardServiceInfo = ArrayList<CardServiceInfo>()
 
         lista.forEach {
             val user: User
@@ -167,9 +199,7 @@ class ServicesFragment : Fragment() {
             listCardServiceInfo.add(data)
         }
 
-        val adapter = CardViewAdapterServices(listCardServiceInfo)
-        recyclerView.adapter = adapter
-        adapter.notifyDataSetChanged()
+        return listCardServiceInfo
     }
 
     companion object {

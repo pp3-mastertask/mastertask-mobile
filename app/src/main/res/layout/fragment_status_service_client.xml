@@ -266,9 +266,9 @@
     <ImageView
         android:id="@+id/imageView12"
         android:layout_width="75dp"
-        android:layout_height="68dp"
-        android:layout_marginStart="168dp"
-        android:layout_marginTop="16dp"
+        android:layout_height="75dp"
+        android:layout_marginStart="192dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/smallball" />
