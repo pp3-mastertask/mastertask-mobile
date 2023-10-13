@@ -5,11 +5,18 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.firebase.Timestamp
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+private const val NOME = ""
+private const val ENDERECO = ""
+private const val CONTATO = ""
+private const val SOMAAVALIACOES = ""
+private const val NUMSERVICOESFEITOS = ""
+private const val DATAHORA = ""
+private const val EMAILCLIENTE = ""
+private const val EMAILTRAB = ""
+private const val HABILIDADES = ""
+private const val STATUS = ""
 
 /**
  * A simple [Fragment] subclass.
@@ -18,14 +25,29 @@ private const val ARG_PARAM2 = "param2"
  */
 class StatusServiceClient : Fragment() {
     // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private var nome: String? = null
+    private var endereco: String? = null
+    private var contato: String? = null
+    private var somaAvaliacoes: Double? = null
+    private var numServicosFeitos: Long? = null
+    private var dataHora: Timestamp? = null
+    private var emailCliente: String? = null
+    private var emailTrab: String? = null
+    private var habilidades: List<Map<String?, Any?>>? = null
+    private var status: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+            nome = it.getString(NOME)
+            endereco = it.getString(ENDERECO)
+            contato = it.getString(CONTATO)
+            somaAvaliacoes = it.getDouble(SOMAAVALIACOES)
+            numServicosFeitos = it.getLong(NUMSERVICOESFEITOS)
+            dataHora = Timestamp(it.getLong(DATAHORA), 0)
+            emailCliente = it.getString(EMAILCLIENTE)
+            emailTrab = it.getString(EMAILTRAB)
+            status = it.getString(STATUS)
         }
     }
 
@@ -42,17 +64,34 @@ class StatusServiceClient : Fragment() {
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
          *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
+         * @param nome Name of the worker.
+         * @param endereco Worker address.
+         * @param contato Worker contact.
+         * @param somaAvaliacoes Evaluation sum.
+         * @param numServicosFeitos Number of done services.
+         * @param dataHora Datetime service was scheduled to.
+         * @param emailCliente Client email.
+         * @param emailTrab Worker email.
+         * @param habilidades Skills selected for the service.
+         * @param status Service status.
          * @return A new instance of fragment ServiceConfirm.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
+        fun newInstance(nome: String, endereco: String, contato: String, somaAvaliacoes: Double,
+                        numServicosFeitos: Long, dataHora: Timestamp, emailCliente: String,
+                        emailTrab: String, habilidades: List<Map<String, Any>>, status: String?) =
             ServiceConfirmClient().apply {
                 arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+                    putString(NOME, nome)
+                    putString(ENDERECO, endereco)
+                    putString(CONTATO, contato)
+                    putDouble(SOMAAVALIACOES, somaAvaliacoes)
+                    putLong(NUMSERVICOESFEITOS, numServicosFeitos)
+                    putLong(DATAHORA, dataHora.seconds)
+                    putString(EMAILCLIENTE, emailCliente)
+                    putString(EMAILTRAB, emailTrab)
+                    putString(STATUS, status)
                 }
             }
     }

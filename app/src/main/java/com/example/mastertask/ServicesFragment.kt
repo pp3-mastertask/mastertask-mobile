@@ -136,7 +136,8 @@ class ServicesFragment : Fragment() {
                 CardViewAdapterServices.OnItemClickListener {
                 override fun onItemClick(item: CardServiceInfo?) {
                     parentFragmentManager.beginTransaction()
-                        .replace(R.id.fragment_container, StatusServiceClient()).commit()
+                        .replace(R.id.fragment_container,
+                            StatusServiceClient.newInstance(item.)).commit()
                 }
             })
             recycler_view_servicos_solicitados_por_voce.adapter = adapter
