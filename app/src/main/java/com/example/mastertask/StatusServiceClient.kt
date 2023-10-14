@@ -80,7 +80,7 @@ class StatusServiceClient : Fragment() {
         @JvmStatic
         fun newInstance(nome: String, endereco: String, contato: String, somaAvaliacoes: Double,
                         numServicosFeitos: Long, dataHora: Timestamp, emailCliente: String,
-                        emailTrab: String, habilidades: List<Map<String, Any>>, status: String?) =
+                        emailTrab: String, habilidades: List<Map<String?, Any?>>, status: String?) =
             ServiceConfirmClient().apply {
                 arguments = Bundle().apply {
                     putString(NOME, nome)

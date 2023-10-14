@@ -137,7 +137,10 @@ class ServicesFragment : Fragment() {
                 override fun onItemClick(item: CardServiceInfo?) {
                     parentFragmentManager.beginTransaction()
                         .replace(R.id.fragment_container,
-                            StatusServiceClient.newInstance(item.)).commit()
+                            StatusServiceClient.newInstance(item!!.nome!!, item.endereco!!,
+                                item.contato!!, item.somaAvaliacoes!!, item.numServicosFeitos!!,
+                                item.dataHora!!, item.emailCliente!!, item.emailTrab!!,
+                                item.habilidades!!, item.status!!)).commit()
                 }
             })
             recycler_view_servicos_solicitados_por_voce.adapter = adapter
