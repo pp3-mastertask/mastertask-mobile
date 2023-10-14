@@ -164,21 +164,25 @@ class StatusServiceClient : Fragment() {
 
     fun addEventListeners() {
         btnConcluir.setOnClickListener {
-            val service = Service(id, dataHora, emailCliente, emailTrab, habilidades, "Finalizado")
+            val service = Service(id, dataHora, emailCliente, emailTrab, habilidades, "Finalizado (cliente)")
             serviceViewModel.update(service)
 //            mudar para a página de avaliação
 //            parentFragmentManager.beginTransaction()
 //                .replace(R.id.fragment_container, AvaliationFragment()).commit()
         }
 
-        btnCancelar.setOnClickListener {
-            btnConcluir.setOnClickListener {
-                val service = Service(id, dataHora, emailCliente, emailTrab, habilidades, "Cancelado")
-                serviceViewModel.update(service)
-            }
+        if (status == "Cancelado (prestador)")
+            btnCancelar.isEnabled = false
+        else {
+            btnCancelar.setOnClickListener {
+                btnConcluir.setOnClickListener {
+                    val service = Service(id, dataHora, emailCliente, emailTrab, habilidades, "Cancelado (cliente)")
+                    serviceViewModel.update(service)
+                }
 
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, ServicesFragment()).commit()
+                parentFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, ServicesFragment()).commit()
+            }
         }
     }
 
@@ -207,6 +211,7 @@ class StatusServiceClient : Fragment() {
                         habilidades: List<Map<String?, Any?>>, status: String?) =
             ServiceConfirmClient().apply {
                 arguments = Bundle().apply {
+                    putString(ID, id)
                     putString(NOME, nome)
                     putString(ENDERECO, endereco)
                     putString(CONTATO, contato)

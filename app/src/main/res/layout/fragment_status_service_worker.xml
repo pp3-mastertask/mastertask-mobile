@@ -27,6 +27,7 @@
 
     <TextView
 
+        android:id="@+id/lb_endereco_cliente"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="72dp"
@@ -62,6 +63,7 @@
 
     <TextView
 
+        android:id="@+id/lb_nome_cliente"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="52dp"
@@ -74,6 +76,7 @@
 
     <TextView
 
+        android:id="@+id/lb_avaliacao_cliente"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="88dp"
@@ -232,6 +235,7 @@
 
     <TextView
 
+        android:id="@+id/lb_data_prevista"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="256dp"
@@ -275,26 +279,28 @@
 
     <Button
         android:id="@+id/btnConcluir"
-        android:layout_width="130dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="240dp"
-        android:layout_marginTop="672dp"
-        android:backgroundTint="#30A499"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="220dp"
+        android:layout_marginTop="676dp"
+        android:backgroundTint="@color/green_light"
         android:text="Concluir"
-        android:textSize="12dp"
+        android:textSize="12sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:cornerRadius="25dp" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:layout_width="130dp"
-        android:layout_height="35dp"
-        android:layout_marginStart="84dp"
-        android:layout_marginTop="672dp"
+        android:id="@+id/btnCancelar"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="680dp"
         android:background="@drawable/background_button"
         android:text="Cancelar"
         android:textColor="@color/red_dark"
-        android:textSize="11dp"
+        android:textSize="12sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -303,9 +309,9 @@
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="236dp"
+        android:layout_marginStart="228dp"
         android:layout_marginTop="136dp"
-        android:text="Serviço solicitado"
+        android:text="Serviços solicitados"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -313,6 +319,7 @@
 
     <TextView
 
+        android:id="@+id/lb_total_a_receber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="236dp"
@@ -370,6 +377,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/lb_endereco_cliente"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="64dp"
@@ -392,5 +400,22 @@
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_servicos_solicitados"
+        android:layout_width="150dp"
+        android:layout_height="139dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="3dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView9"
+        app:layout_constraintEnd_toEndOf="@+id/imageView2"
+        app:layout_constraintHorizontal_bias="0.844"
+        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/textView6"
+        app:layout_constraintVertical_bias="0.0"
+        android:orientation="vertical"
+        android:scrollbars="vertical"
+        tools:listitem="@layout/service_badge"
+        android:layout_gravity="center" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
