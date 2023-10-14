@@ -1,12 +1,25 @@
 package com.example.mastertask
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.TextView
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.RecyclerView
+import com.example.mastertask.Adapters.BadgeViewAdapter
+import com.example.mastertask.Data.Service
+import com.example.mastertask.Models.ServiceViewModel
+import com.google.common.reflect.TypeToken
 import com.google.firebase.Timestamp
+import com.google.gson.Gson
+import java.text.NumberFormat
+import java.text.SimpleDateFormat
+import java.util.Currency
 
+private const val ID = ""
 private const val NOME = ""
 private const val ENDERECO = ""
 private const val CONTATO = ""
@@ -24,7 +37,7 @@ private const val STATUS = ""
  * create an instance of this fragment.
  */
 class StatusServiceClient : Fragment() {
-    // TODO: Rename and change types of parameters
+    private var id: String? = null
     private var nome: String? = null
     private var endereco: String? = null
     private var contato: String? = null
@@ -36,9 +49,26 @@ class StatusServiceClient : Fragment() {
     private var habilidades: List<Map<String?, Any?>>? = null
     private var status: String? = null
 
+    private lateinit var lbNomePrestador : TextView
+    private lateinit var lbEnderecoPrestador : TextView
+    private lateinit var lbAvaliacaoPrestador : TextView
+    private lateinit var lbDataPrevista : TextView
+    private lateinit var lbTotalAPagar : TextView
+    private lateinit var lbStatusServico : TextView
+
+    private lateinit var btnCancelar : Button
+    private lateinit var btnConcluir : Button
+
+    private lateinit var rvServicosSolicitados : RecyclerView
+
+    val serviceViewModel : ServiceViewModel by viewModels()
+
+    var serviceArrayList : ArrayList<Service> = ArrayList()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
+            id = it.getString(ID)
             nome = it.getString(NOME)
             endereco = it.getString(ENDERECO)
             contato = it.getString(CONTATO)
@@ -47,6 +77,9 @@ class StatusServiceClient : Fragment() {
             dataHora = Timestamp(it.getLong(DATAHORA), 0)
             emailCliente = it.getString(EMAILCLIENTE)
             emailTrab = it.getString(EMAILTRAB)
+            val parsedValue = it.getString(HABILIDADES)
+            habilidades = Gson().fromJson(parsedValue!!,
+                object: TypeToken<List<Map<String?, Any?>>>(){}.type)
             status = it.getString(STATUS)
         }
     }
@@ -59,11 +92,102 @@ class StatusServiceClient : Fragment() {
         return inflater.inflate(R.layout.fragment_status_service_client, container, false)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        initModels()
+        initViews(view)
+    }
+
+    fun initViews(view : View) {
+        lbNomePrestador = view.findViewById(R.id.lb_nome_prestador) as TextView
+        lbEnderecoPrestador = view.findViewById(R.id.lb_endereco_prestador) as TextView
+        lbAvaliacaoPrestador = view.findViewById(R.id.lb_avaliacao_prestador) as TextView
+        lbTotalAPagar = view.findViewById(R.id.lb_preco_total) as TextView
+        lbDataPrevista = view.findViewById(R.id.lb_data_prevista) as TextView
+        lbStatusServico = view.findViewById(R.id.lb_status_servico) as TextView
+
+        btnCancelar = view.findViewById(R.id.btnCancelar) as Button
+        btnConcluir = view.findViewById(R.id.btnConcluir) as Button
+
+        rvServicosSolicitados = view.findViewById(R.id.rv_servicos_solicitados) as RecyclerView
+
+        addValues()
+        addEventListeners()
+    }
+
+    fun initModels() {
+        serviceViewModel.createLiveData.observe(viewLifecycleOwner) {
+            if (it) {
+                serviceViewModel.getList()
+            }
+        }
+
+        serviceViewModel.updateLiveData.observe(viewLifecycleOwner) {
+            if (it) {
+                serviceViewModel.getList()
+            }
+        }
+
+        serviceViewModel.deleteLiveData.observe(viewLifecycleOwner) {
+            if (it) {
+                serviceViewModel.getList()
+            }
+        }
+
+        serviceViewModel.getListLiveData.observe(viewLifecycleOwner) {
+            serviceArrayList = ArrayList()
+            serviceArrayList.addAll(it)
+        }
+    }
+
+    fun addValues() {
+        lbNomePrestador.text = nome
+        lbEnderecoPrestador.text = endereco
+        lbAvaliacaoPrestador.text = (somaAvaliacoes!!.div(numServicosFeitos!!)).toString()
+        lbDataPrevista.text = SimpleDateFormat("dd/MM/yyyy").format(dataHora!!.toDate())
+        lbStatusServico.text = status
+
+        var precoTotal = 0.0
+        habilidades!!.forEach {
+            precoTotal += it["preco"] as Double
+        }
+        val format: NumberFormat = NumberFormat.getCurrencyInstance()
+        format.setMaximumFractionDigits(0)
+        format.setCurrency(Currency.getInstance("BRL"))
+        lbTotalAPagar.text = format.format(precoTotal)
+
+        val adapter = BadgeViewAdapter(habilidades)
+        rvServicosSolicitados.adapter = adapter
+        adapter.notifyDataSetChanged()
+    }
+
+    fun addEventListeners() {
+        btnConcluir.setOnClickListener {
+            val service = Service(id, dataHora, emailCliente, emailTrab, habilidades, "Finalizado")
+            serviceViewModel.update(service)
+//            mudar para a página de avaliação
+//            parentFragmentManager.beginTransaction()
+//                .replace(R.id.fragment_container, AvaliationFragment()).commit()
+        }
+
+        btnCancelar.setOnClickListener {
+            btnConcluir.setOnClickListener {
+                val service = Service(id, dataHora, emailCliente, emailTrab, habilidades, "Cancelado")
+                serviceViewModel.update(service)
+            }
+
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, ServicesFragment()).commit()
+        }
+    }
+
     companion object {
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
          *
+         * @param id Service id on firebase.
          * @param nome Name of the worker.
          * @param endereco Worker address.
          * @param contato Worker contact.
@@ -76,11 +200,11 @@ class StatusServiceClient : Fragment() {
          * @param status Service status.
          * @return A new instance of fragment ServiceConfirm.
          */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance(nome: String, endereco: String, contato: String, somaAvaliacoes: Double,
-                        numServicosFeitos: Long, dataHora: Timestamp, emailCliente: String,
-                        emailTrab: String, habilidades: List<Map<String?, Any?>>, status: String?) =
+        fun newInstance(id: String, nome: String, endereco: String, contato: String,
+                        somaAvaliacoes: Double, numServicosFeitos: Long, dataHora: Timestamp,
+                        emailCliente: String, emailTrab: String,
+                        habilidades: List<Map<String?, Any?>>, status: String?) =
             ServiceConfirmClient().apply {
                 arguments = Bundle().apply {
                     putString(NOME, nome)
@@ -91,6 +215,9 @@ class StatusServiceClient : Fragment() {
                     putLong(DATAHORA, dataHora.seconds)
                     putString(EMAILCLIENTE, emailCliente)
                     putString(EMAILTRAB, emailTrab)
+                    val parsedValue = Gson().toJson(habilidades,
+                        object: TypeToken<List<Map<String?, Any?>>>(){}.type)
+                    putString(HABILIDADES, parsedValue)
                     putString(STATUS, status)
                 }
             }

@@ -137,7 +137,7 @@ class ServicesFragment : Fragment() {
                 override fun onItemClick(item: CardServiceInfo?) {
                     parentFragmentManager.beginTransaction()
                         .replace(R.id.fragment_container,
-                            StatusServiceClient.newInstance(item!!.nome!!, item.endereco!!,
+                            StatusServiceClient.newInstance(item!!.id!!, item.nome!!, item.endereco!!,
                                 item.contato!!, item.somaAvaliacoes!!, item.numServicosFeitos!!,
                                 item.dataHora!!, item.emailCliente!!, item.emailTrab!!,
                                 item.habilidades!!, item.status!!)).commit()
@@ -198,8 +198,9 @@ class ServicesFragment : Fragment() {
                 }.get(0)
             }
             val data = CardServiceInfo(
-                user.nome, user.endereco, user.contato, user.somaAvaliacoes, user.numServicosFeitos,
-                it.dataHora, it.emailCliente, it.emailTrab, it.habilidades, it.status)
+                it.id, user.nome, user.endereco, user.contato, user.somaAvaliacoes,
+                user.numServicosFeitos, it.dataHora, it.emailCliente, it.emailTrab, it.habilidades,
+                it.status)
             listCardServiceInfo.add(data)
         }
 
