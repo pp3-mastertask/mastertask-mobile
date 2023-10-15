@@ -1,5 +1,6 @@
 package com.example.mastertask
 
+import ServicePriceAdapter
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -60,6 +61,7 @@ class StatusServiceClient : Fragment() {
     private lateinit var btnConcluir : Button
 
     private lateinit var rvServicosSolicitados : RecyclerView
+    private lateinit var rvPrecosServicos : RecyclerView
 
     val serviceViewModel : ServiceViewModel by viewModels()
 
@@ -111,6 +113,7 @@ class StatusServiceClient : Fragment() {
         btnConcluir = view.findViewById(R.id.btnConcluir) as Button
 
         rvServicosSolicitados = view.findViewById(R.id.rv_servicos_solicitados) as RecyclerView
+        rvPrecosServicos = view.findViewById(R.id.recycler_view_precos_servicos) as RecyclerView
 
         addValues()
         addEventListeners()
@@ -157,9 +160,13 @@ class StatusServiceClient : Fragment() {
         format.setCurrency(Currency.getInstance("BRL"))
         lbTotalAPagar.text = format.format(precoTotal)
 
-        val adapter = BadgeViewAdapter(habilidades)
-        rvServicosSolicitados.adapter = adapter
-        adapter.notifyDataSetChanged()
+        val adapter_habilidades = BadgeViewAdapter(habilidades)
+        rvServicosSolicitados.adapter = adapter_habilidades
+        adapter_habilidades.notifyDataSetChanged()
+
+        val adapter_prices = ServicePriceAdapter(habilidades)
+        rvPrecosServicos.adapter = adapter_prices
+        adapter_prices.notifyDataSetChanged()
     }
 
     fun addEventListeners() {

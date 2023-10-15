@@ -1,5 +1,6 @@
 package com.example.mastertask
 
+import ServicePriceAdapter
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -60,6 +61,7 @@ class StatusServiceWorker : Fragment() {
     private lateinit var btnConcluir : Button
 
     private lateinit var rvServicosSolicitados : RecyclerView
+    private lateinit var rvPrecosServicos : RecyclerView
 
     val serviceViewModel : ServiceViewModel by viewModels()
 
@@ -101,7 +103,7 @@ class StatusServiceWorker : Fragment() {
 
     fun initViews(view : View) {
         lbNomeCliente = view.findViewById(R.id.lb_nome_cliente) as TextView
-        lbEnderecoCliente = view.findViewById(R.id.lb_endereco_cliente) as TextView
+        lbEnderecoCliente = view.findViewById(R.id.lb_endereco_completo_cliente) as TextView
         lbAvaliacaoCliente = view.findViewById(R.id.lb_avaliacao_cliente) as TextView
         lbTotalAReceber = view.findViewById(R.id.lb_total_a_receber) as TextView
         lbDataPrevista = view.findViewById(R.id.lb_data_prevista) as TextView
@@ -111,6 +113,7 @@ class StatusServiceWorker : Fragment() {
         btnConcluir = view.findViewById(R.id.btnConcluir) as Button
 
         rvServicosSolicitados = view.findViewById(R.id.rv_servicos_solicitados) as RecyclerView
+        rvPrecosServicos = view.findViewById(R.id.recycler_view_precos_servicos) as RecyclerView
 
         addValues()
         addEventListeners()
@@ -157,9 +160,13 @@ class StatusServiceWorker : Fragment() {
         format.setCurrency(Currency.getInstance("BRL"))
         lbTotalAReceber.text = format.format(precoTotal)
 
-        val adapter = BadgeViewAdapter(habilidades)
-        rvServicosSolicitados.adapter = adapter
-        adapter.notifyDataSetChanged()
+        val adapter_servicos = BadgeViewAdapter(habilidades)
+        rvServicosSolicitados.adapter = adapter_servicos
+        adapter_servicos.notifyDataSetChanged()
+
+        val adapter_prices = ServicePriceAdapter(habilidades)
+        rvPrecosServicos.adapter = adapter_prices
+        adapter_prices.notifyDataSetChanged()
     }
 
     fun addEventListeners() {
