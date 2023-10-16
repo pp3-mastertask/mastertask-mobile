@@ -5,6 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.mastertask.Data.Service
+import com.example.mastertask.Data.User
+import com.example.mastertask.Models.ServiceViewModel
+import com.example.mastertask.Models.UserViewModel
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -21,6 +25,12 @@ class WorkerEvaluation : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    val userViewModel : UserViewModel by viewModels()
+    val serviceViewModel : ServiceViewModel by viewModels()
+
+    var usersArrayList : ArrayList<User> = ArrayList()
+    var serviceArrayList : ArrayList<Service> = ArrayList()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -36,6 +46,20 @@ class WorkerEvaluation : Fragment() {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_worker_evaluation, container, false)
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        this.initModels()
+        this.initViews()
+    }
+
+    fun initViews() {
+        serviceViewModel.getList()
+        userViewModel.getList()
+    }
+
+    fun initModels() {}
 
     companion object {
         /**
