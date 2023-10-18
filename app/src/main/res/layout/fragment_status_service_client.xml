@@ -28,7 +28,6 @@
         app:srcCompat="@drawable/radiussquare" />
 
     <TextView
-
         android:id="@+id/lb_endereco_prestador"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
