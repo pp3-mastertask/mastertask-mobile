@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -11,7 +12,8 @@
         android:layout_marginStart="96dp"
         android:layout_marginTop="84dp"
         android:text="Status do serviço"
-        android:textSize="30dp"
+        android:textColor="@color/text_primary"
+        android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -26,7 +28,7 @@
         app:srcCompat="@drawable/radiussquare" />
 
     <TextView
-
+        android:id="@+id/lb_endereco_prestador"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="72dp"
@@ -45,6 +47,7 @@
         android:layout_marginStart="68dp"
         android:layout_marginTop="144dp"
         android:text="Prestador"
+        android:textColor="@color/text_primary"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -61,19 +64,20 @@
         app:srcCompat="@drawable/profilepic" />
 
     <TextView
-
+        android:id="@+id/lb_nome_prestador"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="52dp"
         android:layout_marginTop="248dp"
         android:text="Charles Leclerc"
+        android:textColor="@color/text_primary"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-
+        android:id="@+id/lb_avaliacao_prestador"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="88dp"
@@ -89,8 +93,8 @@
         android:id="@+id/imageView2"
         android:layout_width="227dp"
         android:layout_height="242dp"
-        android:layout_marginStart="180dp"
-        android:layout_marginTop="108dp"
+        android:layout_marginStart="184dp"
+        android:layout_marginTop="112dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/radiussquare" />
@@ -100,110 +104,33 @@
         android:layout_width="290dp"
         android:layout_height="277dp"
         android:layout_marginTop="312dp"
-        android:layout_marginEnd="152dp"
+        android:layout_marginEnd="188dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/radiussquare" />
 
     <TextView
-
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="72dp"
-        android:layout_marginTop="484dp"
-        android:text="Serviço03"
-        android:textColor="#72000000"
-        android:textSize="16dp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="72dp"
-        android:layout_marginTop="392dp"
-        android:text="Serviço01"
-        android:textColor="#72000000"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="84dp"
-        android:layout_marginTop="412dp"
-        android:text="R$40,50"
-        android:textColor="#B4000000"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="72dp"
-        android:layout_marginTop="440dp"
-        android:text="Serviço02"
-        android:textColor="#72000000"
-        android:textSize="16dp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView14"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="84dp"
-        android:layout_marginTop="460dp"
-        android:text="R$67,33"
-        android:textColor="#B4000000"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView16"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="84dp"
-        android:layout_marginTop="504dp"
-        android:text="R$67,33"
-        android:textColor="#B4000000"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-
+        android:id="@+id/textView9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="56dp"
         android:layout_marginTop="348dp"
         android:text="Nota Fiscal"
-        android:textSize="20dp"
+        android:textColor="@color/text_primary"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="56dp"
         android:layout_marginTop="348dp"
         android:text="Nota Fiscal"
-        android:textSize="20dp"
+        android:textColor="@color/text_primary"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -212,8 +139,8 @@
         android:id="@+id/imageView9"
         android:layout_width="301dp"
         android:layout_height="132dp"
-        android:layout_marginStart="156dp"
-        android:layout_marginTop="312dp"
+        android:layout_marginStart="144dp"
+        android:layout_marginTop="320dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/radiussquare2" />
@@ -225,20 +152,21 @@
         android:layout_marginStart="248dp"
         android:layout_marginTop="340dp"
         android:text="Data prevista"
-        android:textSize="19dp"
+        android:textColor="@color/text_primary"
+        android:textSize="19sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-
+        android:id="@+id/lb_data_prevista"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="256dp"
         android:layout_marginTop="364dp"
         android:text="24/09/2023"
         android:textColor="#30A398"
-        android:textSize="18dp"
+        android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -247,18 +175,18 @@
         android:id="@+id/imageView10"
         android:layout_width="301dp"
         android:layout_height="132dp"
-        android:layout_marginStart="156dp"
-        android:layout_marginTop="428dp"
+        android:layout_marginStart="132dp"
+        android:layout_marginTop="440dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/radiussquare2" />
 
     <ImageView
         android:id="@+id/imageView11"
-        android:layout_width="233dp"
-        android:layout_height="216dp"
-        android:layout_marginStart="268dp"
-        android:layout_marginBottom="616dp"
+        android:layout_width="230dp"
+        android:layout_height="230dp"
+        android:layout_marginStart="264dp"
+        android:layout_marginBottom="632dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/bigball" />
@@ -266,35 +194,37 @@
     <ImageView
         android:id="@+id/imageView12"
         android:layout_width="75dp"
-        android:layout_height="68dp"
-        android:layout_marginStart="168dp"
-        android:layout_marginTop="16dp"
+        android:layout_height="75dp"
+        android:layout_marginStart="192dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/smallball" />
 
     <Button
-        android:id="@+id/btnEditarPerfil"
-        android:layout_width="130dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="240dp"
-        android:layout_marginTop="672dp"
-        android:backgroundTint="#30A499"
+        android:id="@+id/btnConcluir"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="220dp"
+        android:layout_marginTop="676dp"
+        android:backgroundTint="@color/green_light"
         android:text="Concluir"
-        android:textSize="12dp"
+        android:textSize="12sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:cornerRadius="25dp" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:layout_width="130dp"
-        android:layout_height="35dp"
-        android:layout_marginStart="84dp"
-        android:layout_marginTop="672dp"
+        android:id="@+id/btnCancelar"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="680dp"
         android:background="@drawable/background_button"
         android:text="Cancelar"
         android:textColor="@color/red_dark"
-        android:textSize="11dp"
+        android:textSize="12sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -304,34 +234,36 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="220dp"
-        android:layout_marginTop="144dp"
-        android:text="Serviço solicitado"
+        android:layout_marginTop="148dp"
+        android:text="Serviços solicitados"
+        android:textColor="@color/text_primary"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-
+        android:id="@+id/lb_preco_total"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="236dp"
+        android:layout_marginStart="224dp"
         android:layout_marginTop="484dp"
         android:text="R$107,04"
         android:textColor="#30A398"
-        android:textSize="35dp"
+        android:textSize="35sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-
+        android:id="@+id/textView11"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="260dp"
+        android:layout_marginStart="248dp"
         android:layout_marginTop="452dp"
         android:text="Total a pagar"
-        android:textSize="18dp"
+        android:textColor="@color/text_primary"
+        android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -340,8 +272,9 @@
         android:id="@+id/imageView4"
         android:layout_width="417dp"
         android:layout_height="243dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="496dp"
+        android:layout_marginTop="488dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/radiussquare3" />
@@ -353,26 +286,27 @@
         android:layout_marginStart="40dp"
         android:layout_marginTop="580dp"
         android:text="Status do serviço"
-        android:textSize="16dp"
+        android:textColor="@color/text_primary"
+        android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView9"
+        android:id="@+id/lb_status_servico"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="156dp"
         android:layout_marginTop="608dp"
         android:text="Pendente"
         android:textColor="#FDC527"
-        android:textSize="16dp"
+        android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView5"
+        android:id="@+id/img_status_servico"
         android:layout_width="37dp"
         android:layout_height="39dp"
         android:layout_marginStart="228dp"
@@ -380,5 +314,34 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/loadin" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_servicos_solicitados"
+        android:layout_width="150dp"
+        android:layout_height="139dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="3dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView9"
+        app:layout_constraintEnd_toEndOf="@+id/imageView2"
+        app:layout_constraintHorizontal_bias="0.844"
+        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/textView6"
+        app:layout_constraintVertical_bias="0.0"
+        android:orientation="vertical"
+        android:scrollbars="vertical"
+        tools:listitem="@layout/service_badge"
+        android:layout_gravity="center" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_precos_servicos"
+        android:layout_width="134dp"
+        android:layout_height="148dp"
+        android:layout_marginTop="68dp"
+        android:layout_marginEnd="244dp"
+        android:orientation="vertical"
+        android:scrollbars="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageView8"
+        tools:listitem="@layout/service_price" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
