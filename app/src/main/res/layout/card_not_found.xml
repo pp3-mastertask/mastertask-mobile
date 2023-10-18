@@ -13,18 +13,19 @@
     android:background="@drawable/background_card">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="250dp"
+        android:layout_height="100dp"
         android:orientation="horizontal">
 
         <TextView
             android:id="@+id/lb_message_not_found"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/montserrat_bold"
             android:padding="5dp"
             android:text="Mensagem"
-            android:textColor="@color/black"
+            android:textColor="@color/text_secondary"
+            android:textAlignment="center"
             android:textSize="14sp"
             tools:ignore="HardcodedText" />
     </LinearLayout>
