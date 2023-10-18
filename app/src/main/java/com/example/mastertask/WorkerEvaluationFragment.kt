@@ -1,6 +1,7 @@
 package com.example.mastertask
 
 import android.os.Bundle
+import android.security.keystore.UserPresenceUnavailableException
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,7 @@ import android.widget.RatingBar
 import android.widget.TextView
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
+import com.example.mastertask.Adapters.BadgeViewAdapter
 import com.example.mastertask.Data.Avaliacao
 import com.example.mastertask.Data.Service
 import com.example.mastertask.Data.User
@@ -54,8 +56,10 @@ class WorkerEvaluationFragment : Fragment() {
     private lateinit var btnTerminarAvaliacao : Button
 
     private lateinit var rvHabilidades : RecyclerView
+    private lateinit var habilidades: List<Map<String?, Any?>>
 
     private lateinit var avaliacao: Avaliacao
+    private lateinit var usuario: User
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,6 +84,7 @@ class WorkerEvaluationFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         this.avaliacao = Avaliacao()
+        this.userViewModel.getItem(this.email!!)
 
         this.initModels()
         this.initViews(view)
@@ -117,10 +122,19 @@ class WorkerEvaluationFragment : Fragment() {
         }
 
         this.btnTerminarAvaliacao.setOnClickListener {
-            this.avaliacao.comentario = this.txtFeedback.text.toString()
-            this.avaliacao.estrelas = this.ratingBar.rating.toDouble()
+            this.avaliacao.id = this.id_avaliacao
+            if (this.txtFeedback.text.toString() != "")
+                this.avaliacao.comentario = this.txtFeedback.text.toString()
+            else
+                this.avaliacao.comentario = ""
 
-            this.avaliacaoViewModel.update(this.avaliacao)
+            val avaliacao = this.ratingBar.rating.toDouble()
+            this.avaliacao.estrelas = avaliacao
+
+            this.avaliacaoViewModel.create(this.avaliacao)
+
+            this.usuario.somaAvaliacoes!!.plus(avaliacao)
+            this.userViewModel.update(this.usuario)
         }
     }
 
@@ -129,7 +143,13 @@ class WorkerEvaluationFragment : Fragment() {
         this.lbEndereco.text = this.endereco
         this.lbAvaliacao.text = (this.somaAvaliacoes!!.div(this.numServicosFeitos!!)).toString()
 
-        // TODO: Adicionar o adapter das habilidades
+        val adapter_servicos = BadgeViewAdapter(habilidades)
+        this.rvHabilidades.adapter = adapter_servicos
+        adapter_servicos.notifyDataSetChanged()
+    }
+
+    fun setHabilidades(hab: List<Map<String?, Any?>>) {
+        this.habilidades = hab
     }
 
     fun initModels() {
@@ -139,10 +159,8 @@ class WorkerEvaluationFragment : Fragment() {
             }
         }
 
-        this.avaliacaoViewModel.updateLiveData.observe(viewLifecycleOwner) {
-            if (it) {
-                this.avaliacaoViewModel.getList()
-            }
+        this.userViewModel.getItemLiveData.observe(viewLifecycleOwner) {
+            this.usuario = it
         }
 
         this.avaliacaoViewModel.createLiveData.observe(viewLifecycleOwner) {

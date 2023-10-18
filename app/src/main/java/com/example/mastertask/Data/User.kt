@@ -16,7 +16,7 @@ data class User (
     var habilidades: List<Map<String?, Any?>>? = null,
     var nome: String? = null,
     var numServicosFeitos: Long? = null,
-    var somaAvaliacoes: Long? = null,
+    var somaAvaliacoes: Double? = null,
 ) {
     @Exclude
     fun toMap(): Map<String, Any?> {
