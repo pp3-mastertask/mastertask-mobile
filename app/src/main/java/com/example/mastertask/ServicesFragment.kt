@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mastertask.Adapters.CardViewAdapterServices
+import com.example.mastertask.Adapters.NotFoundAdapter
 import com.example.mastertask.Data.CardServiceInfo
 import com.example.mastertask.Data.Service
 import com.example.mastertask.Data.User
@@ -145,6 +146,11 @@ class ServicesFragment : Fragment() {
             recycler_view_servicos_solicitados_por_voce.adapter = adapter
             adapter.notifyDataSetChanged()
         }
+        else {
+            val adapter = NotFoundAdapter("Você não solicitou nenhum serviço até o momento.")
+            recycler_view_servicos_solicitados_por_voce.adapter = adapter
+            adapter.notifyDataSetChanged()
+        }
 
         lista = serviceArrayList.filter { it.emailTrab == seuEmail && it.status == "Aceito" }
             .sortedByDescending { it.dataHora }
@@ -164,6 +170,11 @@ class ServicesFragment : Fragment() {
             recycler_view_servicos_a_serem_feitos_por_voce.adapter = adapter
             adapter.notifyDataSetChanged()
         }
+        else {
+            val adapter = NotFoundAdapter("Você não tem que prestar nenhum serviço no momento.")
+            recycler_view_servicos_a_serem_feitos_por_voce.adapter = adapter
+            adapter.notifyDataSetChanged()
+        }
 
         lista = serviceArrayList.filter { it.emailTrab == seuEmail && it.status == "Pendente" }
         if (!lista.isEmpty()) {
@@ -179,6 +190,11 @@ class ServicesFragment : Fragment() {
                         .replace(R.id.fragment_container, y).commit()
                 }
             })
+            recycler_view_novas_solicitacoes.adapter = adapter
+            adapter.notifyDataSetChanged()
+        }
+        else {
+            val adapter = NotFoundAdapter("Você não possui novas solicitações de serviços.")
             recycler_view_novas_solicitacoes.adapter = adapter
             adapter.notifyDataSetChanged()
         }
