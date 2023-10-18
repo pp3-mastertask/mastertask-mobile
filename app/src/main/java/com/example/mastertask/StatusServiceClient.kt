@@ -18,7 +18,8 @@ import com.google.firebase.Timestamp
 import com.google.gson.Gson
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
-import java.util.Currency
+import java.util.*
+import kotlin.collections.ArrayList
 
 private const val ID = ""
 private const val NOME = ""
@@ -75,7 +76,7 @@ class StatusServiceClient : Fragment() {
             contato = it.getString(CONTATO)
             somaAvaliacoes = it.getDouble(SOMAAVALIACOES)
             numServicosFeitos = it.getLong(NUMSERVICOESFEITOS)
-            dataHora = Timestamp(it.getLong(DATAHORA), 0)
+            dataHora = Timestamp(Date(it.getLong(DATAHORA)))
             emailCliente = it.getString(EMAILCLIENTE)
             emailTrab = it.getString(EMAILTRAB)
             status = it.getString(STATUS)
@@ -147,7 +148,10 @@ class StatusServiceClient : Fragment() {
     fun addValues() {
         lbNomePrestador.text = nome
         lbEnderecoPrestador.text = endereco
-        lbAvaliacaoPrestador.text = (somaAvaliacoes!!.div(numServicosFeitos!!)).toString()
+        if ((somaAvaliacoes!!.div(numServicosFeitos!!)).isNaN())
+            lbAvaliacaoPrestador.text = 0.0.toString()
+        else
+            lbAvaliacaoPrestador.text = (somaAvaliacoes!!.div(numServicosFeitos!!)).toString()
         lbDataPrevista.text = SimpleDateFormat("dd/MM/yyyy").format(dataHora!!.toDate())
         lbStatusServico.text = status
 
@@ -214,7 +218,7 @@ class StatusServiceClient : Fragment() {
          * @param emailTrab Worker email.
          * @param habilidades Skills selected for the service.
          * @param status Service status.
-         * @return A new instance of fragment ServiceConfirm.
+         * @return A new instance of fragment StatusServiceClient.
          */
         @JvmStatic
         fun newInstance(id: String, nome: String, endereco: String, contato: String,
@@ -228,7 +232,7 @@ class StatusServiceClient : Fragment() {
                     putString(CONTATO, contato)
                     putDouble(SOMAAVALIACOES, somaAvaliacoes)
                     putLong(NUMSERVICOESFEITOS, numServicosFeitos)
-                    putLong(DATAHORA, dataHora.seconds)
+                    putLong(DATAHORA, dataHora.toDate().time)
                     putString(EMAILCLIENTE, emailCliente)
                     putString(EMAILTRAB, emailTrab)
                     putString(STATUS, status)
