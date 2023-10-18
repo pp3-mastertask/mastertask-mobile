@@ -8,7 +8,8 @@ data class Avaliacao(
     var id: String? = null,
     var comentario: String? = null,
     var estrelas: Double? = null,
-    var servico: String? = null
+    var servico: String? = null,
+    var terminado: Boolean? = null
 ) {
     @Exclude
     fun toMap(): Map<String, Any?> {
@@ -16,7 +17,8 @@ data class Avaliacao(
             "id" to id,
             "comentario" to comentario,
             "estrelas" to estrelas,
-            "servico" to servico
+            "servico" to servico,
+            "terminado" to terminado
         )
     }
 }

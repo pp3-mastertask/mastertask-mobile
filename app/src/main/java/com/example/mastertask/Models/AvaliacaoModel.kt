@@ -5,7 +5,6 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.mastertask.Data.Avaliacao
-import com.example.mastertask.Data.Service
 import com.example.mastertask.Data.Status
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.ktx.firestore
@@ -36,9 +35,9 @@ class AvaliacaoViewModel: ViewModel() {
         MutableLiveData<Boolean>()
     }
 
-    fun create(service: Service) {
+    fun create(avaliacao: Avaliacao) {
         val docRef = db.collection(evaluations)
-        docRef.add(service.toMap()).addOnSuccessListener {
+        docRef.add(avaliacao.toMap()).addOnSuccessListener {
             createLiveData.postValue(true)
         }.addOnFailureListener {
             Log.d("create", it.localizedMessage!!)
@@ -46,9 +45,9 @@ class AvaliacaoViewModel: ViewModel() {
         }
     }
 
-    fun update(service: Service) {
+    fun update(avaliacao: Avaliacao) {
         val docRef = db.collection(evaluations)
-        docRef.document(service.id!!).update(service.toMap()).addOnSuccessListener {
+        docRef.document(avaliacao.id!!).update(avaliacao.toMap()).addOnSuccessListener {
             updateLiveData.postValue(true)
         }.addOnFailureListener {
             Log.d("update", it.localizedMessage!!)
