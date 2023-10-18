@@ -25,7 +25,7 @@ class ServicePriceAdapter (private val list: List<Map<String?, Any?>>?) :
         val itemView: View = LayoutInflater
             .from(parent.context)
             .inflate(
-                R.layout.service_badge,
+                R.layout.service_price,
                 parent,
                 false
             )
@@ -38,7 +38,7 @@ class ServicePriceAdapter (private val list: List<Map<String?, Any?>>?) :
         position: Int
     ) {
         holder.habilidade.text = list!![position].getValue("habilidade") as String?
-        holder.preco.text = list!![position].getValue("preco") as String?
+        holder.preco.text = (list[position].getValue("preco") as Long?).toString()
     }
 
     override fun getItemCount(): Int {

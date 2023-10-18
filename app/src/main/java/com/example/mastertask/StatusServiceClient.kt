@@ -13,24 +13,22 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.mastertask.Adapters.BadgeViewAdapter
 import com.example.mastertask.Data.Service
 import com.example.mastertask.Models.ServiceViewModel
-import com.google.common.reflect.TypeToken
 import com.google.firebase.Timestamp
-import com.google.gson.Gson
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
-private const val ID = ""
-private const val NOME = ""
-private const val ENDERECO = ""
-private const val CONTATO = ""
-private const val SOMAAVALIACOES = ""
-private const val NUMSERVICOESFEITOS = ""
-private const val DATAHORA = ""
-private const val EMAILCLIENTE = ""
-private const val EMAILTRAB = ""
-private const val STATUS = ""
+private const val ID = "id"
+private const val NOME = "nome"
+private const val ENDERECO = "endereco"
+private const val CONTATO = "contato"
+private const val SOMAAVALIACOES = "somaAvaliacoes"
+private const val NUMSERVICOESFEITOS = "numServicosFeitos"
+private const val DATAHORA = "dataHora"
+private const val EMAILCLIENTE = "emailCliente"
+private const val EMAILTRAB = "emailTrab"
+private const val STATUS = "status"
 
 /**
  * A simple [Fragment] subclass.
@@ -169,13 +167,13 @@ class StatusServiceClient : Fragment() {
         format.setCurrency(Currency.getInstance("BRL"))
         lbTotalAPagar.text = format.format(precoTotal)
 
-        val adapter_habilidades = BadgeViewAdapter(habilidades)
-        rvServicosSolicitados.adapter = adapter_habilidades
-        adapter_habilidades.notifyDataSetChanged()
+        val adapterHabilidades = BadgeViewAdapter(habilidades)
+        rvServicosSolicitados.adapter = adapterHabilidades
+        adapterHabilidades.notifyDataSetChanged()
 
-        val adapter_prices = ServicePriceAdapter(habilidades)
-        rvPrecosServicos.adapter = adapter_prices
-        adapter_prices.notifyDataSetChanged()
+        val adapterPrices = ServicePriceAdapter(habilidades)
+        rvPrecosServicos.adapter = adapterPrices
+        adapterPrices.notifyDataSetChanged()
     }
 
     fun addEventListeners() {
@@ -191,10 +189,8 @@ class StatusServiceClient : Fragment() {
             btnCancelar.isEnabled = false
         else {
             btnCancelar.setOnClickListener {
-                btnConcluir.setOnClickListener {
-                    val service = Service(id, dataHora, emailCliente, emailTrab, habilidades, "Cancelado (cliente)")
-                    serviceViewModel.update(service)
-                }
+                val service = Service(id, dataHora, emailCliente, emailTrab, habilidades, "Cancelado (cliente)")
+                serviceViewModel.update(service)
 
                 parentFragmentManager.beginTransaction()
                     .replace(R.id.fragment_container, ServicesFragment()).commit()

@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.mastertask.Adapters.CardViewAdapterServices
 import com.example.mastertask.Data.CardServiceInfo
 import com.example.mastertask.Data.Service
-import com.example.mastertask.Data.Status
 import com.example.mastertask.Data.User
 import com.example.mastertask.Models.ServiceViewModel
 import com.example.mastertask.Models.UserViewModel
@@ -127,9 +126,9 @@ class ServicesFragment : Fragment() {
 
     fun setUpRecyclerViews() {
 
-        var lista : List<Service> = serviceArrayList.filter { it.emailCliente == seuEmail }
+        var lista : List<Service> = serviceArrayList.filter { it.emailCliente == seuEmail &&
+            it.status != "Finalizado (cliente)" && it.status != "Cancelado (cliente)"}
             .sortedByDescending { it.dataHora }
-        lista.take(10)
         if (!lista.isEmpty()) {
             val x = setUpRecyclerView(recycler_view_servicos_solicitados_por_voce, lista)
             val adapter = CardViewAdapterServices(x, object :
@@ -147,9 +146,8 @@ class ServicesFragment : Fragment() {
             adapter.notifyDataSetChanged()
         }
 
-        lista = serviceArrayList.filter { it.emailTrab == seuEmail && it.status == Status.Aceito.toString() }
+        lista = serviceArrayList.filter { it.emailTrab == seuEmail && it.status == "Aceito" }
             .sortedByDescending { it.dataHora }
-        lista.take(10)
         if (!lista.isEmpty()) {
             val x = setUpRecyclerView(recycler_view_servicos_a_serem_feitos_por_voce, lista)
             val adapter = CardViewAdapterServices(x, object :
@@ -167,8 +165,7 @@ class ServicesFragment : Fragment() {
             adapter.notifyDataSetChanged()
         }
 
-        lista = serviceArrayList.filter { it.emailTrab == seuEmail && it.status == Status.Pendente.toString() }
-        lista.take(10)
+        lista = serviceArrayList.filter { it.emailTrab == seuEmail && it.status == "Pendente" }
         if (!lista.isEmpty()) {
             val x = setUpRecyclerView(recycler_view_novas_solicitacoes, lista)
             val adapter = CardViewAdapterServices(x, object :

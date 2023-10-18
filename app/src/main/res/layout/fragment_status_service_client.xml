@@ -330,6 +330,7 @@
         android:orientation="vertical"
         android:scrollbars="vertical"
         tools:listitem="@layout/service_badge"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:layout_gravity="center" />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -340,6 +341,7 @@
         android:layout_marginEnd="244dp"
         android:orientation="vertical"
         android:scrollbars="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/imageView8"
         tools:listitem="@layout/service_price" />

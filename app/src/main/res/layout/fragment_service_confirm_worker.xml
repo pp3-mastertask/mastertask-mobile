@@ -187,10 +187,11 @@
                 android:layout_marginEnd="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.72" />
+                app:layout_constraintVertical_bias="0.72"
+                tools:listitem="@layout/service_badge"/>
 
             <Button
-                android:id="@+id/btnConcluir"
+                android:id="@+id/btnAlterarServico"
                 android:layout_width="112dp"
                 android:layout_height="36dp"
                 android:layout_marginStart="36dp"
@@ -223,7 +224,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Button
-                android:id="@+id/btnConcluir"
+                android:id="@+id/btnAlterarData"
                 android:layout_width="97dp"
                 android:layout_height="31dp"
                 android:layout_marginStart="44dp"
@@ -284,13 +285,13 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/btnConcluir"
+        android:id="@+id/btnAceitar"
         android:layout_width="136dp"
         android:layout_height="42dp"
         android:layout_marginStart="219dp"
         android:layout_marginTop="640dp"
         android:backgroundTint="#30A499"
-        android:text="Concluir"
+        android:text="Aceitar"
         android:textSize="12dp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
