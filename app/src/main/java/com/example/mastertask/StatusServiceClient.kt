@@ -29,7 +29,6 @@ private const val NUMSERVICOESFEITOS = ""
 private const val DATAHORA = ""
 private const val EMAILCLIENTE = ""
 private const val EMAILTRAB = ""
-private const val HABILIDADES = ""
 private const val STATUS = ""
 
 /**
@@ -79,11 +78,12 @@ class StatusServiceClient : Fragment() {
             dataHora = Timestamp(it.getLong(DATAHORA), 0)
             emailCliente = it.getString(EMAILCLIENTE)
             emailTrab = it.getString(EMAILTRAB)
-            val parsedValue = it.getString(HABILIDADES)
-            habilidades = Gson().fromJson(parsedValue!!,
-                object: TypeToken<List<Map<String?, Any?>>>(){}.type)
             status = it.getString(STATUS)
         }
+    }
+
+    fun setHabilidades(hab: List<Map<String?, Any?>>) {
+        habilidades = hab
     }
 
     override fun onCreateView(
@@ -153,7 +153,12 @@ class StatusServiceClient : Fragment() {
 
         var precoTotal = 0.0
         habilidades!!.forEach {
-            precoTotal += it["preco"] as Double
+            try {
+                precoTotal += (it["preco"] as Long).toDouble()
+            }
+            catch (e: Error) {
+                precoTotal += it["preco"] as Double
+            }
         }
         val format: NumberFormat = NumberFormat.getCurrencyInstance()
         format.setMaximumFractionDigits(0)
@@ -214,9 +219,8 @@ class StatusServiceClient : Fragment() {
         @JvmStatic
         fun newInstance(id: String, nome: String, endereco: String, contato: String,
                         somaAvaliacoes: Double, numServicosFeitos: Long, dataHora: Timestamp,
-                        emailCliente: String, emailTrab: String,
-                        habilidades: List<Map<String?, Any?>>, status: String?) =
-            ServiceConfirmClient().apply {
+                        emailCliente: String, emailTrab: String, status: String?) =
+            StatusServiceClient().apply {
                 arguments = Bundle().apply {
                     putString(ID, id)
                     putString(NOME, nome)
@@ -227,9 +231,6 @@ class StatusServiceClient : Fragment() {
                     putLong(DATAHORA, dataHora.seconds)
                     putString(EMAILCLIENTE, emailCliente)
                     putString(EMAILTRAB, emailTrab)
-                    val parsedValue = Gson().toJson(habilidades,
-                        object: TypeToken<List<Map<String?, Any?>>>(){}.type)
-                    putString(HABILIDADES, parsedValue)
                     putString(STATUS, status)
                 }
             }

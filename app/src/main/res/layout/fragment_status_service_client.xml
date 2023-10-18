@@ -12,7 +12,8 @@
         android:layout_marginStart="96dp"
         android:layout_marginTop="84dp"
         android:text="Status do serviço"
-        android:textSize="30dp"
+        android:textColor="@color/text_primary"
+        android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -47,6 +48,7 @@
         android:layout_marginStart="68dp"
         android:layout_marginTop="144dp"
         android:text="Prestador"
+        android:textColor="@color/text_primary"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -63,20 +65,19 @@
         app:srcCompat="@drawable/profilepic" />
 
     <TextView
-
         android:id="@+id/lb_nome_prestador"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="52dp"
         android:layout_marginTop="248dp"
         android:text="Charles Leclerc"
+        android:textColor="@color/text_primary"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-
         android:id="@+id/lb_avaliacao_prestador"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -110,27 +111,27 @@
         app:srcCompat="@drawable/radiussquare" />
 
     <TextView
-
         android:id="@+id/textView9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="56dp"
         android:layout_marginTop="348dp"
         android:text="Nota Fiscal"
-        android:textSize="20dp"
+        android:textColor="@color/text_primary"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="56dp"
         android:layout_marginTop="348dp"
         android:text="Nota Fiscal"
-        android:textSize="20dp"
+        android:textColor="@color/text_primary"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -152,13 +153,13 @@
         android:layout_marginStart="248dp"
         android:layout_marginTop="340dp"
         android:text="Data prevista"
-        android:textSize="19dp"
+        android:textColor="@color/text_primary"
+        android:textSize="19sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-
         android:id="@+id/lb_data_prevista"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -166,7 +167,7 @@
         android:layout_marginTop="364dp"
         android:text="24/09/2023"
         android:textColor="#30A398"
-        android:textSize="18dp"
+        android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -236,13 +237,13 @@
         android:layout_marginStart="220dp"
         android:layout_marginTop="148dp"
         android:text="Serviços solicitados"
+        android:textColor="@color/text_primary"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-
         android:id="@+id/lb_preco_total"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -250,20 +251,20 @@
         android:layout_marginTop="484dp"
         android:text="R$107,04"
         android:textColor="#30A398"
-        android:textSize="35dp"
+        android:textSize="35sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-
         android:id="@+id/textView11"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="248dp"
         android:layout_marginTop="452dp"
         android:text="Total a pagar"
-        android:textSize="18dp"
+        android:textColor="@color/text_primary"
+        android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -286,7 +287,8 @@
         android:layout_marginStart="40dp"
         android:layout_marginTop="580dp"
         android:text="Status do serviço"
-        android:textSize="16dp"
+        android:textColor="@color/text_primary"
+        android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -299,7 +301,7 @@
         android:layout_marginTop="608dp"
         android:text="Pendente"
         android:textColor="#FDC527"
-        android:textSize="16dp"
+        android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

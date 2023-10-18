@@ -15,7 +15,6 @@ import com.example.mastertask.Data.Service
 import com.example.mastertask.Models.ServiceViewModel
 import com.google.common.reflect.TypeToken
 import com.google.firebase.Timestamp
-import com.google.gson.Gson
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.Currency
@@ -29,7 +28,6 @@ private const val NUMSERVICOESFEITOS = ""
 private const val DATAHORA = ""
 private const val EMAILCLIENTE = ""
 private const val EMAILTRAB = ""
-private const val HABILIDADES = ""
 private const val STATUS = ""
 
 /**
@@ -47,7 +45,7 @@ class StatusServiceWorker : Fragment() {
     private var dataHora: Timestamp? = null
     private var emailCliente: String? = null
     private var emailTrab: String? = null
-    private var habilidades: List<Map<String?, Any?>>? = null
+    private var habilidades: List<Map<String?, Any?>>? = ArrayList()
     private var status: String? = null
 
     private lateinit var lbNomeCliente : TextView
@@ -79,11 +77,12 @@ class StatusServiceWorker : Fragment() {
             dataHora = Timestamp(it.getLong(DATAHORA), 0)
             emailCliente = it.getString(EMAILCLIENTE)
             emailTrab = it.getString(EMAILTRAB)
-            val parsedValue = it.getString(HABILIDADES)
-            habilidades = Gson().fromJson(parsedValue!!,
-                object: TypeToken<List<Map<String?, Any?>>>(){}.type)
             status = it.getString(STATUS)
         }
+    }
+
+    fun setHabilidades(hab: List<Map<String?, Any?>>) {
+        habilidades = hab
     }
 
     override fun onCreateView(
@@ -225,9 +224,8 @@ class StatusServiceWorker : Fragment() {
         @JvmStatic
         fun newInstance(id: String, nome: String, endereco: String, contato: String,
                         somaAvaliacoes: Double, numServicosFeitos: Long, dataHora: Timestamp,
-                        emailCliente: String, emailTrab: String,
-                        habilidades: List<Map<String?, Any?>>, status: String?) =
-            ServiceConfirmClient().apply {
+                        emailCliente: String, emailTrab: String, status: String?) =
+            StatusServiceWorker().apply {
                 arguments = Bundle().apply {
                     putString(ID, id)
                     putString(NOME, nome)
@@ -238,9 +236,6 @@ class StatusServiceWorker : Fragment() {
                     putLong(DATAHORA, dataHora.seconds)
                     putString(EMAILCLIENTE, emailCliente)
                     putString(EMAILTRAB, emailTrab)
-                    val parsedValue = Gson().toJson(habilidades,
-                        object: TypeToken<List<Map<String?, Any?>>>(){}.type)
-                    putString(HABILIDADES, parsedValue)
                     putString(STATUS, status)
                 }
             }

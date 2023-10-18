@@ -27,8 +27,7 @@
         app:srcCompat="@drawable/radiussquare" />
 
     <TextView
-
-        android:id="@+id/lb_endereco_completo_cliente"
+        android:id="@+id/lb_endereco_cliente"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="72dp"
@@ -76,7 +75,6 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-
         android:id="@+id/lb_avaliacao_cliente"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -110,13 +108,13 @@
         app:srcCompat="@drawable/radiussquare" />
 
     <TextView
-
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="56dp"
         android:layout_marginTop="348dp"
         android:text="Nota Fiscal"
-        android:textSize="20dp"
+        android:textColor="@color/text_primary"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -129,7 +127,8 @@
         android:layout_marginStart="56dp"
         android:layout_marginTop="348dp"
         android:text="Nota Fiscal"
-        android:textSize="20dp"
+        android:textColor="@color/text_primary"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -150,6 +149,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="248dp"
         android:layout_marginTop="340dp"
+        android:textColor="@color/text_primary"
         android:text="Data prevista"
         android:textSize="19dp"
         android:textStyle="bold"
@@ -157,7 +157,6 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-
         android:id="@+id/lb_data_prevista"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -235,13 +234,13 @@
         android:layout_marginStart="228dp"
         android:layout_marginTop="136dp"
         android:text="Serviços solicitados"
+        android:textColor="@color/text_primary"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-
         android:id="@+id/lb_total_a_receber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -249,19 +248,19 @@
         android:layout_marginTop="484dp"
         android:text="R$107,04"
         android:textColor="#30A398"
-        android:textSize="35dp"
+        android:textSize="35sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="256dp"
         android:layout_marginTop="452dp"
         android:text="Total a receber"
-        android:textSize="18dp"
+        android:textColor="@color/text_primary"
+        android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -273,7 +272,8 @@
         android:layout_marginStart="40dp"
         android:layout_marginTop="580dp"
         android:text="Endereço"
-        android:textSize="16dp"
+        android:textColor="@color/text_primary"
+        android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -294,7 +294,8 @@
         android:layout_marginStart="40dp"
         android:layout_marginTop="580dp"
         android:text="Endereço"
-        android:textSize="18dp"
+        android:textColor="@color/text_primary"
+        android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
