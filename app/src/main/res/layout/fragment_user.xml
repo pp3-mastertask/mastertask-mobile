@@ -17,7 +17,7 @@
         android:text="Larissa Manoela"
         android:layout_marginTop="416dp"
         android:layout_marginStart="16dp"
-        android:id="@+id/tvUsername"/>
+        android:id="@+id/lbUsername"/>
 
     <TextView android:layout_height="wrap_content"
         android:layout_width="wrap_content"
@@ -28,7 +28,7 @@
         android:text="23"
         android:layout_marginTop="496dp"
         android:layout_marginStart="148dp"
-        android:id="@+id/tvAge"/>
+        android:id="@+id/lbAge"/>
 
     <TextView
         android:layout_height="wrap_content"
@@ -40,7 +40,7 @@
         android:text="Rua Culto a Ciencia, 177"
         android:layout_marginTop="524dp"
         android:layout_marginStart="148dp"
-        android:id="@+id/tvAddress"/>
+        android:id="@+id/lbAddress"/>
 
     <TextView
         android:layout_height="wrap_content"
@@ -116,12 +116,12 @@
         android:text="Larissa Manoela Taques Elias"
         android:layout_marginTop="468dp"
         android:layout_marginStart="148dp"
-        android:id="@+id/tvFullName"/>
+        android:id="@+id/lbFullName"/>
 
     <ImageView
         android:layout_height="417dp"
         android:layout_width="411dp"
-        android:id="@+id/imageView3"
+        android:id="@+id/imgPhoto"
         tools:layout_editor_absoluteY="-9dp"
         tools:layout_editor_absoluteX="0dp"
         app:srcCompat="@drawable/larissamanoela"
