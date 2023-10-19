@@ -28,7 +28,7 @@
         app:srcCompat="@drawable/radiussquare" />
 
     <TextView
-        android:id="@+id/lb_endereco_prestador"
+        android:id="@+id/lb_endereco_cliente"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="72dp"
@@ -64,7 +64,7 @@
         app:srcCompat="@drawable/profilepic" />
 
     <TextView
-        android:id="@+id/lb_nome_prestador"
+        android:id="@+id/lb_nome_cliente"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="52dp"
@@ -77,7 +77,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/lb_avaliacao_prestador"
+        android:id="@+id/lb_avaliacao_cliente"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="88dp"

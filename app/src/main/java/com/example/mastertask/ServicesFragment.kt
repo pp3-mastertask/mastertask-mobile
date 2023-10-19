@@ -182,8 +182,10 @@ class ServicesFragment : Fragment() {
             val adapter = CardViewAdapterServices(x, object :
                 CardViewAdapterServices.OnItemClickListener {
                 override fun onItemClick(item: CardServiceInfo?) {
-                    // TODO: code serviceconfirmworker and change parameters
-                    val y = ServiceConfirmWorker.newInstance("a", "b")
+                    val y = ServiceConfirmWorker.newInstance(item!!.id!!, item.nome!!, item.endereco!!,
+                        item.contato!!, item.somaAvaliacoes!!, item.numServicosFeitos!!,
+                        item.dataHora!!, item.emailCliente!!, item.emailTrab!!, item.status!!)
+                    y.setHabilidades(item.habilidades!!)
                     parentFragmentManager.beginTransaction()
                         .replace(R.id.fragment_container, y).commit()
                 }
