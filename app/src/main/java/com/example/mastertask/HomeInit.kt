@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mastertask.Adapters.CardViewAdapter
+import com.example.mastertask.Adapters.NotFoundAdapter
 import com.example.mastertask.Data.Service
 import com.example.mastertask.Data.User
 import com.example.mastertask.Models.ServiceViewModel
@@ -90,13 +91,19 @@ class HomeInit : Fragment() {
         var lista : List<User> =
             usersArrayList.filter { it.habilidades!!.isNotEmpty() && it.id != seuEmail }
                 .sortedByDescending { it.somaAvaliacoes!!/it.numServicosFeitos!! }
-        lista.take(10)
-        setUpRecyclerView(recycler_view_recomendacoes, lista)
+        lista.take(25)
+        if (lista.isNotEmpty())
+            setUpRecyclerView(recycler_view_recomendacoes, lista)
+        else
+            setUpNotFound(recycler_view_recomendacoes, "Não há recomendações para você no momento.")
 
         lista = usersArrayList.filter { it.habilidades!!.isNotEmpty() && it.id != seuEmail }
             .sortedByDescending { it.dataInicio }
-        lista.take(10)
-        setUpRecyclerView(recycler_view_novos, lista)
+        lista.take(25)
+        if (lista.isNotEmpty())
+            setUpRecyclerView(recycler_view_novos, lista)
+        else
+            setUpNotFound(recycler_view_novos, "Não há usuários novos para você no momento.")
 
         val listaEmailsTrabalhadoresServicosSolicitados = ArrayList<String>()
         servicesArrayList.forEach {
@@ -106,12 +113,21 @@ class HomeInit : Fragment() {
 
         lista = usersArrayList.filter { it.id in listaEmailsTrabalhadoresServicosSolicitados }
             .sortedByDescending { it.dataInicio }
-        lista.take(10)
-        setUpRecyclerView(recycler_view_jacontratados, lista)
+        lista.take(25)
+        if (lista.isNotEmpty())
+            setUpRecyclerView(recycler_view_jacontratados, lista)
+        else
+            setUpNotFound(recycler_view_jacontratados, "Você ainda não solicitou nenhum serviço.")
     }
 
     fun setUpRecyclerView(recyclerView: RecyclerView, lista: List<User>) {
         val adapter = CardViewAdapter(lista)
+        recyclerView.adapter = adapter
+        adapter.notifyDataSetChanged()
+    }
+
+    fun setUpNotFound(recyclerView: RecyclerView, mensagem: String) {
+        val adapter = NotFoundAdapter(mensagem)
         recyclerView.adapter = adapter
         adapter.notifyDataSetChanged()
     }

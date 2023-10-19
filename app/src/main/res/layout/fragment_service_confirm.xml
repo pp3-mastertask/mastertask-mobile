@@ -374,22 +374,27 @@
         android:id="@+id/imageView"
         android:layout_width="17dp"
         android:layout_height="15dp"
-        android:src="@drawable/pinIcon"
-        tools:layout_editor_absoluteX="59dp"
-        tools:layout_editor_absoluteY="313dp" />
+        android:layout_marginTop="12dp"
+        android:src="@drawable/pin_icon"
+        app:layout_constraintEnd_toStartOf="@+id/textView4"
+        app:layout_constraintHorizontal_bias="0.932"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <ImageView
         android:id="@+id/imageView4"
         android:layout_width="17dp"
         android:layout_height="14dp"
-        android:src="@drawable/starIcon"
+        android:src="@drawable/star_icon"
         tools:layout_editor_absoluteX="67dp"
         tools:layout_editor_absoluteY="334dp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="137dp"
         android:layout_height="92dp"
-        tools:layout_editor_absoluteX="241dp"
-        tools:layout_editor_absoluteY="209dp" />
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnEditarPerfil"
+        app:layout_constraintEnd_toEndOf="@+id/imageView2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mastertask.Adapters.CardViewAdapter
+import com.example.mastertask.Adapters.NotFoundAdapter
 import com.example.mastertask.Data.User
 import com.example.mastertask.Models.UserViewModel
 import com.google.firebase.firestore.ktx.firestore
@@ -118,11 +119,19 @@ class HomeSearch : Fragment() {
 
         lista.take(10)
         if (lista.isNotEmpty())
-            setUpRecyclerView(recycler_view_results, lista)
+            setUpResults(recycler_view_results, lista)
+        else
+            setUpNotFound(recycler_view_results)
     }
 
-    fun setUpRecyclerView(recyclerView: RecyclerView, lista: List<User>) {
+    fun setUpResults(recyclerView: RecyclerView, lista: List<User>) {
         val adapter = CardViewAdapter(lista)
+        recyclerView.adapter = adapter
+        adapter.notifyDataSetChanged()
+    }
+
+    fun setUpNotFound(recyclerView: RecyclerView) {
+        val adapter = NotFoundAdapter("Não há resultados para sua busca.")
         recyclerView.adapter = adapter
         adapter.notifyDataSetChanged()
     }
