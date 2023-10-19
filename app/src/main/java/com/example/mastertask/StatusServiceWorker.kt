@@ -18,17 +18,18 @@ import com.google.firebase.Timestamp
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.Currency
+import java.util.Date
 
-private const val ID = ""
-private const val NOME = ""
-private const val ENDERECO = ""
-private const val CONTATO = ""
-private const val SOMAAVALIACOES = ""
-private const val NUMSERVICOESFEITOS = ""
-private const val DATAHORA = ""
-private const val EMAILCLIENTE = ""
-private const val EMAILTRAB = ""
-private const val STATUS = ""
+private const val ID = "id"
+private const val NOME = "nome"
+private const val ENDERECO = "endereco"
+private const val CONTATO = "contato"
+private const val SOMAAVALIACOES = "somaAvaliacoes"
+private const val NUMSERVICOESFEITOS = "numServicosFeitos"
+private const val DATAHORA = "dataHora"
+private const val EMAILCLIENTE = "emailCliente"
+private const val EMAILTRAB = "emailTrab"
+private const val STATUS = "status"
 
 /**
  * A simple [Fragment] subclass.
@@ -53,7 +54,6 @@ class StatusServiceWorker : Fragment() {
     private lateinit var lbAvaliacaoCliente : TextView
     private lateinit var lbDataPrevista : TextView
     private lateinit var lbTotalAReceber : TextView
-    private lateinit var lbStatusServico : TextView
 
     private lateinit var btnCancelar : Button
     private lateinit var btnConcluir : Button
@@ -74,7 +74,7 @@ class StatusServiceWorker : Fragment() {
             contato = it.getString(CONTATO)
             somaAvaliacoes = it.getDouble(SOMAAVALIACOES)
             numServicosFeitos = it.getLong(NUMSERVICOESFEITOS)
-            dataHora = Timestamp(it.getLong(DATAHORA), 0)
+            dataHora = Timestamp(Date(it.getLong(DATAHORA)))
             emailCliente = it.getString(EMAILCLIENTE)
             emailTrab = it.getString(EMAILTRAB)
             status = it.getString(STATUS)
@@ -106,7 +106,6 @@ class StatusServiceWorker : Fragment() {
         lbAvaliacaoCliente = view.findViewById(R.id.lb_avaliacao_cliente) as TextView
         lbTotalAReceber = view.findViewById(R.id.lb_total_a_receber) as TextView
         lbDataPrevista = view.findViewById(R.id.lb_data_prevista) as TextView
-        lbStatusServico = view.findViewById(R.id.lb_status_servico) as TextView
 
         btnCancelar = view.findViewById(R.id.btnCancelar) as Button
         btnConcluir = view.findViewById(R.id.btnConcluir) as Button
@@ -146,16 +145,23 @@ class StatusServiceWorker : Fragment() {
     fun addValues() {
         lbNomeCliente.text = nome
         lbEnderecoCliente.text = endereco
-        lbAvaliacaoCliente.text = (somaAvaliacoes!!.div(numServicosFeitos!!)).toString()
+        if ((somaAvaliacoes!!.div(numServicosFeitos!!)).isNaN())
+            lbAvaliacaoCliente.text = 0.0.toString()
+        else
+            lbAvaliacaoCliente.text = (somaAvaliacoes!!.div(numServicosFeitos!!)).toString()
         lbDataPrevista.text = SimpleDateFormat("dd/MM/yyyy").format(dataHora!!.toDate())
-        lbStatusServico.text = status
 
         var precoTotal = 0.0
         habilidades!!.forEach {
-            precoTotal += it["preco"] as Double
+            try {
+                precoTotal += (it["preco"] as Long).toDouble()
+            }
+            catch (e: Error) {
+                precoTotal += it["preco"] as Double
+            }
         }
         val format: NumberFormat = NumberFormat.getCurrencyInstance()
-        format.setMaximumFractionDigits(0)
+        format.setMaximumFractionDigits(2)
         format.setCurrency(Currency.getInstance("BRL"))
         lbTotalAReceber.text = format.format(precoTotal)
 
@@ -190,11 +196,9 @@ class StatusServiceWorker : Fragment() {
                 btnCancelar.isEnabled = false
             else {
                 btnCancelar.setOnClickListener {
-                    btnConcluir.setOnClickListener {
-                        val service = Service(id, dataHora, emailCliente, emailTrab, habilidades,
-                            "Cancelado (prestador)")
-                        serviceViewModel.update(service)
-                    }
+                    val service = Service(id, dataHora, emailCliente, emailTrab, habilidades,
+                        "Cancelado (prestador)")
+                    serviceViewModel.update(service)
 
                     parentFragmentManager.beginTransaction()
                         .replace(R.id.fragment_container, ServicesFragment()).commit()
@@ -219,7 +223,7 @@ class StatusServiceWorker : Fragment() {
          * @param emailTrab Worker email.
          * @param habilidades Skills selected for the service.
          * @param status Service status.
-         * @return A new instance of fragment ServiceConfirm.
+         * @return A new instance of fragment StatusServiceWorker.
          */
         @JvmStatic
         fun newInstance(id: String, nome: String, endereco: String, contato: String,
@@ -233,7 +237,7 @@ class StatusServiceWorker : Fragment() {
                     putString(CONTATO, contato)
                     putDouble(SOMAAVALIACOES, somaAvaliacoes)
                     putLong(NUMSERVICOESFEITOS, numServicosFeitos)
-                    putLong(DATAHORA, dataHora.seconds)
+                    putLong(DATAHORA, dataHora.toDate().time)
                     putString(EMAILCLIENTE, emailCliente)
                     putString(EMAILTRAB, emailTrab)
                     putString(STATUS, status)

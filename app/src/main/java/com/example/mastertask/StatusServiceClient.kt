@@ -163,7 +163,7 @@ class StatusServiceClient : Fragment() {
             }
         }
         val format: NumberFormat = NumberFormat.getCurrencyInstance()
-        format.setMaximumFractionDigits(0)
+        format.setMaximumFractionDigits(2)
         format.setCurrency(Currency.getInstance("BRL"))
         lbTotalAPagar.text = format.format(precoTotal)
 
@@ -178,23 +178,21 @@ class StatusServiceClient : Fragment() {
 
     fun addEventListeners() {
         btnConcluir.setOnClickListener {
-            val service = Service(id, dataHora, emailCliente, emailTrab, habilidades, "Finalizado (cliente)")
+            val service = Service(id, dataHora, emailCliente, emailTrab, habilidades,
+                "Finalizado (cliente)")
             serviceViewModel.update(service)
 //            mudar para a página de avaliação
 //            parentFragmentManager.beginTransaction()
 //                .replace(R.id.fragment_container, AvaliationFragment()).commit()
         }
 
-        if (status == "Cancelado (prestador)")
-            btnCancelar.isEnabled = false
-        else {
-            btnCancelar.setOnClickListener {
-                val service = Service(id, dataHora, emailCliente, emailTrab, habilidades, "Cancelado (cliente)")
-                serviceViewModel.update(service)
+       btnCancelar.setOnClickListener {
+            val service = Service(id, dataHora, emailCliente, emailTrab, habilidades,
+                "Cancelado (cliente)")
+            serviceViewModel.update(service)
 
-                parentFragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, ServicesFragment()).commit()
-            }
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, ServicesFragment()).commit()
         }
     }
 
