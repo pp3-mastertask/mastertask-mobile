@@ -214,7 +214,7 @@ class ServiceConfirmWorker : Fragment() {
         fun newInstance(id: String, nome: String, endereco: String, contato: String,
                         somaAvaliacoes: Double, numServicosFeitos: Long, dataHora: Timestamp,
                         emailCliente: String, emailTrab: String, status: String?) =
-            StatusServiceClient().apply {
+            ServiceConfirmWorker().apply {
                 arguments = Bundle().apply {
                     putString(ID, id)
                     putString(NOME, nome)
