@@ -32,6 +32,8 @@ class HomeSearch : Fragment() {
 
     var usersArrayList : ArrayList<User> = ArrayList()
 
+    val seuEmail = "mcvsk.filho@gmail.com"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -91,25 +93,27 @@ class HomeSearch : Fragment() {
         val lista : MutableList<User> = mutableListOf()
 
         var la : List<User> = usersArrayList.filter {
-            it.habilidades!!.isNotEmpty() && it.nome!!.contains(query!!, true)
+            it.habilidades!!.isNotEmpty() && it.id != seuEmail && it.nome!!.contains(query!!, true)
                 && !lista.contains(it)
         }
         lista.addAll(la)
 
         la = usersArrayList.filter {
-            it.habilidades!!.isNotEmpty() && it.endereco!!.contains(query!!, true)
+            it.habilidades!!.isNotEmpty() && it.id != seuEmail && it.endereco!!.contains(query!!, true)
                 && !lista.contains(it)
         }
         lista.addAll(la)
 
         usersArrayList.forEach {
-            val user = it
-            run here@ {
-                user.habilidades!!.forEach {
-                    if ((it.getValue("habilidade") as String).contains(query!!, true)
-                        && !lista.contains(user)) {
-                        lista.add(user)
-                        return@here
+            if (it.id != seuEmail) {
+                val user = it
+                run here@ {
+                    user.habilidades!!.forEach {
+                        if ((it.getValue("habilidade") as String).contains(query!!, true)
+                            && !lista.contains(user)) {
+                            lista.add(user)
+                            return@here
+                        }
                     }
                 }
             }
