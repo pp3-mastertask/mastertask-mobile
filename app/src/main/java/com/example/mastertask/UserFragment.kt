@@ -1,6 +1,5 @@
 package com.example.mastertask
 
-import BadgeAdapter
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,6 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.mastertask.Adapters.BadgeViewAdapter
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -32,8 +32,8 @@ class UserFragment : Fragment() {
 
     private lateinit var imgPhoto: ImageView
 
-    private lateinit var badgeAdapter: BadgeAdapter
-    private var list_skills = ArrayList<SkillModel>()
+    private lateinit var badgeAdapter: BadgeViewAdapter
+    private var list_skills = ArrayList<Map<String?, Any?>>()
 
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
     private val db = Firebase.firestore
@@ -77,10 +77,6 @@ class UserFragment : Fragment() {
 
         var currentUserData: Map<String, Any>? = null
 
-        this.badgeAdapter = BadgeAdapter(this.list_skills)
-        this.rvHabilidades.adapter = this.badgeAdapter
-        this.rvHabilidades.layoutManager = GridLayoutManager(activity?.applicationContext, 3, RecyclerView.VERTICAL, false)
-
         this.db.collection("usuarios")
             .document(userEmail)
             .get()
@@ -102,16 +98,7 @@ class UserFragment : Fragment() {
                                     val skillsHashMapList = v as ArrayList<Any>
 
                                     for (hashMap in skillsHashMapList) {
-                                        if (hashMap is HashMap<*, *>) {
-                                            this.list_skills.add(
-                                                SkillModel(
-                                                    hashMap["habilidade"]?.toString() ?: "",
-                                                    hashMap["preco"]?.toString()?.toDouble() ?: 0.0
-                                                )
-                                            )
-
-                                            this.badgeAdapter.notifyDataSetChanged()
-                                        }
+                                        this.list_skills.add(hashMap as Map<String?, Any?>)
                                     }
                                 }
                             }
@@ -119,6 +106,11 @@ class UserFragment : Fragment() {
                     }
                 }
             }
+
+        this.badgeAdapter = BadgeViewAdapter(this.list_skills)
+        this.rvHabilidades.adapter = this.badgeAdapter
+        this.rvHabilidades.layoutManager = GridLayoutManager(activity?.applicationContext, 3, RecyclerView.VERTICAL, false)
+        this.badgeAdapter.notifyDataSetChanged()
     }
 
     fun addEventListeners() {
