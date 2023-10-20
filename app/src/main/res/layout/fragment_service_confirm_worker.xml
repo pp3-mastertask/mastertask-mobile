@@ -34,6 +34,7 @@
         android:text="Solicitação do serviço"
         android:textSize="30dp"
         android:textStyle="bold"
+        android:textColor="@color/text_primary"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -120,7 +121,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/notaFiscal"
             android:layout_width="207dp"
-            android:layout_height="252dp"
+            android:layout_height="251dp"
             android:background="@drawable/radiussquare">
 
             <TextView
@@ -131,6 +132,7 @@
                 android:layout_marginTop="24dp"
                 android:text="Nota Fiscal"
                 android:textSize="20dp"
+                android:textColor="@color/text_primary"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -171,47 +173,28 @@
                 android:id="@+id/textView6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
+                android:layout_marginStart="36dp"
                 android:layout_marginTop="28dp"
                 android:fontFamily="@font/montserrat_bold"
                 android:text="Serviço solicitado"
                 android:textSize="14dp"
+                android:textColor="@color/text_primary"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.recyclerview.widget.RecyclerView
-<<<<<<< Updated upstream
                 android:id="@+id/rv_servicos_solicitados"
                 android:layout_width="130dp"
                 android:layout_height="121dp"
-                android:layout_marginTop="48dp"
-                android:layout_marginEnd="20dp"
+                android:layout_marginTop="44dp"
+                android:layout_marginEnd="24dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:listitem="@layout/service_badge" />
-=======
-                android:layout_width="137dp"
-                android:layout_height="92dp"
-                android:layout_marginTop="44dp"
-                android:layout_marginEnd="32dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                tools:listitem="@layout/service_badge">
 
-            <Button
-                android:id="@+id/btnConcluir"
-                android:layout_width="112dp"
-                android:layout_height="36dp"
-                android:layout_marginStart="36dp"
-                android:layout_marginTop="140dp"
-                android:backgroundTint="#30A499"
-                android:text="Alterar"
-                android:textSize="11dp"
-                android:textStyle="bold"
-                app:cornerRadius="20dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
->>>>>>> Stashed changes
+            </androidx.recyclerview.widget.RecyclerView>
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -228,6 +211,7 @@
                 android:layout_marginTop="20dp"
                 android:text="Data prevista"
                 android:textSize="19dp"
+                android:textColor="@color/text_primary"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -267,26 +251,26 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="68dp"
                 android:text="Total a receber"
                 android:textSize="18dp"
+                android:textColor="@color/text_primary"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </LinearLayout>
 
+    </LinearLayout>
     <Button
         android:id="@+id/btnAceitar"
         android:layout_width="136dp"
         android:layout_height="42dp"
-        android:layout_marginStart="219dp"
-        android:layout_marginTop="640dp"
+        android:layout_marginStart="224dp"
+        android:layout_marginTop="680dp"
         android:backgroundTint="#30A499"
         android:text="Aceitar"
         android:textSize="12dp"
@@ -298,8 +282,8 @@
         android:id="@+id/btnCancelar"
         android:layout_width="130dp"
         android:layout_height="35dp"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="644dp"
+        android:layout_marginStart="68dp"
+        android:layout_marginTop="684dp"
         android:background="@drawable/background_button"
         android:text="Cancelar"
         android:textColor="@color/red_dark"
@@ -307,6 +291,38 @@
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView19"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Endereço"
+        android:textColor="@color/text_primary"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="618dp" />
+
+    <TextView
+        android:id="@+id/lb_endereco_completo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rua XXX, n YY, Jd. AAA"
+        android:textColor="@color/text_primary"
+        android:textSize="14dp"
+        tools:layout_editor_absoluteX="42dp"
+        tools:layout_editor_absoluteY="637dp"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/lb_tempo_distancia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="10min"
+        android:textSize="14dp"
+        android:textColor="@color/text_primary"
+        tools:layout_editor_absoluteX="351dp"
+        tools:layout_editor_absoluteY="637dp"
+        tools:ignore="MissingConstraints" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
