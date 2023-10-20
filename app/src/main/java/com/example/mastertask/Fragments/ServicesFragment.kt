@@ -1,10 +1,9 @@
-package com.example.mastertask
+package com.example.mastertask.Fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
@@ -15,6 +14,7 @@ import com.example.mastertask.Data.Service
 import com.example.mastertask.Data.User
 import com.example.mastertask.Models.ServiceViewModel
 import com.example.mastertask.Models.UserViewModel
+import com.example.mastertask.R
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -135,9 +135,11 @@ class ServicesFragment : Fragment() {
             val adapter = CardViewAdapterServices(x, object :
                 CardViewAdapterServices.OnItemClickListener {
                 override fun onItemClick(item: CardServiceInfo?) {
-                    val y = StatusServiceClient.newInstance(item!!.id!!, item.nome!!, item.endereco!!,
+                    val y = StatusServiceClient.newInstance(
+                        item!!.id!!, item.nome!!, item.endereco!!,
                         item.contato!!, item.somaAvaliacoes!!, item.numServicosFeitos!!,
-                        item.dataHora!!, item.emailCliente!!, item.emailTrab!!, item.status!!)
+                        item.dataHora!!, item.emailCliente!!, item.emailTrab!!, item.status!!
+                    )
                     y.setHabilidades(item.habilidades!!)
                     parentFragmentManager.beginTransaction()
                         .replace(R.id.fragment_container, y).commit()
@@ -159,9 +161,11 @@ class ServicesFragment : Fragment() {
             val adapter = CardViewAdapterServices(x, object :
                 CardViewAdapterServices.OnItemClickListener {
                 override fun onItemClick(item: CardServiceInfo?) {
-                    val y = StatusServiceWorker.newInstance(item!!.id!!, item.nome!!, item.endereco!!,
+                    val y = StatusServiceWorker.newInstance(
+                        item!!.id!!, item.nome!!, item.endereco!!,
                         item.contato!!, item.somaAvaliacoes!!, item.numServicosFeitos!!,
-                        item.dataHora!!, item.emailCliente!!, item.emailTrab!!, item.status!!)
+                        item.dataHora!!, item.emailCliente!!, item.emailTrab!!, item.status!!
+                    )
                     y.setHabilidades(item.habilidades!!)
                     parentFragmentManager.beginTransaction()
                         .replace(R.id.fragment_container, y).commit()
@@ -182,9 +186,11 @@ class ServicesFragment : Fragment() {
             val adapter = CardViewAdapterServices(x, object :
                 CardViewAdapterServices.OnItemClickListener {
                 override fun onItemClick(item: CardServiceInfo?) {
-                    val y = ServiceConfirmWorker.newInstance(item!!.id!!, item.nome!!, item.endereco!!,
+                    val y = ServiceConfirmWorker.newInstance(
+                        item!!.id!!, item.nome!!, item.endereco!!,
                         item.contato!!, item.somaAvaliacoes!!, item.numServicosFeitos!!,
-                        item.dataHora!!, item.emailCliente!!, item.emailTrab!!, item.status!!)
+                        item.dataHora!!, item.emailCliente!!, item.emailTrab!!, item.status!!
+                    )
                     y.setHabilidades(item.habilidades!!)
                     parentFragmentManager.beginTransaction()
                         .replace(R.id.fragment_container, y).commit()

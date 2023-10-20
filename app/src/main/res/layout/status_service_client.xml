@@ -305,7 +305,7 @@
         app:layout_constraintTop_toTopOf="@+id/linearLayout4" />
 
     <TextView
-        android:id="@+id/textView21"
+        android:id="@+id/lb_status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="172dp"

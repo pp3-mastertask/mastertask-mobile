@@ -1,4 +1,4 @@
-package com.example.mastertask
+package com.example.mastertask.Fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -11,6 +11,7 @@ import com.example.mastertask.Adapters.CardViewAdapter
 import com.example.mastertask.Adapters.NotFoundAdapter
 import com.example.mastertask.Data.User
 import com.example.mastertask.Models.UserViewModel
+import com.example.mastertask.R
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 

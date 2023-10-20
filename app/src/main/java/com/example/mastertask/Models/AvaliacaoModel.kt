@@ -35,9 +35,9 @@ class AvaliacaoViewModel: ViewModel() {
         MutableLiveData<Boolean>()
     }
 
-    fun create(service: Service) {
+    fun create(avaliacao: Avaliacao) {
         val docRef = db.collection(evaluations)
-        docRef.add(service.toMap()).addOnSuccessListener {
+        docRef.add(avaliacao.toMap()).addOnSuccessListener {
             createLiveData.postValue(true)
         }.addOnFailureListener {
             Log.d("create", it.localizedMessage!!)
@@ -45,9 +45,9 @@ class AvaliacaoViewModel: ViewModel() {
         }
     }
 
-    fun update(service: Service) {
+    fun update(avaliacao: Avaliacao) {
         val docRef = db.collection(evaluations)
-        docRef.document(service.id!!).update(service.toMap()).addOnSuccessListener {
+        docRef.document(avaliacao.id!!).update(avaliacao.toMap()).addOnSuccessListener {
             updateLiveData.postValue(true)
         }.addOnFailureListener {
             Log.d("update", it.localizedMessage!!)

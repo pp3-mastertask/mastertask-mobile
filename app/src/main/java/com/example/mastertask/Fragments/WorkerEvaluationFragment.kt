@@ -1,7 +1,6 @@
-package com.example.mastertask
+package com.example.mastertask.Fragments
 
 import android.os.Bundle
-import android.security.keystore.UserPresenceUnavailableException
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,11 +13,10 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mastertask.Adapters.BadgeViewAdapter
 import com.example.mastertask.Data.Avaliacao
-import com.example.mastertask.Data.Service
 import com.example.mastertask.Data.User
 import com.example.mastertask.Models.AvaliacaoViewModel
-import com.example.mastertask.Models.ServiceViewModel
 import com.example.mastertask.Models.UserViewModel
+import com.example.mastertask.R
 
 private const val ID_AVALIACAO = ""
 private const val NOME = ""
@@ -110,7 +108,9 @@ class WorkerEvaluationFragment : Fragment() {
     }
 
     fun addEventListeners() {
-        this.btnNaoTerminarAvaliacao.setOnClickListener {  parentFragmentManager.beginTransaction().replace(R.id.fragment_container, HomeFragment()).commit() }
+        this.btnNaoTerminarAvaliacao.setOnClickListener {  parentFragmentManager.beginTransaction().replace(
+            R.id.fragment_container, HomeFragment()
+        ).commit() }
         // TODO: Verificar se está tudo correto
         this.btnNaoFinalizouServico.setOnClickListener {
             this.avaliacao.terminado = false

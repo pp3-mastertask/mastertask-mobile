@@ -1,4 +1,4 @@
-package com.example.mastertask
+package com.example.mastertask.Fragments
 
 import ServicePriceAdapter
 import android.os.Bundle
@@ -17,6 +17,7 @@ import com.google.firebase.Timestamp
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.*
+import com.example.mastertask.R
 import kotlin.collections.ArrayList
 
 private const val ID = "id"
@@ -106,7 +107,7 @@ class StatusServiceClient : Fragment() {
         lbAvaliacaoPrestador = view.findViewById(R.id.lb_avaliacao_cliente) as TextView
         lbTotalAPagar = view.findViewById(R.id.lb_preco_total) as TextView
         lbDataPrevista = view.findViewById(R.id.lb_data_prevista) as TextView
-        lbStatusServico = view.findViewById(R.id.lb_status_servico) as TextView
+        lbStatusServico = view.findViewById(R.id.lb_status) as TextView
 
         btnCancelar = view.findViewById(R.id.btnCancelar) as Button
         btnConcluir = view.findViewById(R.id.btnConcluir) as Button

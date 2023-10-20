@@ -1,22 +1,24 @@
-package com.example.mastertask
+package com.example.mastertask.Fragments
 
 import ServicePriceAdapter
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mastertask.Adapters.BadgeViewAdapter
 import com.example.mastertask.Data.Service
+import com.example.mastertask.R
 import com.example.mastertask.Models.ServiceViewModel
 import com.google.firebase.Timestamp
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Currency
+import java.util.Date
 
 private const val ID = "id"
 private const val NOME = "nome"
@@ -31,10 +33,10 @@ private const val STATUS = "status"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [ServiceConfirmWorker.newInstance] factory method to
+ * Use the [StatusServiceWorker.newInstance] factory method to
  * create an instance of this fragment.
  */
-class ServiceConfirmWorker : Fragment() {
+class StatusServiceWorker : Fragment() {
     private var id: String? = null
     private var nome: String? = null
     private var endereco: String? = null
@@ -44,7 +46,7 @@ class ServiceConfirmWorker : Fragment() {
     private var dataHora: Timestamp? = null
     private var emailCliente: String? = null
     private var emailTrab: String? = null
-    private var habilidades: List<Map<String?, Any?>>? = null
+    private var habilidades: List<Map<String?, Any?>>? = ArrayList()
     private var status: String? = null
 
     private lateinit var lbNomeCliente : TextView
@@ -54,7 +56,7 @@ class ServiceConfirmWorker : Fragment() {
     private lateinit var lbTotalAReceber : TextView
 
     private lateinit var btnCancelar : Button
-    private lateinit var btnAceitar : Button
+    private lateinit var btnConcluir : Button
 
     private lateinit var rvServicosSolicitados : RecyclerView
     private lateinit var rvPrecosServicos : RecyclerView
@@ -88,7 +90,7 @@ class ServiceConfirmWorker : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_service_confirm_worker, container, false)
+        return inflater.inflate(R.layout.fragment_status_service_worker, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -100,13 +102,13 @@ class ServiceConfirmWorker : Fragment() {
 
     fun initViews(view : View) {
         lbNomeCliente = view.findViewById(R.id.lb_nome_cliente) as TextView
-        lbEnderecoCliente = view.findViewById(R.id.lb_endereco_cliente) as TextView
+        lbEnderecoCliente = view.findViewById(R.id.lb_endereco_completo) as TextView
         lbAvaliacaoCliente = view.findViewById(R.id.lb_avaliacao_cliente) as TextView
         lbTotalAReceber = view.findViewById(R.id.lb_total_a_receber) as TextView
         lbDataPrevista = view.findViewById(R.id.lb_data_prevista) as TextView
 
         btnCancelar = view.findViewById(R.id.btnCancelar) as Button
-        btnAceitar = view.findViewById(R.id.btnAceitar) as Button
+        btnConcluir = view.findViewById(R.id.btnConcluir) as Button
 
         rvServicosSolicitados = view.findViewById(R.id.rv_servicos_solicitados) as RecyclerView
         rvPrecosServicos = view.findViewById(R.id.recycler_view_precos_servicos) as RecyclerView
@@ -163,31 +165,45 @@ class ServiceConfirmWorker : Fragment() {
         format.setCurrency(Currency.getInstance("BRL"))
         lbTotalAReceber.text = format.format(precoTotal)
 
-        val adapterHabilidades = BadgeViewAdapter(habilidades)
-        rvServicosSolicitados.adapter = adapterHabilidades
-        adapterHabilidades.notifyDataSetChanged()
+        val adapter_servicos = BadgeViewAdapter(habilidades)
+        rvServicosSolicitados.adapter = adapter_servicos
+        adapter_servicos.notifyDataSetChanged()
 
-        val adapterPrices = ServicePriceAdapter(habilidades)
-        rvPrecosServicos.adapter = adapterPrices
-        adapterPrices.notifyDataSetChanged()
+        val adapter_prices = ServicePriceAdapter(habilidades)
+        rvPrecosServicos.adapter = adapter_prices
+        adapter_prices.notifyDataSetChanged()
     }
 
     fun addEventListeners() {
-        btnAceitar.setOnClickListener {
-            val service = Service(id, dataHora, emailCliente, emailTrab, habilidades, "Aceito")
-            serviceViewModel.update(service)
+        if (status == "Finalizado (cliente)")
+            btnConcluir.isEnabled = false
+        else {
+            btnConcluir.setOnClickListener {
+                val service = Service(
+                    id,
+                    dataHora,
+                    emailCliente,
+                    emailTrab,
+                    habilidades,
+                    "Finalizado (prestador)"
+                )
+                serviceViewModel.update(service)
 
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, ServicesFragment()).commit()
-        }
+                parentFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, ServicesFragment()).commit()
+            }
+            if (status == "Cancelado (cliente)")
+                btnCancelar.isEnabled = false
+            else {
+                btnCancelar.setOnClickListener {
+                    val service = Service(id, dataHora, emailCliente, emailTrab, habilidades,
+                        "Cancelado (prestador)")
+                    serviceViewModel.update(service)
 
-        btnCancelar.setOnClickListener {
-            val service = Service(id, dataHora, emailCliente, emailTrab, habilidades,
-                "Cancelado (prestador)")
-            serviceViewModel.update(service)
-
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, ServicesFragment()).commit()
+                    parentFragmentManager.beginTransaction()
+                        .replace(R.id.fragment_container, ServicesFragment()).commit()
+                }
+            }
         }
     }
 
@@ -207,14 +223,13 @@ class ServiceConfirmWorker : Fragment() {
          * @param emailTrab Worker email.
          * @param habilidades Skills selected for the service.
          * @param status Service status.
-         * @return A new instance of fragment ServiceConfirmWorker.
+         * @return A new instance of fragment StatusServiceWorker.
          */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(id: String, nome: String, endereco: String, contato: String,
                         somaAvaliacoes: Double, numServicosFeitos: Long, dataHora: Timestamp,
                         emailCliente: String, emailTrab: String, status: String?) =
-            ServiceConfirmWorker().apply {
+            StatusServiceWorker().apply {
                 arguments = Bundle().apply {
                     putString(ID, id)
                     putString(NOME, nome)

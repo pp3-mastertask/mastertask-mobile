@@ -3,6 +3,9 @@ package com.example.mastertask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
+import com.example.mastertask.Fragments.HomeFragment
+import com.example.mastertask.Fragments.ServicesFragment
+import com.example.mastertask.Fragments.UserFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class Application : AppCompatActivity() {
