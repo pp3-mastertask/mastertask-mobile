@@ -38,8 +38,8 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
-        android:layout_width="211dp"
-        android:layout_height="506dp"
+        android:layout_width="197dp"
+        android:layout_height="504dp"
         android:layout_marginTop="108dp"
         android:orientation="vertical"
         app:layout_constraintStart_toStartOf="parent"
@@ -119,8 +119,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/notaFiscal"
-            android:layout_width="match_parent"
-            android:layout_height="246dp"
+            android:layout_width="207dp"
+            android:layout_height="252dp"
             android:background="@drawable/radiussquare">
 
             <TextView
@@ -153,9 +153,9 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="184dp"
-        android:layout_height="505dp"
-        android:layout_marginStart="220dp"
+        android:layout_width="205dp"
+        android:layout_height="510dp"
+        android:layout_marginStart="208dp"
         android:layout_marginTop="108dp"
         android:orientation="vertical"
         app:layout_constraintStart_toStartOf="parent"
@@ -181,6 +181,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.recyclerview.widget.RecyclerView
+<<<<<<< Updated upstream
                 android:id="@+id/rv_servicos_solicitados"
                 android:layout_width="130dp"
                 android:layout_height="121dp"
@@ -189,6 +190,28 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:listitem="@layout/service_badge" />
+=======
+                android:layout_width="137dp"
+                android:layout_height="92dp"
+                android:layout_marginTop="44dp"
+                android:layout_marginEnd="32dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/btnConcluir"
+                android:layout_width="112dp"
+                android:layout_height="36dp"
+                android:layout_marginStart="36dp"
+                android:layout_marginTop="140dp"
+                android:backgroundTint="#30A499"
+                android:text="Alterar"
+                android:textSize="11dp"
+                android:textStyle="bold"
+                app:cornerRadius="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+>>>>>>> Stashed changes
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
