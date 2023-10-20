@@ -5,26 +5,24 @@
     android:id="@+id/linearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Application">
+    tools:context=".Application"
+    android:background="@color/white"
+    android:windowSoftInputMode="adjustPan">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/fragment_container"
-        android:layout_width="407dp"
-        android:layout_height="14dp"
-        android:padding="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/navigation_view"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbarStyle="insideOverlay"
         android:scrollbars="vertical"
-        android:scrollbarStyle="insideOverlay"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/navigation_view"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:padding="10dp"
         app:itemBackground="@color/white"
         app:itemIconTint="@drawable/navigation_view_colored"
         app:itemTextColor="@color/text_primary"

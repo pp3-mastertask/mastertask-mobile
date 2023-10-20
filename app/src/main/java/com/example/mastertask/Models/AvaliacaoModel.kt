@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.mastertask.Data.Avaliacao
 import com.example.mastertask.Data.Service
-import com.example.mastertask.Data.Status
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -81,6 +80,8 @@ class AvaliacaoViewModel: ViewModel() {
                     evaluation.estrelas = a?.toDouble()
                 }
                 evaluation.servico = item.data!!["servico"] as String?
+                evaluation.terminado = item.data!!["terminado"] as Boolean?
+
                 evaluations.add(evaluation)
             }
 
@@ -104,6 +105,8 @@ class AvaliacaoViewModel: ViewModel() {
                 evaluation.estrelas = a?.toDouble()
             }
             evaluation.servico = it.data!!["servico"] as String?
+            evaluation.terminado = it.data!!["terminado"] as Boolean?
+
             getItemLiveData.postValue(evaluation)
         }.addOnFailureListener {
             Log.d("get", it.localizedMessage!!)
