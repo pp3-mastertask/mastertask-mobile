@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-    tools:context=".MainActivity"
+<androidx.constraintlayout.widget.ConstraintLayout
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
@@ -14,6 +12,7 @@
         app:layout_constraintStart_toStartOf="parent"
         android:textStyle="bold"
         android:textSize="30dp"
+        android:textColor="@color/text_primary"
         android:text="Larissa Manoela"
         android:layout_marginTop="416dp"
         android:layout_marginStart="16dp"
@@ -25,6 +24,7 @@
         app:layout_constraintStart_toStartOf="parent"
         android:textStyle="normal"
         android:textSize="15dp"
+        android:textColor="@color/text_primary"
         android:text="23"
         android:layout_marginTop="496dp"
         android:layout_marginStart="148dp"
@@ -37,6 +37,7 @@
         app:layout_constraintStart_toStartOf="parent"
         android:textStyle="normal"
         android:textSize="15dp"
+        android:textColor="@color/text_primary"
         android:text="Rua Culto a Ciencia, 177"
         android:layout_marginTop="524dp"
         android:layout_marginStart="148dp"
@@ -49,6 +50,7 @@
         android:layout_marginStart="28dp"
         android:layout_marginTop="496dp"
         android:text="Nascimento:"
+        android:textColor="@color/text_primary"
         android:textSize="15dp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -58,10 +60,10 @@
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
-         app:layout_constraintStart_toStartOf="parent"
-
-          android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textStyle="bold"
         android:textSize="15dp"
+        android:textColor="@color/text_primary"
         android:text="Habilidades:"
         android:layout_marginTop="552dp"
         android:layout_marginStart="28dp"
@@ -74,27 +76,11 @@
         app:layout_constraintStart_toStartOf="parent"
         android:textStyle="bold"
         android:textSize="15dp"
+        android:textColor="@color/text_primary"
         android:text="Nome completo:"
         android:layout_marginTop="468dp"
         android:layout_marginStart="28dp"
         android:id="@+id/textView2"/>
-
-
-    <!--
-    BOTAO BONITINHO
-    <androidx.appcompat.widget.AppCompatButton
-        android:layout_height="20dp"
-        android:layout_width="110dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:textStyle="bold"
-        android:textSize="9dp"
-        android:text="Habilidade 1"
-        android:layout_marginTop="580dp"
-        android:layout_marginStart="36dp"
-        android:id="@+id/habilidade1"
-        android:textColor="@color/green"
-        android:background="@drawable/background_button"/>-->
 
     <TextView android:layout_height="wrap_content"
         android:layout_width="wrap_content"
@@ -102,6 +88,7 @@
         app:layout_constraintStart_toStartOf="parent"
         android:textStyle="bold"
         android:textSize="15dp"
+        android:textColor="@color/text_primary"
         android:text="Endereço:"
         android:layout_marginTop="524dp"
         android:layout_marginStart="28dp"
@@ -113,6 +100,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:textStyle="normal" android:textSize="15dp"
+        android:textColor="@color/text_primary"
         android:text="Larissa Manoela Taques Elias"
         android:layout_marginTop="468dp"
         android:layout_marginStart="148dp"

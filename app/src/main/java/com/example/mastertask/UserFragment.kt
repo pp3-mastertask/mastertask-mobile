@@ -66,14 +66,17 @@ class UserFragment : Fragment() {
 
         this.imgPhoto = view.findViewById(R.id.imgPhoto)
 
+        this.rvHabilidades = view.findViewById(R.id.rvHabilidades)
+
         this.addValues()
         this.addEventListeners()
     }
 
     fun addValues() {
 
-        val currentUser = this.auth.currentUser!!
-        val userEmail = currentUser.email.toString()
+        val userEmail = "mcvsk.filho@gmail.com"
+//        val currentUser = this.auth.currentUser!!
+//        val userEmail = currentUser.email.toString()
 
         var currentUserData: Map<String, Any>? = null
 
