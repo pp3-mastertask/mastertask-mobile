@@ -2,7 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <TextView
         android:id="@+id/textView"
@@ -11,7 +12,8 @@
         android:layout_marginStart="96dp"
         android:layout_marginTop="84dp"
         android:text="Status do serviço"
-        android:textSize="30dp"
+        android:textColor="@color/text_primary"
+        android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -26,7 +28,7 @@
         app:srcCompat="@drawable/radiussquare" />
 
     <TextView
-
+        android:id="@+id/lb_endereco_cliente"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="72dp"
@@ -45,6 +47,7 @@
         android:layout_marginStart="80dp"
         android:layout_marginTop="144dp"
         android:text="Cliente"
+        android:textColor="@color/text_primary"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -62,18 +65,20 @@
 
     <TextView
 
+        android:id="@+id/lb_nome_cliente"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="52dp"
         android:layout_marginTop="248dp"
         android:text="Charles Leclerc"
+        android:textColor="@color/text_primary"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-
+        android:id="@+id/lb_avaliacao_cliente"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="88dp"
@@ -106,91 +111,13 @@
         app:srcCompat="@drawable/radiussquare" />
 
     <TextView
-
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="72dp"
-        android:layout_marginTop="484dp"
-        android:text="Serviço03"
-        android:textColor="#72000000"
-        android:textSize="16dp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="72dp"
-        android:layout_marginTop="392dp"
-        android:text="Serviço01"
-        android:textColor="#72000000"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="84dp"
-        android:layout_marginTop="412dp"
-        android:text="R$40,50"
-        android:textColor="#B4000000"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="72dp"
-        android:layout_marginTop="440dp"
-        android:text="Serviço02"
-        android:textColor="#72000000"
-        android:textSize="16dp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView14"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="84dp"
-        android:layout_marginTop="460dp"
-        android:text="R$67,33"
-        android:textColor="#B4000000"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView16"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="84dp"
-        android:layout_marginTop="504dp"
-        android:text="R$67,33"
-        android:textColor="#B4000000"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="56dp"
         android:layout_marginTop="348dp"
         android:text="Nota Fiscal"
-        android:textSize="20dp"
+        android:textColor="@color/text_primary"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -203,7 +130,8 @@
         android:layout_marginStart="56dp"
         android:layout_marginTop="348dp"
         android:text="Nota Fiscal"
-        android:textSize="20dp"
+        android:textColor="@color/text_primary"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -224,6 +152,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="248dp"
         android:layout_marginTop="340dp"
+        android:textColor="@color/text_primary"
         android:text="Data prevista"
         android:textSize="19dp"
         android:textStyle="bold"
@@ -231,7 +160,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-
+        android:id="@+id/lb_data_prevista"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="256dp"
@@ -274,27 +203,29 @@
         app:srcCompat="@drawable/smallball" />
 
     <Button
-        android:id="@+id/btnEditarPerfil"
-        android:layout_width="130dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="240dp"
-        android:layout_marginTop="672dp"
-        android:backgroundTint="#30A499"
+        android:id="@+id/btnConcluir"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="220dp"
+        android:layout_marginTop="676dp"
+        android:backgroundTint="@color/green_light"
         android:text="Concluir"
-        android:textSize="12dp"
+        android:textSize="12sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:cornerRadius="25dp" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:layout_width="130dp"
-        android:layout_height="35dp"
-        android:layout_marginStart="84dp"
-        android:layout_marginTop="672dp"
+        android:id="@+id/btnCancelar"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="680dp"
         android:background="@drawable/background_button"
         android:text="Cancelar"
         android:textColor="@color/red_dark"
-        android:textSize="11dp"
+        android:textSize="12sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -303,35 +234,36 @@
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="236dp"
+        android:layout_marginStart="228dp"
         android:layout_marginTop="136dp"
-        android:text="Serviço solicitado"
+        android:text="Serviços solicitados"
+        android:textColor="@color/text_primary"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-
+        android:id="@+id/lb_total_a_receber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="236dp"
         android:layout_marginTop="484dp"
         android:text="R$107,04"
         android:textColor="#30A398"
-        android:textSize="35dp"
+        android:textSize="35sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="256dp"
         android:layout_marginTop="452dp"
         android:text="Total a receber"
-        android:textSize="18dp"
+        android:textColor="@color/text_primary"
+        android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -343,33 +275,14 @@
         android:layout_marginStart="40dp"
         android:layout_marginTop="580dp"
         android:text="Endereço"
-        android:textSize="16dp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="417dp"
-        android:layout_height="243dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="496dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/radiussquare3" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="580dp"
-        android:text="Endereço"
-        android:textSize="18dp"
+        android:textColor="@color/text_primary"
+        android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/lb_endereco_completo_cliente"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="64dp"
@@ -392,5 +305,35 @@
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_servicos_solicitados"
+        android:layout_width="150dp"
+        android:layout_height="139dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="3dp"
+        app:layout_constraintEnd_toEndOf="@+id/imageView2"
+        app:layout_constraintHorizontal_bias="0.844"
+        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/textView6"
+        app:layout_constraintVertical_bias="0.0"
+        android:orientation="vertical"
+        android:scrollbars="vertical"
+        tools:listitem="@layout/service_badge"
+        android:layout_gravity="center"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_precos_servicos"
+        android:layout_width="123dp"
+        android:layout_height="151dp"
+        android:layout_marginTop="68dp"
+        android:layout_marginEnd="244dp"
+        android:orientation="vertical"
+        android:scrollbars="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageView8"
+        tools:listitem="@layout/service_price"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
