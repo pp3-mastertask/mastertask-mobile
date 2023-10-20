@@ -38,8 +38,8 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
-        android:layout_width="211dp"
-        android:layout_height="506dp"
+        android:layout_width="197dp"
+        android:layout_height="504dp"
         android:layout_marginTop="108dp"
         android:orientation="vertical"
         app:layout_constraintStart_toStartOf="parent"
@@ -53,7 +53,7 @@
             android:background="@drawable/radiussquare">
 
             <TextView
-                android:id="@+id/lb_endereco_prestador"
+                android:id="@+id/lb_endereco_cliente"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="68dp"
@@ -69,9 +69,9 @@
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="60dp"
-                android:layout_marginTop="36dp"
-                android:text="Prestador"
+                android:layout_marginStart="76dp"
+                android:layout_marginTop="32dp"
+                android:text="Cliente"
                 android:textColor="@color/text_primary"
                 android:textSize="20sp"
                 android:textStyle="bold"
@@ -89,7 +89,7 @@
                 app:srcCompat="@drawable/profilepic" />
 
             <TextView
-                android:id="@+id/lb_avaliacao_prestador"
+                android:id="@+id/lb_avaliacao_cliente"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="80dp"
@@ -102,7 +102,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/lb_nome_prestador"
+                android:id="@+id/lb_nome_cliente"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="48dp"
@@ -119,8 +119,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/notaFiscal"
-            android:layout_width="match_parent"
-            android:layout_height="246dp"
+            android:layout_width="207dp"
+            android:layout_height="252dp"
             android:background="@drawable/radiussquare">
 
             <TextView
@@ -153,9 +153,9 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="184dp"
-        android:layout_height="505dp"
-        android:layout_marginStart="220dp"
+        android:layout_width="205dp"
+        android:layout_height="510dp"
+        android:layout_marginStart="208dp"
         android:layout_marginTop="108dp"
         android:orientation="vertical"
         app:layout_constraintStart_toStartOf="parent"
@@ -181,13 +181,22 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="137dp"
-                android:layout_height="92dp"
+<<<<<<< Updated upstream
+                android:id="@+id/rv_servicos_solicitados"
+                android:layout_width="130dp"
+                android:layout_height="121dp"
                 android:layout_marginTop="48dp"
                 android:layout_marginEnd="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.72" />
+                tools:listitem="@layout/service_badge" />
+=======
+                android:layout_width="137dp"
+                android:layout_height="92dp"
+                android:layout_marginTop="44dp"
+                android:layout_marginEnd="32dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <Button
                 android:id="@+id/btnConcluir"
@@ -202,12 +211,13 @@
                 app:cornerRadius="20dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+>>>>>>> Stashed changes
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="82dp"
             android:background="@drawable/radiussquare2">
 
             <TextView
@@ -222,22 +232,9 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <Button
-                android:id="@+id/btnConcluir"
-                android:layout_width="97dp"
-                android:layout_height="31dp"
-                android:layout_marginStart="44dp"
-                android:layout_marginTop="68dp"
-                android:backgroundTint="#30A499"
-                android:text="Alterar"
-                android:textSize="11dp"
-                android:textStyle="bold"
-                app:cornerRadius="20dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
             <TextView
 
+                android:id="@+id/lb_data_prevista"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="44dp"
@@ -257,6 +254,7 @@
             android:background="@drawable/radiussquare2">
 
             <TextView
+                android:id="@+id/lb_total_a_receber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -272,9 +270,9 @@
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="40dp"
+                android:layout_marginStart="32dp"
                 android:layout_marginTop="68dp"
-                android:text="Total a pagar"
+                android:text="Total a receber"
                 android:textSize="18dp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
@@ -284,19 +282,20 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/btnConcluir"
+        android:id="@+id/btnAceitar"
         android:layout_width="136dp"
         android:layout_height="42dp"
         android:layout_marginStart="219dp"
         android:layout_marginTop="640dp"
         android:backgroundTint="#30A499"
-        android:text="Concluir"
+        android:text="Aceitar"
         android:textSize="12dp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnCancelar"
         android:layout_width="130dp"
         android:layout_height="35dp"
         android:layout_marginStart="60dp"
