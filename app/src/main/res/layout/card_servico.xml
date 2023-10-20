@@ -19,7 +19,7 @@
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/imageView"
-            android:layout_width="53dp"
+            android:layout_width="50dp"
             android:layout_height="50dp"
             android:contentDescription="Profile icon"
             app:layout_constraintStart_toStartOf="parent"
@@ -41,8 +41,8 @@
                 android:fontFamily="@font/montserrat_bold"
                 android:paddingBottom="5dp"
                 android:text="Nome"
-                android:textColor="@color/black"
-                android:textSize="12sp"
+                android:textColor="@color/text_primary"
+                android:textSize="14sp"
                 tools:ignore="HardcodedText" />
 
             <LinearLayout
@@ -65,8 +65,8 @@
                     android:fontFamily="@font/montserrat_medium"
                     android:text="Cidade - Estado"
                     android:textColor="@color/text_primary"
-                    android:textSize="10sp"
-                    tools:ignore="HardcodedText" />
+                    android:textSize="12sp"
+                    tools:ignore="HardcodedText,SmallSp" />
             </LinearLayout>
 
             <LinearLayout
@@ -89,8 +89,8 @@
                     android:fontFamily="@font/montserrat_medium"
                     android:text="(XX) XXXXX-XXXX"
                     android:textColor="@color/text_primary"
-                    android:textSize="10sp"
-                    tools:ignore="HardcodedText" />
+                    android:textSize="12sp"
+                    tools:ignore="HardcodedText,SmallSp" />
             </LinearLayout>
 
             <LinearLayout
@@ -112,8 +112,8 @@
                     android:fontFamily="@font/montserrat_medium"
                     android:text="N.N"
                     android:textColor="@color/text_primary"
-                    android:textSize="10sp"
-                    tools:ignore="HardcodedText" />
+                    android:textSize="12sp"
+                    tools:ignore="HardcodedText,SmallSp" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
@@ -121,9 +121,9 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_services"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_height="45dp"
         android:padding="5dp"
+        android:orientation="horizontal"
         android:scrollbars="horizontal"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/service_badge" />

@@ -8,7 +8,6 @@ import com.google.firebase.Timestamp
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import kotlin.reflect.typeOf
 
 class UserViewModel: ViewModel() {
 
@@ -76,6 +75,7 @@ class UserViewModel: ViewModel() {
                 user.cpf = item.data!!["cpf"] as String?
                 user.dataInicio = item.data!!["dataInicio"] as Timestamp?
                 user.dataNascimento = item.data!!["dataNascimento"] as Timestamp?
+                user.disponibilidade = item.data!!["disponibilidade"] as List<Timestamp>?
                 user.endereco = item.data!!["endereco"] as String
                 user.habilidades = item.data!!["habilidades"] as List<Map<String?, Any?>>?
                 user.nome = item.data!!["nome"] as String?
@@ -105,6 +105,7 @@ class UserViewModel: ViewModel() {
             user.cpf = it.data!!["cpf"] as String?
             user.dataInicio = it.data!!["dataInicio"] as Timestamp?
             user.dataNascimento = it.data!!["dataNascimento"] as Timestamp?
+            user.disponibilidade = it.data!!["disponibilidade"] as List<Timestamp>?
             user.endereco = it.data!!["endereco"] as String?
             user.nome = it.data!!["nome"] as String?
             user.numServicosFeitos = it.data!!["numServicosFeitos"] as Long?

@@ -1,12 +1,15 @@
 package com.example.mastertask
 
+import android.graphics.Color
+import android.graphics.PorterDuff
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.SearchView
+import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -24,6 +27,8 @@ class HomeFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    lateinit var searchView: SearchView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -36,8 +41,58 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+
         return inflater.inflate(R.layout.fragment_home, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        definirEventListeners(view)
+        parentFragmentManager.beginTransaction().replace(R.id.home_tabs_container, HomeInit()).commit()
+    }
+
+    fun definirEventListeners(view: View) {
+        searchView = view.findViewById(R.id.search_view) as SearchView
+
+        val id =
+            searchView.context.resources.getIdentifier("android:id/search_src_text", null, null)
+        val textView = searchView.findViewById<View>(id) as TextView
+        textView.setTextColor(Color.DKGRAY)
+        textView.setHintTextColor(Color.LTGRAY)
+
+//        val searchIcon = searchView.findViewById<ImageView>(androidx.appcompat.R.id.)
+//
+//        searchIcon.setColorFilter(
+//            resources.getColor(R.color.text_primary),
+//            PorterDuff.Mode.SRC_IN
+//        )
+
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
+                if (query != "") {
+                    val s = HomeSearch.newInstance(query)
+                    changeScreen(s)
+                }
+                else
+                    changeScreen(HomeInit())
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                if (newText != "") {
+                    val s = HomeSearch.newInstance(newText)
+                    changeScreen(s)
+                }
+                else
+                    changeScreen(HomeInit())
+                return true
+            }
+
+            fun changeScreen(fragment: Fragment) {
+                parentFragmentManager.beginTransaction().replace(R.id.home_tabs_container, fragment).commit()
+            }
+        })
     }
 
     companion object {
