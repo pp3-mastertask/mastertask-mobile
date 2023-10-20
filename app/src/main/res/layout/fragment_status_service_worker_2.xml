@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,18 +10,18 @@
         android:id="@+id/imageView11"
         android:layout_width="230dp"
         android:layout_height="230dp"
-        android:layout_marginStart="264dp"
-        android:layout_marginBottom="632dp"
+        android:layout_marginStart="280dp"
+        android:layout_marginBottom="616dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/bigball" />
 
     <ImageView
         android:id="@+id/imageView12"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:layout_marginStart="192dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="58dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="196dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/smallball" />
@@ -29,9 +30,9 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="52dp"
-        android:layout_marginTop="84dp"
-        android:text="Solicitação do serviço"
+        android:layout_marginStart="84dp"
+        android:layout_marginTop="76dp"
+        android:text="Status do serviço"
         android:textSize="30dp"
         android:textStyle="bold"
         android:textColor="@color/text_primary"
@@ -39,14 +40,13 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
-        android:id="@+id/linearLayout5"
-        android:layout_width="197dp"
-        android:layout_height="504dp"
+        android:id="@+id/linearLayout4"
+        android:layout_width="208dp"
+        android:layout_height="477dp"
         android:layout_marginTop="108dp"
         android:orientation="vertical"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/prestadorCard"
@@ -54,51 +54,25 @@
             android:layout_height="258dp"
             android:background="@drawable/radiussquare">
 
-            <TextView
-                android:id="@+id/lb_endereco_cliente"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="68dp"
-                android:layout_marginTop="164dp"
-                android:text="Valinhos - SP"
-                android:textColor="#72000000"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="76dp"
-                android:layout_marginTop="32dp"
-                android:text="Cliente"
-                android:textColor="@color/text_primary"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
             <ImageView
                 android:id="@+id/imageView3"
                 android:layout_width="75dp"
                 android:layout_height="78dp"
-                android:layout_marginStart="68dp"
-                android:layout_marginTop="60dp"
+                android:layout_marginStart="64dp"
+                android:layout_marginTop="56dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/profilepic" />
 
             <TextView
-                android:id="@+id/lb_avaliacao_cliente"
+                android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="80dp"
-                android:layout_marginTop="188dp"
-                android:text="Nota 4.6"
-                android:textColor="#72000000"
-                android:textSize="12sp"
+                android:layout_marginStart="72dp"
+                android:layout_marginTop="28dp"
+                android:text="Cliente"
+                android:textColor="@color/text_primary"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -116,24 +90,49 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <TextView
+                android:id="@+id/lb_endereco_cliente"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="64dp"
+                android:layout_marginTop="168dp"
+                android:text="Valinhos - SP"
+                android:textColor="#72000000"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/lb_avaliacao_cliente"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="80dp"
+                android:layout_marginTop="184dp"
+                android:text="Nota 4.6"
+                android:textColor="#72000000"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/notaFiscal"
-            android:layout_width="207dp"
-            android:layout_height="251dp"
+            android:layout_width="match_parent"
+            android:layout_height="246dp"
             android:background="@drawable/radiussquare">
 
             <TextView
-
+                android:id="@+id/textView4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="52dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="32dp"
                 android:text="Nota Fiscal"
                 android:textColor="@color/text_primary"
-                android:textSize="20dp"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -142,67 +141,65 @@
                 android:id="@+id/recycler_view_precos_servicos"
                 android:layout_width="134dp"
                 android:layout_height="148dp"
-                android:layout_marginTop="60dp"
+                android:layout_marginTop="68dp"
                 android:layout_marginEnd="36dp"
                 android:orientation="vertical"
                 android:scrollbars="vertical"
-
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:listitem="@layout/service_price" />
-
-
         </androidx.constraintlayout.widget.ConstraintLayout>
+
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayout6"
-        android:layout_width="205dp"
-        android:layout_height="510dp"
-        android:layout_marginStart="208dp"
+        android:id="@+id/linearLayout7"
+        android:layout_width="191dp"
+        android:layout_height="477dp"
+        android:layout_marginStart="220dp"
         android:layout_marginTop="108dp"
         android:orientation="vertical"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="207dp"
+            android:layout_height="218dp"
             android:background="@drawable/radiussquare">
 
             <TextView
                 android:id="@+id/textView6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="36dp"
+                android:layout_marginStart="24dp"
                 android:layout_marginTop="28dp"
-                android:fontFamily="@font/montserrat_bold"
-                android:text="Serviço solicitado"
+                android:text="Serviços solicitados"
                 android:textColor="@color/text_primary"
-                android:textSize="14dp"
+                android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_servicos_solicitados"
-                android:layout_width="130dp"
-                android:layout_height="121dp"
-                android:layout_marginTop="44dp"
-                android:layout_marginEnd="24dp"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_width="150dp"
+                android:layout_height="139dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="44dp"
+                android:layout_marginTop="48dp"
+
+                android:orientation="vertical"
+                android:scrollbars="vertical"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:listitem="@layout/service_badge">
-
-            </androidx.recyclerview.widget.RecyclerView>
-
+                tools:listitem="@layout/service_badge" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="82dp"
+            android:layout_height="92dp"
             android:background="@drawable/radiussquare2">
 
             <TextView
@@ -210,28 +207,26 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="36dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="16dp"
                 android:text="Data prevista"
                 android:textColor="@color/text_primary"
-                android:textSize="19dp"
+                android:textSize="19sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-
                 android:id="@+id/lb_data_prevista"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="44dp"
-                android:layout_marginTop="44dp"
+                android:layout_marginStart="48dp"
+                android:layout_marginTop="52dp"
                 android:text="24/09/2023"
                 android:textColor="#30A398"
-                android:textSize="18dp"
+                android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -240,97 +235,98 @@
             android:background="@drawable/radiussquare2">
 
             <TextView
-                android:id="@+id/lb_total_a_receber"
+                android:id="@+id/textView11"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="92dp"
-                android:text="R$107,04"
-                android:textColor="#30A398"
-                android:textSize="35dp"
+                android:layout_marginStart="36dp"
+                android:layout_marginTop="68dp"
+                android:text="Total a receber"
+                android:textColor="@color/text_primary"
+                android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                android:id="@+id/lb_total_a_receber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="68dp"
-                android:text="Total a receber"
-                android:textColor="@color/text_primary"
-                android:textSize="18dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="92dp"
+                android:text="R$107,04"
+                android:textColor="#30A398"
+                android:textSize="35sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
     </LinearLayout>
+
     <Button
-        android:id="@+id/btnAceitar"
-        android:layout_width="136dp"
-        android:layout_height="42dp"
-        android:layout_marginStart="224dp"
-        android:layout_marginTop="680dp"
-        android:backgroundTint="#30A499"
-        android:text="Aceitar"
-        android:textSize="12dp"
+        android:id="@+id/btnConcluir"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="220dp"
+        android:layout_marginTop="676dp"
+        android:backgroundTint="@color/green_light"
+        android:text="Concluir"
+        android:textSize="12sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:cornerRadius="25dp" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnCancelar"
-        android:layout_width="130dp"
-        android:layout_height="35dp"
-        android:layout_marginStart="68dp"
-        android:layout_marginTop="684dp"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="680dp"
         android:background="@drawable/background_button"
         android:text="Cancelar"
         android:textColor="@color/red_dark"
-        android:textSize="11dp"
+        android:textSize="12sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/lb_tempo_distancia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="16dp"
+        android:text="10min"
+        android:textColor="@color/text_primary"
+        android:textSize="14dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout7"
+        tools:ignore="MissingConstraints" />
+
+
+    <TextView
         android:id="@+id/textView19"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="40dp"
         android:text="Endereço"
         android:textColor="@color/text_primary"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout5" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout4" />
 
     <TextView
         android:id="@+id/lb_endereco_completo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="52dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="60dp"
         android:text="Rua XXX, n YY, Jd. AAA"
         android:textColor="@color/text_primary"
         android:textSize="14dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout5"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
         tools:ignore="MissingConstraints" />
-
-    <TextView
-        android:id="@+id/lb_tempo_distancia"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="20dp"
-        android:text="10min"
-        android:textColor="@color/text_primary"
-        android:textSize="14dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout6"
-        tools:ignore="MissingConstraints" />
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
