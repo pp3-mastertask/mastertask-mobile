@@ -79,7 +79,6 @@
             android:layout_marginTop="5dp"
             android:iconifiedByDefault="false"
             android:queryHint="Do que você precisa?"
-            android:searchHintIcon="@drawable/car_ui_icon_search"
             android:theme="@style/SearchView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
