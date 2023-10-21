@@ -1,6 +1,7 @@
 package com.example.mastertask
 
 import android.app.Dialog
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Window
@@ -122,15 +123,15 @@ class EditarContaActivity : AppCompatActivity() {
     }
 
     private fun handleCancelEditAccount() {
-        if (this.areFieldsEmpty()) {
-            val dg: Dialog = Dialog(this)
-
-            dg.requestWindowFeature(Window.FEATURE_NO_TITLE)
-            dg.setCancelable(true)
-            dg.setContentView(R.layout.cancel_edit_account_dialog)
-            dg.show()
-        }
-        else
+//        if (this.areFieldsEmpty()) {
+//            val dg: Dialog = Dialog(this)
+//
+//            dg.requestWindowFeature(Window.FEATURE_NO_TITLE)
+//            dg.setCancelable(true)
+//            dg.setContentView(R.layout.cancel_edit_account_dialog)
+//            dg.show()
+//        }
+//        else
             this.finish()
     }
 
@@ -184,7 +185,7 @@ class EditarContaActivity : AppCompatActivity() {
         Toast.makeText(this, "${Idka.toDate()}", Toast.LENGTH_SHORT).show()
 
 
-        timestampList.add(Timestamp(TimeUnit.SECONDS.toSeconds(this.dtDisponibilidade.date), 0))
+        timestampList.add(Timestamp(Date(dtDisponibilidade.date)))
         Toast.makeText(this, "2", Toast.LENGTH_SHORT).show()
         val userUpdatedData = hashMapOf(
             "contato" to this.txtContato.text.toString(),
@@ -209,6 +210,10 @@ class EditarContaActivity : AppCompatActivity() {
             .addOnFailureListener { e ->
                 Toast.makeText(this, "Não foi possível atualizar o perfil!", Toast.LENGTH_LONG).show()
             }
+
+        val intent = Intent(this, Application::class.java)
+        startActivity(intent)
+        this.finish()
     }
 
     private fun fillInputs() {

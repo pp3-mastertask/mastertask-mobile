@@ -12,6 +12,7 @@ import com.example.mastertask.Adapters.NotFoundAdapter
 import com.example.mastertask.Data.User
 import com.example.mastertask.Models.UserViewModel
 import com.example.mastertask.R
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
@@ -33,7 +34,10 @@ class HomeSearch : Fragment() {
 
     var usersArrayList : ArrayList<User> = ArrayList()
 
-    val seuEmail = "mcvsk.filho@gmail.com"
+    val auth : FirebaseAuth = FirebaseAuth.getInstance()
+
+    val currentUser = auth.currentUser!!
+    val userEmail = currentUser.email
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -94,19 +98,19 @@ class HomeSearch : Fragment() {
         val lista : MutableList<User> = mutableListOf()
 
         var la : List<User> = usersArrayList.filter {
-            it.habilidades!!.isNotEmpty() && it.id != seuEmail && it.nome!!.contains(query!!, true)
+            it.habilidades!!.isNotEmpty() && it.id != userEmail && it.nome!!.contains(query!!, true)
                 && !lista.contains(it)
         }
         lista.addAll(la)
 
         la = usersArrayList.filter {
-            it.habilidades!!.isNotEmpty() && it.id != seuEmail && it.endereco!!.contains(query!!, true)
+            it.habilidades!!.isNotEmpty() && it.id != userEmail && it.endereco!!.contains(query!!, true)
                 && !lista.contains(it)
         }
         lista.addAll(la)
 
         usersArrayList.forEach {
-            if (it.id != seuEmail) {
+            if (it.id != userEmail) {
                 val user = it
                 run here@ {
                     user.habilidades!!.forEach {

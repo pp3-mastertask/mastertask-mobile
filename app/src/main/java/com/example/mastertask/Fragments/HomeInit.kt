@@ -14,6 +14,7 @@ import com.example.mastertask.Data.User
 import com.example.mastertask.Models.ServiceViewModel
 import com.example.mastertask.Models.UserViewModel
 import com.example.mastertask.R
+import com.google.firebase.auth.FirebaseAuth
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -40,7 +41,10 @@ class HomeInit : Fragment() {
     var usersArrayList : ArrayList<User> = ArrayList()
     var servicesArrayList : ArrayList<Service> = ArrayList()
 
-    val seuEmail = "mcvsk.filho@gmail.com"
+    val auth : FirebaseAuth = FirebaseAuth.getInstance()
+
+    val currentUser = auth.currentUser!!
+    val userEmail = currentUser.email
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -90,7 +94,7 @@ class HomeInit : Fragment() {
 
     fun setUpRecyclerViews() {
         var lista : List<User> =
-            usersArrayList.filter { it.habilidades!!.isNotEmpty() && it.id != seuEmail }
+            usersArrayList.filter { it.habilidades!!.isNotEmpty() && it.id != userEmail }
                 .sortedByDescending { it.somaAvaliacoes!!/it.numServicosFeitos!! }
         lista.take(25)
         if (lista.isNotEmpty())
@@ -98,7 +102,7 @@ class HomeInit : Fragment() {
         else
             setUpNotFound(recycler_view_recomendacoes, "Não há recomendações para você no momento.")
 
-        lista = usersArrayList.filter { it.habilidades!!.isNotEmpty() && it.id != seuEmail }
+        lista = usersArrayList.filter { it.habilidades!!.isNotEmpty() && it.id != userEmail }
             .sortedByDescending { it.dataInicio }
         lista.take(25)
         if (lista.isNotEmpty())
@@ -108,7 +112,7 @@ class HomeInit : Fragment() {
 
         val listaEmailsTrabalhadoresServicosSolicitados = ArrayList<String>()
         servicesArrayList.forEach {
-            if (it.emailCliente == seuEmail)
+            if (it.emailCliente == userEmail)
                 listaEmailsTrabalhadoresServicosSolicitados.add(it.emailTrab!!)
         }
 

@@ -1,18 +1,22 @@
 package com.example.mastertask.Fragments
 
+import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mastertask.Adapters.BadgeViewAdapter
+import com.example.mastertask.EditarContaActivity
+import com.example.mastertask.MainActivity
 import com.example.mastertask.R
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuth.AuthStateListener
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
@@ -30,6 +34,7 @@ class UserFragment : Fragment() {
     private lateinit var rvHabilidades: RecyclerView
 
     private lateinit var btnEditarPerfil: Button
+    private lateinit var btnSair: Button
 
     private lateinit var imgPhoto: ImageView
 
@@ -64,6 +69,7 @@ class UserFragment : Fragment() {
         this.lbAddress = view.findViewById(R.id.lbAddress)
 
         this.btnEditarPerfil = view.findViewById(R.id.btnEditarPerfil)
+        this.btnSair = view.findViewById(R.id.btnSair)
 
         this.imgPhoto = view.findViewById(R.id.imgPhoto)
 
@@ -74,10 +80,8 @@ class UserFragment : Fragment() {
     }
 
     fun addValues() {
-
-        val userEmail = "mcvsk.filho@gmail.com"
-//        val currentUser = this.auth.currentUser!!
-//        val userEmail = currentUser.email.toString()
+        val currentUser = this.auth.currentUser!!
+        val userEmail = currentUser.email.toString()
 
         var currentUserData: Map<String, Any>? = null
 
@@ -119,9 +123,19 @@ class UserFragment : Fragment() {
 
     fun addEventListeners() {
         this.btnEditarPerfil.setOnClickListener {
-            //val intent = Intent(this, EditarContaActivity::class.java)
-            //startActivity(intent)
-            //this.finish()
+            val intent = Intent(activity, EditarContaActivity::class.java)
+            startActivity(intent)
+        }
+
+        this.btnSair.setOnClickListener {
+            val authStateListener = AuthStateListener { _ ->
+                    if (auth.currentUser == null) {
+                        val intent = Intent(activity, MainActivity::class.java)
+                        startActivity(intent)
+                    }
+                }
+            auth.addAuthStateListener(authStateListener)
+            auth.signOut()
         }
     }
 

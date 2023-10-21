@@ -6,49 +6,51 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <TextView android:layout_height="wrap_content"
+    <TextView
+        android:id="@+id/lbUsername"
         android:layout_width="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:textStyle="bold"
-        android:textSize="30dp"
-        android:textColor="@color/text_primary"
-        android:text="Larissa Manoela"
-        android:layout_marginTop="416dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:id="@+id/lbUsername"/>
-
-    <TextView android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:textStyle="normal"
-        android:textSize="15dp"
+        android:layout_marginTop="440dp"
+        android:text="Larissa Manoela"
         android:textColor="@color/text_primary"
-        android:text="23"
-        android:layout_marginTop="496dp"
-        android:layout_marginStart="148dp"
-        android:id="@+id/lbAge"/>
+        android:textSize="30dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:layout_height="wrap_content"
+        android:id="@+id/textView2"
         android:layout_width="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:textStyle="normal"
-        android:textSize="15dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="496dp"
+        android:text="Nome completo:"
         android:textColor="@color/text_primary"
-        android:text="Rua Culto a Ciencia, 177"
-        android:layout_marginTop="524dp"
+        android:textSize="15dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/lbFullName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="148dp"
-        android:id="@+id/lbAddress"/>
+        android:layout_marginTop="496dp"
+        android:text="Larissa Manoela Taques Elias"
+        android:textColor="@color/text_primary"
+        android:textSize="15dp"
+        android:textStyle="normal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
-        android:layout_marginTop="496dp"
+        android:layout_marginTop="524dp"
         android:text="Nascimento:"
         android:textColor="@color/text_primary"
         android:textSize="15dp"
@@ -57,83 +59,101 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/lbAge"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:textStyle="bold"
-        android:textSize="15dp"
-        android:textColor="@color/text_primary"
-        android:text="Habilidades:"
-        android:layout_marginTop="552dp"
-        android:layout_marginStart="28dp"
-        android:id="@+id/textView5"/>
-
-    <TextView
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:textStyle="bold"
-        android:textSize="15dp"
-        android:textColor="@color/text_primary"
-        android:text="Nome completo:"
-        android:layout_marginTop="468dp"
-        android:layout_marginStart="28dp"
-        android:id="@+id/textView2"/>
-
-    <TextView android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:textStyle="bold"
-        android:textSize="15dp"
-        android:textColor="@color/text_primary"
-        android:text="Endereço:"
-        android:layout_marginTop="524dp"
-        android:layout_marginStart="28dp"
-        android:id="@+id/textView4"/>
-
-    <TextView
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:textStyle="normal" android:textSize="15dp"
-        android:textColor="@color/text_primary"
-        android:text="Larissa Manoela Taques Elias"
-        android:layout_marginTop="468dp"
         android:layout_marginStart="148dp"
-        android:id="@+id/lbFullName"/>
+        android:layout_marginTop="524dp"
+        android:text="23"
+        android:textColor="@color/text_primary"
+        android:textSize="15dp"
+        android:textStyle="normal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:layout_height="417dp"
-        android:layout_width="411dp"
-        android:id="@+id/imgPhoto"
-        tools:layout_editor_absoluteY="-9dp"
-        tools:layout_editor_absoluteX="0dp"
-        app:srcCompat="@drawable/larissamanoela"
-        tools:ignore="MissingConstraints" />
+    <TextView
+        android:id="@+id/lbAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="148dp"
+        android:layout_marginTop="552dp"
+        android:text="Rua Culto a Ciencia, 177"
+        android:textColor="@color/text_primary"
+        android:textSize="15dp"
+        android:textStyle="normal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="580dp"
+        android:text="Habilidades:"
+        android:textColor="@color/text_primary"
+        android:textSize="15dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="552dp"
+        android:text="Endereço:"
+        android:textColor="@color/text_primary"
+        android:textSize="15dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/btnEditarPerfil"
         android:layout_width="146dp"
         android:layout_height="51dp"
-        android:layout_marginStart="248dp"
-        android:layout_marginTop="376dp"
+        android:layout_marginStart="244dp"
+        android:layout_marginTop="380dp"
         android:backgroundTint="#30A499"
         android:text="Editar"
         android:textSize="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <Button
+        android:id="@+id/btnSair"
+        android:layout_width="146dp"
+        android:layout_height="51dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="380dp"
+        android:backgroundTint="@color/red"
+        android:text="Sair"
+        android:textSize="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imgPhoto"
+        android:layout_width="411dp"
+        android:layout_height="417dp"
+        app:srcCompat="@drawable/larissamanoela"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="-13dp" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvHabilidades"
-        android:layout_width="356dp"
-        android:layout_height="127dp"
-        android:layout_marginStart="24dp"
-
-        android:layout_marginTop="588dp"
+        android:layout_width="364dp"
+        android:layout_height="106dp"
+        android:layout_marginStart="28dp"
+        tools:listitem="@layout/skill_badge"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:spanCount="3"
+        android:scrollbars="vertical"
+        android:orientation="vertical"
+        android:layout_marginTop="608dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints" />

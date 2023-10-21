@@ -15,6 +15,7 @@ import com.example.mastertask.Data.User
 import com.example.mastertask.Models.ServiceViewModel
 import com.example.mastertask.Models.UserViewModel
 import com.example.mastertask.R
+import com.google.firebase.auth.FirebaseAuth
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -41,7 +42,10 @@ class ServicesFragment : Fragment() {
     lateinit var recycler_view_servicos_a_serem_feitos_por_voce : RecyclerView
     lateinit var recycler_view_servicos_solicitados_por_voce : RecyclerView
 
-    val seuEmail = "mcvsk.filho@gmail.com"
+    val auth : FirebaseAuth = FirebaseAuth.getInstance()
+
+    val currentUser = auth.currentUser!!
+    val userEmail = currentUser.email
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -127,7 +131,7 @@ class ServicesFragment : Fragment() {
 
     fun setUpRecyclerViews() {
 
-        var lista : List<Service> = serviceArrayList.filter { it.emailCliente == seuEmail &&
+        var lista : List<Service> = serviceArrayList.filter { it.emailCliente == userEmail &&
             it.status != "Finalizado (cliente)" && it.status != "Cancelado (cliente)"}
             .sortedByDescending { it.dataHora }
         if (!lista.isEmpty()) {
@@ -154,7 +158,7 @@ class ServicesFragment : Fragment() {
             adapter.notifyDataSetChanged()
         }
 
-        lista = serviceArrayList.filter { it.emailTrab == seuEmail && it.status == "Aceito" }
+        lista = serviceArrayList.filter { it.emailTrab == userEmail && it.status == "Aceito" }
             .sortedByDescending { it.dataHora }
         if (!lista.isEmpty()) {
             val x = setUpRecyclerView(recycler_view_servicos_a_serem_feitos_por_voce, lista)
@@ -180,7 +184,7 @@ class ServicesFragment : Fragment() {
             adapter.notifyDataSetChanged()
         }
 
-        lista = serviceArrayList.filter { it.emailTrab == seuEmail && it.status == "Pendente" }
+        lista = serviceArrayList.filter { it.emailTrab == userEmail && it.status == "Pendente" }
         if (!lista.isEmpty()) {
             val x = setUpRecyclerView(recycler_view_novas_solicitacoes, lista)
             val adapter = CardViewAdapterServices(x, object :
@@ -212,7 +216,7 @@ class ServicesFragment : Fragment() {
 
         lista.forEach {
             val user: User
-            if (it.emailCliente == seuEmail) {
+            if (it.emailCliente == userEmail) {
                 val emailTrab = it.emailTrab
                 user = usersArrayList.filter {
                     it.id == emailTrab

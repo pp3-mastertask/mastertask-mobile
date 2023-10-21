@@ -209,7 +209,7 @@
                             android:layout_marginStart="8dp"
                             android:layout_weight="1"
                             android:backgroundTint="@color/green"
-                            android:text="Criar"
+                            android:text="Editar"
                             android:fontFamily="@font/montserrat_bold"
                             android:textAllCaps="false"
                             app:cornerRadius="25dp" />

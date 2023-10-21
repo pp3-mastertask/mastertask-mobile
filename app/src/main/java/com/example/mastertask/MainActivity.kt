@@ -43,6 +43,12 @@ class MainActivity : AppCompatActivity() {
 
         this.btnGoogleAuth = findViewById(R.id.main_btnGoogleAuth)
 
+        if (auth.currentUser != null) {
+            val intent = Intent(this, Application::class.java)
+            startActivity(intent)
+            this.finish()
+        }
+
         this.btnGoogleAuth.setOnClickListener {
             this.authenticateWithGoogle()
         }
@@ -52,6 +58,7 @@ class MainActivity : AppCompatActivity() {
     { result ->
         if (result.resultCode == Activity.RESULT_OK) {
             // User selected (ok) an email
+            Toast.makeText(this, "chegou aqui", Toast.LENGTH_SHORT).show()
             val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
             this.handleAuthenticationResult(task)
         }
