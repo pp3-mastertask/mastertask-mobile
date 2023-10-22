@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mastertask.Adapters.BadgeViewAdapter
+import com.example.mastertask.Data.Avaliacao
 import com.example.mastertask.Data.Service
 import com.example.mastertask.Models.ServiceViewModel
 import com.google.firebase.Timestamp
@@ -182,9 +183,8 @@ class StatusServiceClient : Fragment() {
             val service = Service(id, dataHora, emailCliente, emailTrab, habilidades,
                 "Finalizado (cliente)")
             serviceViewModel.update(service)
-//            mudar para a página de avaliação
 //            parentFragmentManager.beginTransaction()
-//                .replace(R.id.fragment_container, AvaliationFragment()).commit()
+//                .replace(R.id.fragment_container, Avaliacao()).commit()
         }
 
        btnCancelar.setOnClickListener {

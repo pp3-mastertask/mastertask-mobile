@@ -40,8 +40,8 @@
 
     <LinearLayout
         android:id="@+id/linearLayout5"
-        android:layout_width="197dp"
-        android:layout_height="504dp"
+        android:layout_width="200dp"
+        android:layout_height="500dp"
         android:layout_marginTop="108dp"
         android:orientation="vertical"
         app:layout_constraintStart_toStartOf="parent"
@@ -56,11 +56,12 @@
 
             <TextView
                 android:id="@+id/lb_endereco_cliente"
-                android:layout_width="wrap_content"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="68dp"
+                android:layout_marginStart="28dp"
                 android:layout_marginTop="164dp"
                 android:text="Valinhos - SP"
+                android:textAlignment="center"
                 android:textColor="#72000000"
                 android:textSize="12sp"
                 android:textStyle="bold"
@@ -69,11 +70,12 @@
 
             <TextView
                 android:id="@+id/textView2"
-                android:layout_width="wrap_content"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="76dp"
+                android:layout_marginStart="28dp"
                 android:layout_marginTop="32dp"
                 android:text="Cliente"
+                android:textAlignment="center"
                 android:textColor="@color/text_primary"
                 android:textSize="20sp"
                 android:textStyle="bold"
@@ -82,8 +84,8 @@
 
             <ImageView
                 android:id="@+id/imageView3"
-                android:layout_width="75dp"
-                android:layout_height="78dp"
+                android:layout_width="74dp"
+                android:layout_height="84dp"
                 android:layout_marginStart="68dp"
                 android:layout_marginTop="60dp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -92,11 +94,12 @@
 
             <TextView
                 android:id="@+id/lb_avaliacao_cliente"
-                android:layout_width="wrap_content"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="80dp"
-                android:layout_marginTop="188dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="204dp"
                 android:text="Nota 4.6"
+                android:textAlignment="center"
                 android:textColor="#72000000"
                 android:textSize="12sp"
                 android:textStyle="bold"
@@ -105,11 +108,12 @@
 
             <TextView
                 android:id="@+id/lb_nome_cliente"
-                android:layout_width="wrap_content"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="48dp"
-                android:layout_marginTop="136dp"
+                android:layout_marginStart="28dp"
+                android:layout_marginTop="140dp"
                 android:text="Charles Leclerc"
+                android:textAlignment="center"
                 android:textColor="@color/text_primary"
                 android:textSize="16sp"
                 android:textStyle="bold"
@@ -127,11 +131,12 @@
 
             <TextView
 
-                android:layout_width="wrap_content"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="52dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginStart="28dp"
+                android:layout_marginTop="32dp"
                 android:text="Nota Fiscal"
+                android:textAlignment="center"
                 android:textColor="@color/text_primary"
                 android:textSize="20dp"
                 android:textStyle="bold"
@@ -149,7 +154,8 @@
 
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:listitem="@layout/service_price" />
+                tools:listitem="@layout/service_price"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -157,9 +163,9 @@
 
     <LinearLayout
         android:id="@+id/linearLayout6"
-        android:layout_width="205dp"
-        android:layout_height="510dp"
-        android:layout_marginStart="208dp"
+        android:layout_width="200dp"
+        android:layout_height="500dp"
+        android:layout_marginStart="190dp"
         android:layout_marginTop="108dp"
         android:orientation="vertical"
         app:layout_constraintStart_toStartOf="parent"
@@ -168,32 +174,35 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="207dp"
+            android:layout_height="250dp"
             android:background="@drawable/radiussquare">
 
             <TextView
                 android:id="@+id/textView6"
-                android:layout_width="wrap_content"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="36dp"
-                android:layout_marginTop="28dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="32dp"
                 android:fontFamily="@font/montserrat_bold"
                 android:text="Serviço solicitado"
+                android:textAlignment="center"
                 android:textColor="@color/text_primary"
-                android:textSize="14dp"
+                android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_servicos_solicitados"
-                android:layout_width="130dp"
-                android:layout_height="121dp"
-                android:layout_marginTop="44dp"
-                android:layout_marginEnd="24dp"
+                android:layout_width="146dp"
+                android:layout_height="135dp"
+                android:layout_marginTop="76dp"
+                android:layout_marginEnd="28dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:listitem="@layout/service_badge">
+                tools:listitem="@layout/service_badge"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:orientation="vertical">
 
             </androidx.recyclerview.widget.RecyclerView>
 
@@ -202,16 +211,17 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="82dp"
+            android:layout_height="100dp"
             android:background="@drawable/radiussquare2">
 
             <TextView
                 android:id="@+id/textView7"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="36dp"
-                android:layout_marginTop="20dp"
+                android:layout_width="150dp"
+                android:layout_height="26dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="16dp"
                 android:text="Data prevista"
+                android:textAlignment="center"
                 android:textColor="@color/text_primary"
                 android:textSize="19dp"
                 android:textStyle="bold"
@@ -221,11 +231,12 @@
             <TextView
 
                 android:id="@+id/lb_data_prevista"
-                android:layout_width="wrap_content"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="44dp"
-                android:layout_marginTop="44dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="40dp"
                 android:text="24/09/2023"
+                android:textAlignment="center"
                 android:textColor="#30A398"
                 android:textSize="18dp"
                 android:textStyle="bold"
@@ -236,28 +247,30 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="196dp"
+            android:layout_height="150dp"
             android:background="@drawable/radiussquare2">
 
             <TextView
                 android:id="@+id/lb_total_a_receber"
-                android:layout_width="wrap_content"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="92dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="64dp"
                 android:text="R$107,04"
+                android:textAlignment="center"
                 android:textColor="#30A398"
-                android:textSize="35dp"
+                android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="68dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="36dp"
                 android:text="Total a receber"
+                android:textAlignment="center"
                 android:textColor="@color/text_primary"
                 android:textSize="18dp"
                 android:textStyle="bold"

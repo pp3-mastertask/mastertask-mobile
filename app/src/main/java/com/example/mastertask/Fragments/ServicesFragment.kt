@@ -75,8 +75,8 @@ class ServicesFragment : Fragment() {
         recycler_view_novas_solicitacoes = view.findViewById(R.id.recycler_view_novas_solicitacoes_de_servicos) as RecyclerView
         recycler_view_servicos_a_serem_feitos_por_voce = view.findViewById(R.id.recycler_view_servicos_a_serem_feitos_por_voce) as RecyclerView
 
-        serviceViewModel.getList()
         userViewModel.getList()
+        serviceViewModel.getList()
     }
 
     fun initModels() {
@@ -135,7 +135,7 @@ class ServicesFragment : Fragment() {
             it.status != "Finalizado (cliente)" && it.status != "Cancelado (cliente)"}
             .sortedByDescending { it.dataHora }
         if (!lista.isEmpty()) {
-            val x = setUpRecyclerView(recycler_view_servicos_solicitados_por_voce, lista)
+            val x = createList(lista)
             val adapter = CardViewAdapterServices(x, object :
                 CardViewAdapterServices.OnItemClickListener {
                 override fun onItemClick(item: CardServiceInfo?) {
@@ -161,7 +161,7 @@ class ServicesFragment : Fragment() {
         lista = serviceArrayList.filter { it.emailTrab == userEmail && it.status == "Aceito" }
             .sortedByDescending { it.dataHora }
         if (!lista.isEmpty()) {
-            val x = setUpRecyclerView(recycler_view_servicos_a_serem_feitos_por_voce, lista)
+            val x = createList(lista)
             val adapter = CardViewAdapterServices(x, object :
                 CardViewAdapterServices.OnItemClickListener {
                 override fun onItemClick(item: CardServiceInfo?) {
@@ -186,7 +186,7 @@ class ServicesFragment : Fragment() {
 
         lista = serviceArrayList.filter { it.emailTrab == userEmail && it.status == "Pendente" }
         if (!lista.isEmpty()) {
-            val x = setUpRecyclerView(recycler_view_novas_solicitacoes, lista)
+            val x = createList(lista)
             val adapter = CardViewAdapterServices(x, object :
                 CardViewAdapterServices.OnItemClickListener {
                 override fun onItemClick(item: CardServiceInfo?) {
@@ -210,7 +210,7 @@ class ServicesFragment : Fragment() {
         }
     }
 
-    fun setUpRecyclerView(recyclerView: RecyclerView, lista: List<Service>)
+    fun createList(lista: List<Service>)
     : ArrayList<CardServiceInfo> {
         val listCardServiceInfo = ArrayList<CardServiceInfo>()
 
