@@ -101,7 +101,18 @@ class ServiceConfirmClient : Fragment() {
     }
 
     private fun criarServico() {
-        
+        if(selectedServices.isNotEmpty()){
+            val novoSercivo = Service(
+                clienteId = currentUser.id,
+                clienteId = currentUser.id, servicos = selectedServices.map {it.id}
+            )
+            serviceViewModel.createService(novoSercivo)
+
+            fragmentManager?.beginTransaction()?.replace(R.id.fragment_container,HomeInit())?.commit()
+        }
+        else{
+
+        }
     }
 }
 
