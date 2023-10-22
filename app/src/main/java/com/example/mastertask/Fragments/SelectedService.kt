@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import com.example.mastertask.R
 
 // TODO: Rename parameter arguments, choose names that match
@@ -22,6 +23,10 @@ class SelectedService : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    private lateinit var habilidadeAdapter: HabilidadeAdapter
+    private lateinit var recyclerViewHabilidades: RecyclerView
+    private val habilidadeViewModel: HabilidadeViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -30,12 +35,38 @@ class SelectedService : Fragment() {
         }
     }
 
+    interface OnHabilidadeSelecterdListener{
+        fun onHabilidadeSelected(habilidade: String)
+    }
+
+    private var habilidadeListener: OnHabilidadeSelecterdListener? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        val view = inflater.inflate(R.layout.fragment_selected_service, container, false)
+        recyclerViewHabilidades = view.findViewById(R.id.recycler_view_habilidades)
+
+        //adaptador para lista de habilidades la e o listener
+        habilidadeAdapter = HabilidadeAdapter {habilidade ->
+            habilidadeListener?.onHabilidadeSelected(habilidade)
+        }
+        recyclerViewHabilidades.adapter = habilidadeAdapter
+
+        //carrega a lista de habilidade usando o viewmodel
+        habilidadeViewModel.getHabilidades().observe(viewLifecycleOwner) {habilidades ->
+            habilidadeAdapter.submitList(habilidades)
+        }
+
+        return view
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_selected_service, container, false)
+        //return inflater.inflate(R.layout.fragment_selected_service, container, false)
+    }
+
+    fun setOnHabilidadeSelectedListener(listener: OnHabilidadeSelecterdListener){
+        habilidadeListener = listener
     }
 
     companion object {
