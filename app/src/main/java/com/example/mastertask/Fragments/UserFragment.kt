@@ -15,10 +15,12 @@ import com.example.mastertask.Adapters.BadgeViewAdapter
 import com.example.mastertask.EditarContaActivity
 import com.example.mastertask.MainActivity
 import com.example.mastertask.R
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseAuth.AuthStateListener
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+
 
 /**
  * A simple [Fragment] subclass.
@@ -128,14 +130,14 @@ class UserFragment : Fragment() {
         }
 
         this.btnSair.setOnClickListener {
-            val authStateListener = AuthStateListener { _ ->
-                    if (auth.currentUser == null) {
-                        val intent = Intent(activity, MainActivity::class.java)
-                        startActivity(intent)
-                    }
-                }
-            auth.addAuthStateListener(authStateListener)
             auth.signOut()
+            val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).build()
+            val googleSignInClient = GoogleSignIn.getClient(requireContext(), gso)
+            googleSignInClient.signOut()
+                .addOnCompleteListener {
+                    val intent = Intent(activity, MainActivity::class.java)
+                    startActivity(intent)
+                }
         }
     }
 

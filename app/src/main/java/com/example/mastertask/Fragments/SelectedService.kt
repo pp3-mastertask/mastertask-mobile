@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mastertask.Models.HabilidadeViewModel //new
 import com.example.mastertask.R
@@ -48,7 +49,7 @@ class SelectedService : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_selected_service, container, false)
-        recyclerViewHabilidades = view.findViewById(R.id.recycler_view_habilidades)
+        recyclerViewHabilidades = view.findViewById(R.id.recycler_view_skills_available)
 
         //adaptador para lista de habilidades la e o listener
         habilidadeAdapter = HabilidadeAdapter {habilidade ->

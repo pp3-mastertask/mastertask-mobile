@@ -86,16 +86,10 @@
                         android:textColor="@color/text_primary"
                         android:textSize="15dp" />
 
-                    <EditText
-                        android:id="@+id/editarConta_txtDataNascimento"
+                    <CalendarView
+                        android:id="@+id/editarConta_calendarioDataNascimento"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:hint="dd/mm/aa"
-                        android:inputType="date"
-                        android:minHeight="48dp"
-                        android:textColor="@color/text_primary"
-                        android:textColorHint="@color/text_secondary" />
+                        android:layout_height="296dp" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -166,20 +160,6 @@
                         android:id="@+id/editarConta_recyclerView"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:fontFamily="@font/montserrat_bold"
-                        android:text="Dias Disponíveis"
-                        android:textColor="@color/text_primary"
-                        android:textSize="15dp" />
-
-                    <CalendarView
-                        android:id="@+id/editarConta_calendarioDisponibilidade"
-                        android:layout_width="match_parent"
-                        android:layout_height="296dp" />
 
                     <LinearLayout
                         android:layout_width="match_parent"

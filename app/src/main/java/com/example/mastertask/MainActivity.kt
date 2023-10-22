@@ -44,9 +44,18 @@ class MainActivity : AppCompatActivity() {
         this.btnGoogleAuth = findViewById(R.id.main_btnGoogleAuth)
 
         if (auth.currentUser != null) {
-            val intent = Intent(this, Application::class.java)
-            startActivity(intent)
-            this.finish()
+            this.db.collection("usuarios")
+                .document(auth.currentUser!!.email.toString()).get().addOnSuccessListener {
+                    if (it.data!!["cpf"] != "") {
+                        val intent = Intent(this, Application::class.java)
+                        startActivity(intent)
+                        this.finish()
+                    }
+                    else {
+                        auth.signOut()
+                        googleSignInClient.signOut()
+                    }
+                }
         }
 
         this.btnGoogleAuth.setOnClickListener {
@@ -58,7 +67,6 @@ class MainActivity : AppCompatActivity() {
     { result ->
         if (result.resultCode == Activity.RESULT_OK) {
             // User selected (ok) an email
-            Toast.makeText(this, "chegou aqui", Toast.LENGTH_SHORT).show()
             val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
             this.handleAuthenticationResult(task)
         }
@@ -75,8 +83,16 @@ class MainActivity : AppCompatActivity() {
             // Get the account, insert to database and go to home page
             val account: GoogleSignInAccount? = task.result
             if (account != null) {
-                this.insertAccountIntoDatabase(account)
-                this.handleShowHomePage(account)
+                this.db.collection("usuarios")
+                    .document(account.email.toString()).get().addOnSuccessListener {
+                        if (it.data!!["cpf"] == "") {
+                            this.insertAccountIntoDatabase(account)
+                            this.handleShowPage(account, EditarContaActivity())
+                        }
+                        else {
+                            this.handleShowPage(account, Application())
+                        }
+                    }
             }
         }
         else
@@ -107,11 +123,11 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun handleShowHomePage(account: GoogleSignInAccount) {
+    private fun handleShowPage(account: GoogleSignInAccount, activity: AppCompatActivity) {
         val credential = GoogleAuthProvider.getCredential(account.idToken, null)
         this.auth.signInWithCredential(credential).addOnCompleteListener {
             if (it.isSuccessful) {
-                val intent = Intent(this, EditarContaActivity::class.java)
+                val intent = Intent(this, activity::class.java)
                 startActivity(intent)
                 this.finish()
             }

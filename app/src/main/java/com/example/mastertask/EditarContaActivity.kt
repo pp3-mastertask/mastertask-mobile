@@ -37,10 +37,9 @@ class EditarContaActivity : AppCompatActivity() {
     private lateinit var btnCancelEditAccount : Button
 
     private lateinit var txtCpf       : EditText
-    private lateinit var txtNascimento: EditText
+    private lateinit var dtNascimento: CalendarView
     private lateinit var txtContato   : EditText
     private lateinit var txtLocalidade: EditText
-    private lateinit var dtDisponibilidade: CalendarView
 
     private var list_skills = ArrayList<SkillModel>()
     private lateinit var recyclerAdapter:EditAccountSkillsAdapter
@@ -64,10 +63,9 @@ class EditarContaActivity : AppCompatActivity() {
         this.btnCancelEditAccount  = this.findViewById(R.id.editarConta_btnCancelar)
 
         this.txtCpf        = findViewById(R.id.editarConta_txtCpf)
-        this.txtNascimento = findViewById(R.id.editarConta_txtDataNascimento)
+        this.dtNascimento = findViewById(R.id.editarConta_calendarioDataNascimento)
         this.txtContato    = findViewById(R.id.editarConta_txtTelefone)
         this.txtLocalidade = findViewById(R.id.editarConta_txtLocalidade)
-        this.dtDisponibilidade = findViewById(R.id.editarConta_calendarioDisponibilidade)
 
         this.setEventListeners()
     }
@@ -138,8 +136,7 @@ class EditarContaActivity : AppCompatActivity() {
     private fun areFieldsEmpty(): Boolean {
         if (this.txtContato.text.toString() == ""
             || this.txtCpf.text.toString() == ""
-            || this.txtNascimento.text.toString() == ""
-            || this.dtDisponibilidade.date.toString() == ""
+            || this.dtNascimento.date.toString() == ""
             || this.txtLocalidade.text.toString()  == "") {
             return true
         }
@@ -171,35 +168,18 @@ class EditarContaActivity : AppCompatActivity() {
             skillsHashMapList.add(data)
         }
 
-        val timestampList = ArrayList<Timestamp>()
-        Toast.makeText(this, "1", Toast.LENGTH_SHORT).show()
-        //Toast.makeText(this, this.dtDisponibilidade.date.toString(), Toast.LENGTH_SHORT).show()
-
-        // Método 1 para tentar
-        val idk = this.dtDisponibilidade.date
-        Toast.makeText(this, "${idk}", Toast.LENGTH_SHORT).show()
-
-        // Método 2 para tentar
-        val milis = this.dtDisponibilidade.date // miliseconds
-        val Idka = Timestamp(Date(milis))
-        Toast.makeText(this, "${Idka.toDate()}", Toast.LENGTH_SHORT).show()
-
-
-        timestampList.add(Timestamp(Date(dtDisponibilidade.date)))
-        Toast.makeText(this, "2", Toast.LENGTH_SHORT).show()
         val userUpdatedData = hashMapOf(
             "contato" to this.txtContato.text.toString(),
             "cpf" to this.txtCpf.text.toString(),
             "dataInicio" to Timestamp.now(),
-            "dataNascimento" to Timestamp(this.txtNascimento.text.toString().toLong(), 0),
-            "disponibilidade" to timestampList,
+            "dataNascimento" to Timestamp(Date(dtNascimento.date)),
+            "disponibilidade" to ArrayList<Timestamp>(),
             "endereco" to this.txtLocalidade.text.toString(),
             "habilidades" to skillsHashMapList,
             "somaAvaliacoes" to 0.0,
             "nome" to this.auth.currentUser!!.displayName,
             "numServicosFeitos" to 0
         )
-        Toast.makeText(this, "3", Toast.LENGTH_SHORT).show()
 
         this.db.collection("usuarios")
             .document(this.auth.currentUser!!.email.toString())
@@ -229,9 +209,7 @@ class EditarContaActivity : AppCompatActivity() {
                     currentUserData = it.data
 
                     if (currentUserData != null) {
-                        Toast.makeText(this, currentUserData.toString(), Toast.LENGTH_SHORT).show()
                         for ((k, v) in currentUserData!!) {
-                            Toast.makeText(this, k.toString(), Toast.LENGTH_LONG).show()
 //                            when (k) {
 //                                "contato" -> this.txtContato.setText(v.toString())
 //                                "cpf" -> this.txtCpf.setText(v.toString())
