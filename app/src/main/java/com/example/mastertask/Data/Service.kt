@@ -14,6 +14,7 @@ data class Service(
     var habilidades: List<Map<String?, Any?>>? = null,
     var status: String? = null
 ) {
+
     @Exclude
     fun toMap(): Map<String, Any?> {
         return mapOf(

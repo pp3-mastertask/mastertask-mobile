@@ -27,8 +27,8 @@ private const val ARG_PARAM2 = "param2"
  */
 class ServiceConfirmClient : Fragment() {
     // TODO: Rename and change types of parameters
-    //private var param1: String? = null
-    //private var param2: String? = null
+    private var param1: String? = null //nao estarei apagando por enquantokkkk ainda falta mt coisa aq nekkkk
+    private var param2: String? = null //paciencia
 
     private lateinit var userViewModel: UserViewModel
     private lateinit var serviceViewModel: HabilidadeViewModel
@@ -40,16 +40,18 @@ class ServiceConfirmClient : Fragment() {
     private lateinit var selectedServices: List<Service>
     private lateinit var currentUser: User
 
-    private lateinit var textViewCliente: eu n sei como pega essas ifos aqkkkkkk
-    private lateinit var textViewTotalPrice:eu n sei como pega essas ifos aqkkkkkk
-    private lateinit var buttonSolicitar:eu n sei como pega essas ifos aqkkkkkk
+    private lateinit var textViewCliente: //eu n sei como pega essas infos aqkkkkkk
+    private lateinit var textViewTotalPrice://eu n sei como pega essas infos aqkkkkkk
+    private lateinit var buttonSolicitar://eu n sei como pega essas infos aqkkkkkk
 
+    val currentUser = auth.currentUser
+    val clienteId = currentUser?.uid
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        //super.onCreate(savedInstanceState)
-        //arguments?.let {
-        //    param1 = it.getString(ARG_PARAM1)
-        //    param2 = it.getString(ARG_PARAM2)
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            param1 = it.getString(ARG_PARAM1)
+            param2 = it.getString(ARG_PARAM2)
 
 
     }
@@ -95,7 +97,7 @@ class ServiceConfirmClient : Fragment() {
     private fun calcularPrecoTotal(selectedServices: List<Service>): Double {
         var totalPrice = 0.0
         for (service in selectedServices) {
-            totalPrice += service.preco
+            totalPrice += service.preco //eu tenho q criar o preço em services??
         }
         return totalPrice
     }
@@ -104,7 +106,7 @@ class ServiceConfirmClient : Fragment() {
         if(selectedServices.isNotEmpty()){
             val novoSercivo = Service(
                 clienteId = currentUser.id,
-                clienteId = currentUser.id, servicos = selectedServices.map {it.id}
+                clienteId = currentUser.id, servicos = selectedServices.map {it.id} //nada da certo nessa buceta aqkkkkk eu heinkkkk
             )
             serviceViewModel.createService(novoSercivo)
 
