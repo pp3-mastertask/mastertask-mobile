@@ -1,11 +1,13 @@
 package com.example.mastertask.Fragments
 
+import HabilidadeAdapter //new
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.mastertask.Models.HabilidadeViewModel //new
 import com.example.mastertask.R
 
 // TODO: Rename parameter arguments, choose names that match

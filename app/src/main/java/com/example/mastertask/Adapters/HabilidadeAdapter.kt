@@ -12,7 +12,7 @@ class HabilidadeAdapter(private val onItemClick: (String) -> Unit) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HabilidadeViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_habilidade, parent, false)
+            .inflate(R.layout.fragment_selected_service, parent, false)//n tenho certeza se é o fragmente selected servicekkkkkkkkk
         return HabilidadeViewHolder(view)
     }
 
@@ -22,7 +22,7 @@ class HabilidadeAdapter(private val onItemClick: (String) -> Unit) :
     }
 
     inner class HabilidadeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val textViewHabilidade: TextView = itemView.findViewById(R.id.text_habilidade)
+        private val textViewHabilidade: TextView = itemView.findViewById(R.id.add_skill_name)//nao tenho certeza se é issokkkkkkk
 
         fun bind(habilidade: String) {
             textViewHabilidade.text = habilidade
