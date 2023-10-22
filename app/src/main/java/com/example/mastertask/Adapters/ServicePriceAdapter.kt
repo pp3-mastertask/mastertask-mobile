@@ -4,6 +4,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mastertask.R
+import java.text.NumberFormat
+import java.util.Currency
 
 class ServicePriceAdapter (private val list: List<Map<String?, Any?>>?) :
     RecyclerView.Adapter<ServicePriceAdapter.Price>()
@@ -38,7 +40,10 @@ class ServicePriceAdapter (private val list: List<Map<String?, Any?>>?) :
         position: Int
     ) {
         holder.habilidade.text = list!![position].getValue("habilidade") as String?
-        holder.preco.text = (list[position].getValue("preco") as Long?).toString()
+        val format: NumberFormat = NumberFormat.getCurrencyInstance()
+        format.setMaximumFractionDigits(2)
+        format.setCurrency(Currency.getInstance("BRL"))
+        holder.preco.text = format.format(list[position].getValue("preco") as Long?)
     }
 
     override fun getItemCount(): Int {

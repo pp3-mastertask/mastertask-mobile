@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:text="Preço"
         android:textColor="#B4000000"
-        android:textSize="12sp"
+        android:textSize="14sp"
         android:textStyle="bold"
         tools:ignore="HardcodedText"
         android:textAlignment="center"/>

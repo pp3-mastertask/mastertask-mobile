@@ -102,7 +102,7 @@ class StatusServiceWorker : Fragment() {
 
     fun initViews(view : View) {
         lbNomeCliente = view.findViewById(R.id.lb_nome_cliente) as TextView
-        lbEnderecoCliente = view.findViewById(R.id.lb_endereco_completo) as TextView
+        lbEnderecoCliente = view.findViewById(R.id.lb_endereco_cliente) as TextView
         lbAvaliacaoCliente = view.findViewById(R.id.lb_avaliacao_cliente) as TextView
         lbTotalAReceber = view.findViewById(R.id.lb_total_a_receber) as TextView
         lbDataPrevista = view.findViewById(R.id.lb_data_prevista) as TextView

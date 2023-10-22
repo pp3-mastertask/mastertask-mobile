@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,9 +18,11 @@ import com.example.mastertask.MainActivity
 import com.example.mastertask.R
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import java.text.SimpleDateFormat
 
 
 /**
@@ -101,7 +104,8 @@ class UserFragment : Fragment() {
                                     this.lbFullname.setText(v.toString())
                                 }
                                 "dataNascimento" -> {
-                                    this.lbAge.setText(v.toString())
+                                    this.lbAge.text = SimpleDateFormat("dd/MM/yyyy")
+                                        .format((v as Timestamp).toDate())
                                 }
                                 "endereco" -> this.lbAddress.setText(v.toString())
                                 "habilidades" -> {
@@ -119,7 +123,6 @@ class UserFragment : Fragment() {
 
         this.badgeAdapter = BadgeViewAdapter(this.list_skills)
         this.rvHabilidades.adapter = this.badgeAdapter
-        this.rvHabilidades.layoutManager = GridLayoutManager(activity?.applicationContext, 3, RecyclerView.VERTICAL, false)
         this.badgeAdapter.notifyDataSetChanged()
     }
 

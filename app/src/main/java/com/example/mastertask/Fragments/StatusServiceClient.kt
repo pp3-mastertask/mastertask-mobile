@@ -102,9 +102,9 @@ class StatusServiceClient : Fragment() {
     }
 
     fun initViews(view : View) {
-        lbNomePrestador = view.findViewById(R.id.lb_nome_cliente) as TextView
-        lbEnderecoPrestador = view.findViewById(R.id.lb_endereco_cliente) as TextView
-        lbAvaliacaoPrestador = view.findViewById(R.id.lb_avaliacao_cliente) as TextView
+        lbNomePrestador = view.findViewById(R.id.lb_nome_prestador) as TextView
+        lbEnderecoPrestador = view.findViewById(R.id.lb_endereco_prestador) as TextView
+        lbAvaliacaoPrestador = view.findViewById(R.id.lb_avaliacao_prestador) as TextView
         lbTotalAPagar = view.findViewById(R.id.lb_preco_total) as TextView
         lbDataPrevista = view.findViewById(R.id.lb_data_prevista) as TextView
         lbStatusServico = view.findViewById(R.id.lb_status) as TextView

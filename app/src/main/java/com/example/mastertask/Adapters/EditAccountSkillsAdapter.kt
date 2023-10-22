@@ -12,13 +12,13 @@ class EditAccountSkillsAdapter(private var lista_servicos: List<SkillModel>)
     : RecyclerView.Adapter<EditAccountSkillsAdapter.ServicesViewHolder>()
 {
     inner class ServicesViewHolder(view: View): RecyclerView.ViewHolder(view) {
-        var serviceTextView: TextView = view.findViewById(R.id.lbSkillBadge)
+        var serviceTextView: TextView = view.findViewById(R.id.lbServiceBadge)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ServicesViewHolder {
         val servicesView = LayoutInflater
             .from(parent.context)
-            .inflate(R.layout.skill_badge, parent, false)
+            .inflate(R.layout.service_badge, parent, false)
 
         return ServicesViewHolder(servicesView)
     }
