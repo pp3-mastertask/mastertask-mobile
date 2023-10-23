@@ -183,8 +183,11 @@ class StatusServiceClient : Fragment() {
             val service = Service(id, dataHora, emailCliente, emailTrab, habilidades,
                 "Finalizado (cliente)")
             serviceViewModel.update(service)
-//            parentFragmentManager.beginTransaction()
-//                .replace(R.id.fragment_container, Avaliacao()).commit()
+            val y = WorkerEvaluationFragment.newInstance(id!!, nome!!, endereco!!, somaAvaliacoes!!,
+                numServicosFeitos!!, emailTrab!!)
+            y.setHabilidades(habilidades!!)
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, y).commit()
         }
 
        btnCancelar.setOnClickListener {

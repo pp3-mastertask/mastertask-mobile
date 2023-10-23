@@ -18,12 +18,12 @@ import com.example.mastertask.Models.AvaliacaoViewModel
 import com.example.mastertask.Models.UserViewModel
 import com.example.mastertask.R
 
-private const val ID_AVALIACAO = ""
-private const val NOME = ""
-private const val EMAIL = ""
-private const val ENDERECO = ""
-private const val SOMA_AVALIACOES = ""
-private const val NUM_SERVICOES_FEITOS = ""
+private const val ID_SERVICO = "idServico"
+private const val NOME = "nome"
+private const val EMAIL = "email"
+private const val ENDERECO = "endereco"
+private const val SOMA_AVALIACOES = "somaAvaliacoes"
+private const val NUM_SERVICOES_FEITOS = "numServicosFeitos"
 
 /**
  * A simple [Fragment] subclass.
@@ -31,7 +31,7 @@ private const val NUM_SERVICOES_FEITOS = ""
  * create an instance of this fragment.
  */
 class WorkerEvaluationFragment : Fragment() {
-    private var id_avaliacao: String? = null
+    private var idServico: String? = null
     private var nome: String? = null
     private var endereco: String? = null
     private var somaAvaliacoes: Double = 0.0
@@ -62,7 +62,7 @@ class WorkerEvaluationFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            this.id_avaliacao = it.getString(ID_AVALIACAO)
+            this.idServico = it.getString(ID_SERVICO)
             this.nome = it.getString(NOME)
             this.endereco = it.getString(ENDERECO)
             this.somaAvaliacoes = it.getDouble(SOMA_AVALIACOES)
@@ -111,7 +111,7 @@ class WorkerEvaluationFragment : Fragment() {
         this.btnNaoTerminarAvaliacao.setOnClickListener {  parentFragmentManager.beginTransaction().replace(
             R.id.fragment_container, HomeFragment()
         ).commit() }
-        // TODO: Verificar se está tudo correto
+
         this.btnNaoFinalizouServico.setOnClickListener {
             this.avaliacao.terminado = false
             this.btnTerminarAvaliacao.isEnabled = true
@@ -122,7 +122,6 @@ class WorkerEvaluationFragment : Fragment() {
         }
 
         this.btnTerminarAvaliacao.setOnClickListener {
-            this.avaliacao.id = this.id_avaliacao
             if (this.txtFeedback.text.toString() != "")
                 this.avaliacao.comentario = this.txtFeedback.text.toString()
             else
@@ -131,8 +130,9 @@ class WorkerEvaluationFragment : Fragment() {
             val avaliacao = this.ratingBar.rating.toDouble()
             this.avaliacao.estrelas = avaliacao
 
-            this.avaliacaoViewModel.create(this.avaliacao)
+            this.avaliacao.servico = idServico
 
+            this.avaliacaoViewModel.create(this.avaliacao)
             this.usuario.somaAvaliacoes!!.plus(avaliacao)
             this.userViewModel.update(this.usuario)
         }
@@ -175,7 +175,7 @@ class WorkerEvaluationFragment : Fragment() {
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
          *
-         * @param id Service id on firebase.
+         * @param idServico Service id.
          * @param nome Name of the worker.
          * @param endereco Worker address.
          * @param somaAvaliacoes Evaluation sum.
@@ -184,11 +184,11 @@ class WorkerEvaluationFragment : Fragment() {
          * @return A new instance of fragment WorkerEvaluation.
          */
         @JvmStatic
-        fun newInstance(id_avaliacao: String, nome: String, endereco: String,
-                        somaAvaliacoes: Double, numServicosFeitos: Long, email: String) =
+        fun newInstance(idServico: String?, nome: String, endereco: String, somaAvaliacoes: Double,
+                        numServicosFeitos: Long, email: String) =
             WorkerEvaluationFragment().apply {
                 arguments = Bundle().apply {
-                    putString(ID_AVALIACAO, id_avaliacao)
+                    putString(ID_SERVICO, idServico)
                     putString(NOME, nome)
                     putString(ENDERECO, endereco)
                     putDouble(SOMA_AVALIACOES, somaAvaliacoes)
