@@ -4,11 +4,13 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mastertask.Data.User
 import com.example.mastertask.R
+import com.squareup.picasso.Picasso
 
 class CardViewAdapter (private val list: List<User>) :
     RecyclerView.Adapter<CardViewAdapter.Card>()
@@ -20,6 +22,7 @@ class CardViewAdapter (private val list: List<User>) :
         val endereco: TextView
         val telefone: TextView
         val estrelas: TextView
+        val imagem: ImageView
 
         val recyclerView : RecyclerView
         init {
@@ -27,6 +30,7 @@ class CardViewAdapter (private val list: List<User>) :
             endereco = view.findViewById<View>(R.id.location) as TextView
             telefone = view.findViewById<View>(R.id.phone) as TextView
             estrelas = view.findViewById<View>(R.id.stars) as TextView
+            imagem = view.findViewById<View>(R.id.imgFotoPerfil) as ImageView
             recyclerView = view.findViewById<View>(R.id.recycler_view_services) as RecyclerView
         }
     }
@@ -61,6 +65,8 @@ class CardViewAdapter (private val list: List<User>) :
             holder.estrelas.text = (user.somaAvaliacoes?.div(user.numServicosFeitos!!)).toString()
         else
             holder.estrelas.text = "0"
+
+        Picasso.get().load(user.imagem).into(holder.imagem)
 
         val layoutManager: RecyclerView.LayoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)

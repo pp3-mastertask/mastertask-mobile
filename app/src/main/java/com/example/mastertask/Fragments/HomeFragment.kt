@@ -5,10 +5,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.SearchView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.mastertask.R
+import com.google.firebase.auth.FirebaseAuth
+import com.squareup.picasso.Picasso
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -27,6 +30,9 @@ class HomeFragment : Fragment() {
     private var param2: String? = null
 
     lateinit var searchView: SearchView
+    lateinit var imgPerfil: ImageView
+
+    private val auth: FirebaseAuth = FirebaseAuth.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,6 +52,10 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        imgPerfil = view.findViewById(R.id.imgFotoPerfil)
+        val userUrl = auth.currentUser!!.photoUrl.toString()
+        Picasso.get().load(userUrl).into(imgPerfil)
 
         definirEventListeners(view)
         parentFragmentManager.beginTransaction().replace(R.id.home_tabs_container, HomeInit()).commit()

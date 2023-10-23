@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -15,6 +16,7 @@ import com.example.mastertask.Data.Service
 import com.example.mastertask.R
 import com.example.mastertask.Models.ServiceViewModel
 import com.google.firebase.Timestamp
+import com.squareup.picasso.Picasso
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.Currency
@@ -22,6 +24,7 @@ import java.util.Date
 
 private const val ID = "id"
 private const val NOME = "nome"
+private const val IMGURL = "imgUrl"
 private const val ENDERECO = "endereco"
 private const val CONTATO = "contato"
 private const val SOMAAVALIACOES = "somaAvaliacoes"
@@ -39,6 +42,7 @@ private const val STATUS = "status"
 class StatusServiceWorker : Fragment() {
     private var id: String? = null
     private var nome: String? = null
+    private var imgUrl: String? = null
     private var endereco: String? = null
     private var contato: String? = null
     private var somaAvaliacoes: Double? = null
@@ -55,6 +59,8 @@ class StatusServiceWorker : Fragment() {
     private lateinit var lbDataPrevista : TextView
     private lateinit var lbTotalAReceber : TextView
 
+    private lateinit var imgFotoPerfil: ImageView
+
     private lateinit var btnCancelar : Button
     private lateinit var btnConcluir : Button
 
@@ -70,6 +76,7 @@ class StatusServiceWorker : Fragment() {
         arguments?.let {
             id = it.getString(ID)
             nome = it.getString(NOME)
+            imgUrl = it.getString(IMGURL)
             endereco = it.getString(ENDERECO)
             contato = it.getString(CONTATO)
             somaAvaliacoes = it.getDouble(SOMAAVALIACOES)
@@ -107,6 +114,8 @@ class StatusServiceWorker : Fragment() {
         lbTotalAReceber = view.findViewById(R.id.lb_total_a_receber) as TextView
         lbDataPrevista = view.findViewById(R.id.lb_data_prevista) as TextView
 
+        imgFotoPerfil = view.findViewById(R.id.imgFotoPerfil) as ImageView
+
         btnCancelar = view.findViewById(R.id.btnCancelar) as Button
         btnConcluir = view.findViewById(R.id.btnConcluir) as Button
 
@@ -143,6 +152,8 @@ class StatusServiceWorker : Fragment() {
     }
 
     fun addValues() {
+        Picasso.get().load(imgUrl).into(imgFotoPerfil)
+
         lbNomeCliente.text = nome
         lbEnderecoCliente.text = endereco
         if ((somaAvaliacoes!!.div(numServicosFeitos!!)).isNaN())
@@ -214,6 +225,7 @@ class StatusServiceWorker : Fragment() {
          *
          * @param id Service id on firebase.
          * @param nome Name of the worker.
+         * @param imgUrl Profile picture url.
          * @param endereco Worker address.
          * @param contato Worker contact.
          * @param somaAvaliacoes Evaluation sum.
@@ -226,13 +238,14 @@ class StatusServiceWorker : Fragment() {
          * @return A new instance of fragment StatusServiceWorker.
          */
         @JvmStatic
-        fun newInstance(id: String, nome: String, endereco: String, contato: String,
+        fun newInstance(id: String, nome: String, imgUrl: String, endereco: String, contato: String,
                         somaAvaliacoes: Double, numServicosFeitos: Long, dataHora: Timestamp,
                         emailCliente: String, emailTrab: String, status: String?) =
             StatusServiceWorker().apply {
                 arguments = Bundle().apply {
                     putString(ID, id)
                     putString(NOME, nome)
+                    putString(IMGURL, imgUrl)
                     putString(ENDERECO, endereco)
                     putString(CONTATO, contato)
                     putDouble(SOMAAVALIACOES, somaAvaliacoes)

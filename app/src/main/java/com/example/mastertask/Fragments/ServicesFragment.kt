@@ -140,7 +140,7 @@ class ServicesFragment : Fragment() {
                 CardViewAdapterServices.OnItemClickListener {
                 override fun onItemClick(item: CardServiceInfo?) {
                     val y = StatusServiceClient.newInstance(
-                        item!!.id!!, item.nome!!, item.endereco!!,
+                        item!!.id!!, item.nome!!, item.imgFoto!!, item.endereco!!,
                         item.contato!!, item.somaAvaliacoes!!, item.numServicosFeitos!!,
                         item.dataHora!!, item.emailCliente!!, item.emailTrab!!, item.status!!
                     )
@@ -166,7 +166,7 @@ class ServicesFragment : Fragment() {
                 CardViewAdapterServices.OnItemClickListener {
                 override fun onItemClick(item: CardServiceInfo?) {
                     val y = StatusServiceWorker.newInstance(
-                        item!!.id!!, item.nome!!, item.endereco!!,
+                        item!!.id!!, item.nome!!, item.imgFoto!!, item.endereco!!,
                         item.contato!!, item.somaAvaliacoes!!, item.numServicosFeitos!!,
                         item.dataHora!!, item.emailCliente!!, item.emailTrab!!, item.status!!
                     )
@@ -191,7 +191,7 @@ class ServicesFragment : Fragment() {
                 CardViewAdapterServices.OnItemClickListener {
                 override fun onItemClick(item: CardServiceInfo?) {
                     val y = ServiceConfirmWorker.newInstance(
-                        item!!.id!!, item.nome!!, item.endereco!!,
+                        item!!.id!!, item.nome!!, item.imgFoto!!, item.endereco!!,
                         item.contato!!, item.somaAvaliacoes!!, item.numServicosFeitos!!,
                         item.dataHora!!, item.emailCliente!!, item.emailTrab!!, item.status!!
                     )
@@ -229,7 +229,7 @@ class ServicesFragment : Fragment() {
                 }.get(0)
             }
             val data = CardServiceInfo(
-                it.id, user.nome, user.endereco, user.contato, user.somaAvaliacoes,
+                it.id, user.nome, user.imagem, user.endereco, user.contato, user.somaAvaliacoes,
                 user.numServicosFeitos, it.dataHora, it.emailCliente, it.emailTrab, it.habilidades,
                 it.status)
             listCardServiceInfo.add(data)
