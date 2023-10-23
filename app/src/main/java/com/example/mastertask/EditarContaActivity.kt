@@ -97,9 +97,7 @@ class EditarContaActivity : AppCompatActivity() {
         val btnCancelAddSkill: Button = dg.findViewById(R.id.add_skill_cancel)
         val btnAdicionarSkill: Button = dg.findViewById(R.id.add_skill_confirm)
 
-        btnCancelAddSkill.setOnClickListener({
-            dg.cancel()
-        })
+        btnCancelAddSkill.setOnClickListener{ dg.cancel() }
 
         btnAdicionarSkill.setOnClickListener {
             if (txtNomeSkill.text.toString() != "" && txtPrecoSkill.text.toString() != "") {
@@ -121,15 +119,15 @@ class EditarContaActivity : AppCompatActivity() {
     }
 
     private fun handleCancelEditAccount() {
-//        if (this.areFieldsEmpty()) {
-//            val dg: Dialog = Dialog(this)
-//
-//            dg.requestWindowFeature(Window.FEATURE_NO_TITLE)
-//            dg.setCancelable(true)
-//            dg.setContentView(R.layout.cancel_edit_account_dialog)
-//            dg.show()
-//        }
-//        else
+        if (this.areFieldsEmpty()) {
+            val dg: Dialog = Dialog(this)
+
+            dg.requestWindowFeature(Window.FEATURE_NO_TITLE)
+            dg.setCancelable(true)
+            dg.setContentView(R.layout.cancel_edit_account_dialog)
+            dg.show()
+        }
+        else
             this.finish()
     }
 
@@ -210,44 +208,30 @@ class EditarContaActivity : AppCompatActivity() {
 
                     if (currentUserData != null) {
                         for ((k, v) in currentUserData!!) {
-//                            when (k) {
-//                                "contato" -> this.txtContato.setText(v.toString())
-//                                "cpf" -> this.txtCpf.setText(v.toString())
-//                                "dataNascimento" -> this.txtNascimento.setText(v.toString())
-//                                "disponibilidade" -> {
-//                                    val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.US)
-//
-//                                    try {
-//                                        // Parse the timestamp string into a Date object
-//                                        val date = dateFormat.parse(v.toString())
-//
-//                                        // Convert the Date to milliseconds since the epoch
-//                                        val timeInMillis = date.time
-//
-//                                        // Set the selected date in the CalendarView
-//                                        this.dtDisponibilidade.date = timeInMillis
-//                                    } catch (e: Exception) {
-//                                        Toast.makeText(this, "Não foi possível carregar a data de disponibilidade!", Toast.LENGTH_LONG).show()
-//                                    }
+                            when (k) {
+                                "contato" -> this.txtContato.setText(v.toString())
+                                "cpf" -> this.txtCpf.setText(v.toString())
+//                                "dataNascimento" -> {
+//                                    this.dtNascimento.date = v.toString().toLong()
 //                                }
-//                                "endereco" -> this.txtLocalidade.setText(v.toString())
-//                                "habilidades" -> {
-//                                    val skillsHashMapList = v as ArrayList<Any>
-//
-//                                    for (hashMap in skillsHashMapList) {
-//                                        if (hashMap is HashMap<*, *>) {
-//                                            this.list_skills.add(
-//                                                SkillModel(
-//                                                    hashMap["habilidade"]?.toString() ?: "",
-//                                                    hashMap["preco"]?.toString()?.toDouble() ?: 0.0
-//                                                )
-//                                            )
-//
-//                                            this.recyclerAdapter.notifyDataSetChanged()
-//                                        }
-//                                    }
-//                                }
-//                            }
+                                "endereco" -> this.txtLocalidade.setText(v.toString())
+                                "habilidades" -> {
+                                    val skillsHashMapList = v as ArrayList<Any>
+
+                                    for (hashMap in skillsHashMapList) {
+                                        if (hashMap is HashMap<*, *>) {
+                                            this.list_skills.add(
+                                                SkillModel(
+                                                    hashMap["habilidade"]?.toString() ?: "",
+                                                    hashMap["preco"]?.toString()?.toDouble() ?: 0.0
+                                                )
+                                            )
+
+                                            this.recyclerAdapter.notifyDataSetChanged()
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
                 }

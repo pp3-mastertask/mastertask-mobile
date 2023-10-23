@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.mastertask.Adapters.BadgeViewAdapter
 import com.example.mastertask.EditarContaActivity
 import com.example.mastertask.MainActivity
+import com.example.mastertask.Models.SkillModel
 import com.example.mastertask.R
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
