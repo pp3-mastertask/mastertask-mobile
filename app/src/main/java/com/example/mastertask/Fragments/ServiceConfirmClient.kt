@@ -7,13 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-import androidx.fragment.app.FragmentContainer
 import com.example.mastertask.Data.Service
 import com.example.mastertask.Data.User
+import com.example.mastertask.Models.HabilidadeViewModel
 import com.example.mastertask.Models.ServiceViewModel
 import com.example.mastertask.Models.UserViewModel
 import com.example.mastertask.R
-import com.example.mastertask.R.id
 import com.google.firebase.auth.FirebaseAuth
 
 // TODO: Rename parameter arguments, choose names that match
@@ -27,23 +26,98 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class ServiceConfirmClient : Fragment() {
-    private var param1: String? = null
-    private var param2: String? = null
+    // TODO: Rename and change types of parameters
+    private var param1: String? = null //nao estarei apagando por enquantokkkk ainda falta mt coisa aq nekkkk
+    private var param2: String? = null //paciencia
+
+    private lateinit var userViewModel: UserViewModel
+    private lateinit var serviceViewModel: HabilidadeViewModel
+
+    val currentUser = auth.currentUser
+    val clienteId = currentUser?.uid
+
+    private lateinit var userViewModel: UserViewModel
+    private lateinit var serviceViewModel: ServiceViewModel
+    private lateinit var auth: FirebaseAuth
+
+    private lateinit var selectedServices: List<Service>
+    private lateinit var currentUser: User
+
+    private lateinit var textViewCliente:
+    private lateinit var textViewTotalPrice:
+    private lateinit var buttonSolicitar:
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
-        }
+
+
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
+        val view = inflater.inflate(R.layout.fragment_service_confirm_client, container, false)
+
+
+        userViewModel = UserViewModel()
+        serviceViewModel = ServiceViewModel()
+        auth = FirebaseAuth.getInstance()
+
+        val currentUserEmail = auth.currentUser?.email
+        currentUser = userViewModel.getUserByEmail(currentUserEmail) ?: User()
+
+
+        selectedServices = // eu realmente n achei nada sobre como fazkkkk vou procurar mais um pouco ainddakkkkkkkk
+
+
+        textViewCliente = view.findViewById(R.id.nameProfissional)
+        textViewTotalPrice = view.findViewById(R.id.lb_preco_total)
+        buttonSolicitar = view.findViewById(R.id.prestadorCard)
+
+        setupUI()//inicializa a interface do usuario???
+
+        buttonSolicitar.setOnClickListener {
+            criarServico()
+        }
         return inflater.inflate(R.layout.fragment_service_confirm_client, container, false)
     }
 
+    private fun setupUI() {
+        textViewCliente.text = "Cliente: ${currentUser.nome}"
+
+        val totalPrice = calcularPrecoTotal(selectedServices)
+        textViewTotalPrice.text = "Total a pagar: R$ $totalPrice"
+    }
+
+    private fun calcularPrecoTotal(selectedServices: List<Service>): Double {
+        var totalPrice = 0.0
+        for (service in selectedServices) {
+            totalPrice += service.preco
+        }
+        return totalPrice
+    }
+
+    private fun criarServico() {
+        if(selectedServices.isNotEmpty()){
+            val novoSercivo = Service(
+                clienteId = currentUser.id,
+                clienteId = currentUser.id, servicos = selectedServices.map {it.id} //nada da certo nessa buceta aqkkkkk eu heinkkkk
+            )
+            serviceViewModel.createService(novoSercivo)
+
+            fragmentManager?.beginTransaction()?.replace(R.id.fragment_container,HomeInit())?.commit()
+        }
+        else{
+
+        }
+    }
+}
 
     companion object {
         /**

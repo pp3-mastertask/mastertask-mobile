@@ -13,10 +13,8 @@ import com.example.mastertask.Data.Service
 import com.example.mastertask.Data.User
 import com.example.mastertask.Models.ServiceViewModel
 import com.example.mastertask.Models.UserViewModel
-import com.example.mastertask.OnCardClickListener
 import com.example.mastertask.R
 import com.google.firebase.auth.FirebaseAuth
-import java.security.Timestamp
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -28,30 +26,25 @@ private const val ARG_PARAM2 = "param2"
  * Use the [HomeInit.newInstance] factory method to
  * create an instance of this fragment.
  */
-class HomeInit : Fragment(), OnCardClickListener {
+class HomeInit : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
 
-    lateinit var recycler_view_recomendacoes: RecyclerView
-    lateinit var recycler_view_novos: RecyclerView
-    lateinit var recycler_view_jacontratados: RecyclerView
+    lateinit var recycler_view_recomendacoes : RecyclerView
+    lateinit var recycler_view_novos : RecyclerView
+    lateinit var recycler_view_jacontratados : RecyclerView
 
-    val userViewModel: UserViewModel by viewModels()
-    val serviceViewModel: ServiceViewModel by viewModels()
+    val userViewModel : UserViewModel by viewModels()
+    val serviceViewModel : ServiceViewModel by viewModels()
 
-    var usersArrayList: ArrayList<User> = ArrayList()
-    var servicesArrayList: ArrayList<Service> = ArrayList()
+    var usersArrayList : ArrayList<User> = ArrayList()
+    var servicesArrayList : ArrayList<Service> = ArrayList()
 
-    val auth: FirebaseAuth = FirebaseAuth.getInstance()
-    val currentUser = auth.currentUser
-    val userEmail = currentUser?.email
+    val auth : FirebaseAuth = FirebaseAuth.getInstance()
 
-    private val lista: List<User> = listOf(
-        User(id = "1", contato = "contato@example.com", cpf = "123.456.789-00", dataInicio = Timestamp.now(), dataNascimento = Timestamp.now(), disponibilidade = disponibilidade, endereco = "Rua Exemplo, 123", habilidades = habilidades, nome = "Nome Exemplo", numServicosFeitos = 10L, somaAvaliacoes = 4.5),
-        User(id = "2", contato = "contato@example.com", cpf = "123.456.789-00", dataInicio = Timestamp.now(), dataNascimento = Timestamp.now(), disponibilidade = disponibilidade, endereco = "Rua Exemplo, 123", habilidades = habilidades, nome = "Nome Exemplo", numServicosFeitos = 10L, somaAvaliacoes = 4.5),
-        User(id = "3", contato = "contato@example.com", cpf = "123.456.789-00", dataInicio = Timestamp.now(), dataNascimento = Timestamp.now(), disponibilidade = disponibilidade, endereco = "Rua Exemplo, 123", habilidades = habilidades, nome = "Nome Exemplo", numServicosFeitos = 10L, somaAvaliacoes = 4.5),
-    )
+    val currentUser = auth.currentUser!!
+    val userEmail = currentUser.email
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,19 +65,6 @@ class HomeInit : Fragment(), OnCardClickListener {
         super.onViewCreated(view, savedInstanceState)
         initModels()
         initViews(view)
-
-        setUpRecyclerView(recycler_view_recomendacoes, lista) //ERA PRA TER UM THIS COMO TERCEIRO ARGUMENTO NESSA P***
-        setUpRecyclerView(recycler_view_novos, lista)
-        setUpRecyclerView(recycler_view_jacontratados, lista)
-    }
-
-    override fun onCardClick(selectedService: SelectedService) {
-        val selectedServiceFragment = SelectedService.newInstance(selectedService)
-
-        parentFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, selectedServiceFragment)
-            .addToBackStack(null)
-            .commit()
     }
 
     fun initViews(view : View) {
@@ -155,6 +135,18 @@ class HomeInit : Fragment(), OnCardClickListener {
         adapter.notifyDataSetChanged()
     }
 
+    interface OnCardClickListener{
+        fun onCardClick(selectedService: SelectedService)
+    }
+
+    override fun onCardClick(selectedService: SelectedService){
+        val selectedServiceFragment = SelectedService.newInstance(SelectedService)
+
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, selectedServiceFragment)
+            .addToBackStack(null)
+            .commit()
+    }
 
     companion object {
         /**
