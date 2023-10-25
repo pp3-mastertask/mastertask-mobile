@@ -202,6 +202,36 @@ class EditarContaActivity : AppCompatActivity() {
         return false
     }
 
+    private fun isValidCPF(cpf: String): Boolean {
+        val cleanedCPF = cpf.replace("\\D".toRegex(), "")
+
+        if (cleanedCPF.length != 11) {
+            return false
+        }
+
+        if (cleanedCPF.toSet().size == 1) {
+            return false
+        }
+
+        val firstDigit = calculateDigit(cleanedCPF.substring(0, 9))
+        val secondDigit = calculateDigit(cleanedCPF.substring(0, 10) + firstDigit)
+
+        return cleanedCPF.substring(9).toInt() == firstDigit && cleanedCPF.substring(10).toInt() == secondDigit
+    }
+
+    private fun calculateDigit(partialCPF: String): Int {
+        var sum = 0
+        var multiplier = partialCPF.length + 1
+
+        for (digit in partialCPF) {
+            sum += digit.toString().toInt() * multiplier
+            multiplier--
+        }
+
+        val remainder = sum % 11
+        return if (remainder < 2) 0 else 11 - remainder
+    }
+
     private fun handleConfirmEditAccount() {
 
         if (this.areFieldsEmpty()) {
@@ -211,6 +241,12 @@ class EditarContaActivity : AppCompatActivity() {
             dg.setCancelable(true)
             dg.setContentView(R.layout.cancel_edit_account_dialog)
             dg.show()
+            return
+        }
+
+        val cpf = this.txtCpf.text.toString()
+        if (!isValidCPF(cpf)) {
+            Toast.makeText(this, "O CPF digitado não é válido!", Toast.LENGTH_LONG).show()
             return
         }
 
@@ -228,7 +264,7 @@ class EditarContaActivity : AppCompatActivity() {
 
         val userUpdatedData = hashMapOf(
             "contato" to this.txtContato.text.toString(),
-            "cpf" to this.txtCpf.text.toString(),
+            "cpf" to cpf,
             "dataInicio" to Timestamp.now(),
             "dataNascimento" to Timestamp(Date(dtNascimento.date)),
             "disponibilidade" to ArrayList<Timestamp>(),
