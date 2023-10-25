@@ -9,9 +9,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mastertask.Data.User
 import com.example.mastertask.R
+import com.example.mastertask.OnCardClickListener
 
-class CardViewAdapter(private val list: List<User>) :
-    RecyclerView.Adapter<CardViewAdapter.Card>() {
+class CardViewAdapter(private val list: List<User>,
+                      private val onCardClickListener: OnCardClickListener
+                  ) : RecyclerView.Adapter<CardViewAdapter.Card>() {
+
     lateinit var context: Context
 
     inner class Card(view: View) : RecyclerView.ViewHolder(view) {
@@ -27,6 +30,9 @@ class CardViewAdapter(private val list: List<User>) :
             telefone = view.findViewById(R.id.phone)
             estrelas = view.findViewById(R.id.stars)
             recyclerView = view.findViewById(R.id.recycler_view_services)
+            itemView.setOnClickListener{
+                onCardClickListener.onCardClick(list[adapterPosition])
+            }
         }
     }
 

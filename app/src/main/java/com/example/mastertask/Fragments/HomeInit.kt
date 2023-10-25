@@ -13,8 +13,10 @@ import com.example.mastertask.Data.Service
 import com.example.mastertask.Data.User
 import com.example.mastertask.Models.ServiceViewModel
 import com.example.mastertask.Models.UserViewModel
+import com.example.mastertask.OnCardClickListener
 import com.example.mastertask.R
 import com.google.firebase.auth.FirebaseAuth
+import java.nio.channels.ClosedSelectorException
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -26,7 +28,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [HomeInit.newInstance] factory method to
  * create an instance of this fragment.
  */
-class HomeInit : Fragment() {
+class HomeInit : Fragment(), OnCardClickListener {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -44,6 +46,12 @@ class HomeInit : Fragment() {
     val auth: FirebaseAuth = FirebaseAuth.getInstance()
     val currentUser = auth.currentUser
     val userEmail = currentUser?.email
+
+    private val lista: List<User> = listOf(
+        User("1", "Nome1", "Endereço1", "Telefone1", 4.5, 10, /*outras informações*/),
+        User("2", "Nome2", "Endereço2", "Telefone2", 3.7, 8, /*outras informações*/),
+        // Adicione mais usuários de exemplo conforme necessário
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,6 +72,19 @@ class HomeInit : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initModels()
         initViews(view)
+
+        setUpRecyclerView(recycler_view_recomendacoes, lista)
+        setUpRecyclerView(recycler_view_novos, lista)
+        setUpRecyclerView(recycler_view_jacontratados, lista, this)
+    }
+
+    override fun onCardClick(selectedService: SelectedService) {
+        val selectedServiceFragment = SelectedService.newInstance(selectedService)
+
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, selectedServiceFragment)
+            .addToBackStack(null)
+            .commit()
     }
 
     fun initViews(view : View) {
