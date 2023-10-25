@@ -4,12 +4,15 @@ import android.app.Dialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.Window
 import android.widget.Button
 import android.widget.CalendarView
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mastertask.Adapters.EditAccountSkillsAdapter
@@ -83,6 +86,63 @@ class EditarContaActivity : AppCompatActivity() {
         this.btnAddSkill          .setOnClickListener({ this.createAddSkillDialog() })
         this.btnCancelEditAccount .setOnClickListener({ this.handleCancelEditAccount() })
         this.btnConfirmEditAccount.setOnClickListener({ this.handleConfirmEditAccount() })
+
+        this.txtCpf.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun afterTextChanged(p0: Editable?) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if ((s?.length ?: 0) >= 3 && (s?.length ?: 0) <= 11) {
+                    val formattedText = formatString(s.toString(), "CPF")
+                    txtCpf.removeTextChangedListener(this) // Remover novamente o evento
+                    txtCpf.setText(formattedText)
+                    txtCpf.setSelection(formattedText.length) // Colocar o cursor no fim
+                    txtCpf.addTextChangedListener(this) // Adicionar novamente o evento
+                }
+            }
+        })
+
+        this.txtContato.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun afterTextChanged(p0: Editable?) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if ((s?.length ?: 0) >= 3 && (s?.length ?: 0) <= 11) {
+                    val formattedText = formatString(s.toString(), "CONTACT")
+                    txtContato.removeTextChangedListener(this) // Remover novamente o evento
+                    txtContato.setText(formattedText)
+                    txtContato.setSelection(formattedText.length) // Colocar o cursor no fim
+                    txtContato.addTextChangedListener(this) // Adicionar novamente o evento
+                }
+            }
+        })
+    }
+
+    private fun formatString(input: String, type: String): String {
+        val stripped = input.replace("[^0-9]".toRegex(), "") // Remove non-numeric characters
+        val formatted = buildString {
+            for (i in stripped.indices) {
+                when (type) {
+                    "CPF" -> {
+                        if (i % 3 == 0 && i > 0) {
+                            append('.')
+                        }
+                        if (i == 9) {
+                            append('-')
+                        }
+                    }
+                    "CONTACT" -> {
+                        if (i == 0) {
+                            append('(')
+                        } else if (i == 2) {
+                            append(')')
+                        } else if (i == 7 || i == 11) {
+                            append('-')
+                        }
+                    }
+                }
+                append(stripped[i])
+            }
+        }
+        return formatted
     }
 
     private fun createAddSkillDialog() {
@@ -211,9 +271,6 @@ class EditarContaActivity : AppCompatActivity() {
                             when (k) {
                                 "contato" -> this.txtContato.setText(v.toString())
                                 "cpf" -> this.txtCpf.setText(v.toString())
-//                                "dataNascimento" -> {
-//                                    this.dtNascimento.date = v.toString().toLong()
-//                                }
                                 "endereco" -> this.txtLocalidade.setText(v.toString())
                                 "habilidades" -> {
                                     val skillsHashMapList = v as ArrayList<Any>
