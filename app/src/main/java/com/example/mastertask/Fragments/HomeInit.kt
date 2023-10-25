@@ -31,20 +31,19 @@ class HomeInit : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
-    lateinit var recycler_view_recomendacoes : RecyclerView
-    lateinit var recycler_view_novos : RecyclerView
-    lateinit var recycler_view_jacontratados : RecyclerView
+    lateinit var recycler_view_recomendacoes: RecyclerView
+    lateinit var recycler_view_novos: RecyclerView
+    lateinit var recycler_view_jacontratados: RecyclerView
 
-    val userViewModel : UserViewModel by viewModels()
-    val serviceViewModel : ServiceViewModel by viewModels()
+    val userViewModel: UserViewModel by viewModels()
+    val serviceViewModel: ServiceViewModel by viewModels()
 
-    var usersArrayList : ArrayList<User> = ArrayList()
-    var servicesArrayList : ArrayList<Service> = ArrayList()
+    var usersArrayList: ArrayList<User> = ArrayList()
+    var servicesArrayList: ArrayList<Service> = ArrayList()
 
-    val auth : FirebaseAuth = FirebaseAuth.getInstance()
-
-    val currentUser = auth.currentUser!!
-    val userEmail = currentUser.email
+    val auth: FirebaseAuth = FirebaseAuth.getInstance()
+    val currentUser = auth.currentUser
+    val userEmail = currentUser?.email
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -135,18 +134,6 @@ class HomeInit : Fragment() {
         adapter.notifyDataSetChanged()
     }
 
-    interface OnCardClickListener{
-        fun onCardClick(selectedService: SelectedService)
-    }
-
-    override fun onCardClick(selectedService: SelectedService){
-        val selectedServiceFragment = SelectedService.newInstance(SelectedService)
-
-        parentFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, selectedServiceFragment)
-            .addToBackStack(null)
-            .commit()
-    }
 
     companion object {
         /**
