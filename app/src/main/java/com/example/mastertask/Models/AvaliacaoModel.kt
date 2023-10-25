@@ -13,7 +13,7 @@ import com.google.firebase.ktx.Firebase
 class AvaliacaoViewModel: ViewModel() {
 
     private var db = Firebase.firestore
-    private val evaluations = "avaliacao"
+    private val evaluations = "avaliacoes"
 
     val createLiveData: MutableLiveData<Boolean> by lazy {
         MutableLiveData<Boolean>()
@@ -37,7 +37,7 @@ class AvaliacaoViewModel: ViewModel() {
 
     fun create(avaliacao: Avaliacao) {
         val docRef = db.collection(evaluations)
-        docRef.add(avaliacao.toMap()).addOnSuccessListener {
+        docRef.add(avaliacao.toMap().keys.minus("id")).addOnSuccessListener {
             createLiveData.postValue(true)
         }.addOnFailureListener {
             Log.d("create", it.localizedMessage!!)

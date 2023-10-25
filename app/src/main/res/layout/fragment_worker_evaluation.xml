@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".WorkerEvaluation">
+    tools:context=".Fragments.WorkerEvaluationFragment">
 
     <LinearLayout
         android:id="@+id/linearLayout2"
@@ -106,39 +106,16 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="88dp"
         android:layout_marginTop="12dp"
         android:fontFamily="@font/montserrat_bold"
         android:text="Avalie o serviço"
+        android:textAlignment="center"
         android:textColor="@color/text_primary"
-        android:textSize="28sp"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
-        tools:ignore="HardcodedText" />
-
-    <TextView
-        android:id="@+id/txtServicoAvalicao"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="149dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="144dp"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/round_button"
-        android:backgroundTint="@color/green_light"
-        android:fontFamily="@font/montserrat_bold"
-        android:paddingHorizontal="20dp"
-        android:paddingVertical="5dp"
-        android:text="Serviço"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/textView2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:layout_constraintVertical_bias="1.0"
         tools:ignore="HardcodedText" />
 
     <TextView
@@ -146,13 +123,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="19dp"
         android:fontFamily="@font/montserrat_bold"
         android:text="O serviço foi finalizado corretamente?"
         android:textColor="@color/text_primary"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtServicoAvalicao"
+        app:layout_constraintTop_toBottomOf="@+id/rvHabilidades"
         tools:ignore="HardcodedText" />
 
     <androidx.appcompat.widget.AppCompatButton
@@ -230,7 +207,9 @@
         android:hint="Escreva o que você achou do serviço..."
         android:inputType="textMultiLine"
         android:padding="10dp"
+        android:textColor="@color/text_primary"
         android:textColorHint="@color/text_secondary"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3"
@@ -242,6 +221,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="77dp"
         android:layout_marginTop="15dp"
+        android:theme="@style/RatingBar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
@@ -249,21 +229,21 @@
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="156dp"
+        android:layout_marginStart="17dp"
         android:layout_marginBottom="12dp"
         android:fontFamily="@font/montserrat_bold"
         android:text="*Não obrigatório"
         android:textColor="@color/text_secondary"
         app:layout_constraintBottom_toTopOf="@+id/edit_text"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView3"
         tools:ignore="HardcodedText" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnNaoObrigado"
         android:layout_width="171dp"
         android:layout_height="40dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="13dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="12dp"
         android:background="@drawable/round_button"
         android:fontFamily="@font/montserrat_bold"
         android:text="Não, obrigado"
@@ -290,4 +270,17 @@
         app:layout_constraintStart_toEndOf="@+id/btnNaoObrigado"
         app:layout_constraintTop_toBottomOf="@+id/ratingBar"
         tools:ignore="HardcodedText" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvHabilidades"
+        android:layout_width="361dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:scrollbars="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        tools:listitem="@layout/service_badge" />
 </androidx.constraintlayout.widget.ConstraintLayout>

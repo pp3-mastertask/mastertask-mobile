@@ -96,6 +96,8 @@ class WorkerEvaluationFragment : Fragment() {
         this.txtFeedback = view.findViewById(R.id.edit_text)
         this.ratingBar = view.findViewById(R.id.ratingBar)
 
+        this.rvHabilidades = view.findViewById(R.id.rvHabilidades)
+
         this.btnNaoFinalizouServico = view.findViewById(R.id.btnNao)
         this.btnFinalizouServico = view.findViewById(R.id.btnSim)
         this.btnNaoTerminarAvaliacao = view.findViewById(R.id.btnNaoObrigado)
@@ -109,7 +111,7 @@ class WorkerEvaluationFragment : Fragment() {
 
     fun addEventListeners() {
         this.btnNaoTerminarAvaliacao.setOnClickListener {  parentFragmentManager.beginTransaction().replace(
-            R.id.fragment_container, HomeFragment()
+            R.id.fragment_container, ServicesFragment()
         ).commit() }
 
         this.btnNaoFinalizouServico.setOnClickListener {
@@ -134,7 +136,12 @@ class WorkerEvaluationFragment : Fragment() {
 
             this.avaliacaoViewModel.create(this.avaliacao)
             this.usuario.somaAvaliacoes!!.plus(avaliacao)
+            this.usuario.numServicosFeitos!!.plus(1)
+
             this.userViewModel.update(this.usuario)
+
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, ServicesFragment()).commit()
         }
     }
 
