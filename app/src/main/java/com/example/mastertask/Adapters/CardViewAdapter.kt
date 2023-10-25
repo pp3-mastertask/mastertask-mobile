@@ -8,8 +8,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mastertask.Data.User
+import com.example.mastertask.Fragments.SelectedService
 import com.example.mastertask.R
-import com.example.mastertask.OnCardClickListener
 
 class CardViewAdapter(private val list: List<User>,
                       private val onCardClickListener: OnCardClickListener
@@ -72,5 +72,9 @@ class CardViewAdapter(private val list: List<User>,
 
     override fun getItemCount(): Int {
         return list.size
+    }
+
+    interface OnCardClickListener {
+        fun onCardClick(user: User)
     }
 }

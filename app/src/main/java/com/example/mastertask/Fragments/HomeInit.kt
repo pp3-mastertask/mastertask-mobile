@@ -8,7 +8,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mastertask.Adapters.CardViewAdapter
+import com.example.mastertask.Adapters.CardViewAdapterServices
 import com.example.mastertask.Adapters.NotFoundAdapter
+import com.example.mastertask.Data.CardServiceInfo
 import com.example.mastertask.Data.Service
 import com.example.mastertask.Data.User
 import com.example.mastertask.Models.ServiceViewModel
@@ -28,7 +30,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [HomeInit.newInstance] factory method to
  * create an instance of this fragment.
  */
-class HomeInit : Fragment(), OnCardClickListener {
+class HomeInit : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -46,12 +48,6 @@ class HomeInit : Fragment(), OnCardClickListener {
     val auth: FirebaseAuth = FirebaseAuth.getInstance()
     val currentUser = auth.currentUser
     val userEmail = currentUser?.email
-
-    private val lista: List<User> = listOf(
-        User(id = "1", contato = "contato@example.com", cpf = "123.456.789-00", dataInicio = Timestamp.now(), dataNascimento = Timestamp.now(), disponibilidade = disponibilidade, endereco = "Rua Exemplo, 123", habilidades = habilidades, nome = "Nome Exemplo", numServicosFeitos = 10L, somaAvaliacoes = 4.5),
-        User(id = "2", contato = "contato@example.com", cpf = "123.456.789-00", dataInicio = Timestamp.now(), dataNascimento = Timestamp.now(), disponibilidade = disponibilidade, endereco = "Rua Exemplo, 123", habilidades = habilidades, nome = "Nome Exemplo", numServicosFeitos = 10L, somaAvaliacoes = 4.5),
-        User(id = "3", contato = "contato@example.com", cpf = "123.456.789-00", dataInicio = Timestamp.now(), dataNascimento = Timestamp.now(), disponibilidade = disponibilidade, endereco = "Rua Exemplo, 123", habilidades = habilidades, nome = "Nome Exemplo", numServicosFeitos = 10L, somaAvaliacoes = 4.5),
-    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,19 +68,6 @@ class HomeInit : Fragment(), OnCardClickListener {
         super.onViewCreated(view, savedInstanceState)
         initModels()
         initViews(view)
-
-        setUpRecyclerView(recycler_view_recomendacoes, lista) //ERA PRA TER UM THIS COMO TERCEIRO ARGUMENTO NESSA P***
-        setUpRecyclerView(recycler_view_novos, lista)
-        setUpRecyclerView(recycler_view_jacontratados, lista)
-    }
-
-    override fun onCardClick(selectedService: SelectedService) {
-        val selectedServiceFragment = SelectedService.newInstance(selectedService)
-
-        parentFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, selectedServiceFragment)
-            .addToBackStack(null)
-            .commit()
     }
 
     fun initViews(view : View) {
@@ -144,7 +127,17 @@ class HomeInit : Fragment(), OnCardClickListener {
     }
 
     fun setUpRecyclerView(recyclerView: RecyclerView, lista: List<User>) {
-        val adapter = CardViewAdapter(lista)
+        val adapter = CardViewAdapter(lista, object :
+            CardViewAdapter.OnCardClickListener {
+            override fun onCardClick(user: User) {
+                val y = SelectedService.newInstance(
+                    user!!.id!!, user.nome!!, user.endereco!!,
+                    user.contato!!, user.somaAvaliacoes!!, user.numServicosFeitos!!)
+                y.setHabilidades(user.habilidades!!)
+                parentFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, y).commit()
+            }
+        })
         recyclerView.adapter = adapter
         adapter.notifyDataSetChanged()
     }
