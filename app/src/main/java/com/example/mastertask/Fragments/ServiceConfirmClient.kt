@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.fragment.app.FragmentContainer
 import com.example.mastertask.Data.Service
 import com.example.mastertask.Data.User
 import com.example.mastertask.Models.ServiceViewModel
@@ -36,7 +37,12 @@ class ServiceConfirmClient : Fragment() {
             param2 = it.getString(ARG_PARAM2)
         }
     }
-}
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.fragment_service_confirm_client, container, false)
+    }
 
 
     companion object {

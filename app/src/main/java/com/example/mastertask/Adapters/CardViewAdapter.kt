@@ -10,24 +10,23 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.mastertask.Data.User
 import com.example.mastertask.R
 
-class CardViewAdapter (private val list: List<User>) :
-    RecyclerView.Adapter<CardViewAdapter.Card>()
-{
-    lateinit var context : Context
+class CardViewAdapter(private val list: List<User>) :
+    RecyclerView.Adapter<CardViewAdapter.Card>() {
+    lateinit var context: Context
 
     inner class Card(view: View) : RecyclerView.ViewHolder(view) {
         val nome: TextView
         val endereco: TextView
         val telefone: TextView
         val estrelas: TextView
+        val recyclerView: RecyclerView
 
-        val recyclerView : RecyclerView
         init {
-            nome = view.findViewById<View>(R.id.nameProfissional) as TextView
-            endereco = view.findViewById<View>(R.id.location) as TextView
-            telefone = view.findViewById<View>(R.id.phone) as TextView
-            estrelas = view.findViewById<View>(R.id.stars) as TextView
-            recyclerView = view.findViewById<View>(R.id.recycler_view_services) as RecyclerView
+            nome = view.findViewById(R.id.nameProfissional)
+            endereco = view.findViewById(R.id.location)
+            telefone = view.findViewById(R.id.phone)
+            estrelas = view.findViewById(R.id.stars)
+            recyclerView = view.findViewById(R.id.recycler_view_services)
         }
     }
 
@@ -35,9 +34,7 @@ class CardViewAdapter (private val list: List<User>) :
         parent: ViewGroup,
         viewType: Int
     ): Card {
-
         context = parent.context
-
         val itemView: View = LayoutInflater
             .from(context)
             .inflate(
@@ -45,7 +42,6 @@ class CardViewAdapter (private val list: List<User>) :
                 parent,
                 false
             )
-
         return Card(itemView)
     }
 
@@ -53,7 +49,7 @@ class CardViewAdapter (private val list: List<User>) :
         holder: Card,
         position: Int
     ) {
-        val user : User = list[position]
+        val user: User = list[position]
         holder.nome.text = user.nome
         holder.endereco.text = user.endereco
         holder.telefone.text = user.contato
@@ -61,11 +57,9 @@ class CardViewAdapter (private val list: List<User>) :
             holder.estrelas.text = (user.somaAvaliacoes?.div(user.numServicosFeitos!!)).toString()
         else
             holder.estrelas.text = "0"
-
         val layoutManager: RecyclerView.LayoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         holder.recyclerView.layoutManager = layoutManager
-
         val badgeViewAdapter = BadgeViewAdapter(user.habilidades)
         holder.recyclerView.adapter = badgeViewAdapter
     }
