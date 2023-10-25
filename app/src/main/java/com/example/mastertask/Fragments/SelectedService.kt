@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.mastertask.Data.Service
+import android.view.textclassifier.SelectionEvent
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mastertask.Models.HabilidadeViewModel //new
@@ -51,12 +53,28 @@ class SelectedService : Fragment() {
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            SelectedService().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+        fun newInstance(selectedService: Service): SelectedService {
+            val fragment = SelectedService()
+            val args = Bundle()
+
+            // Passando os dados do Service para a fragment
+            args.putString("serviceId", selectedService.id)
+            args.putString("dataHora", selectedService.dataHora.toString())
+            args.putString("emailCliente", selectedService.emailCliente)
+            args.putString("emailTrab", selectedService.emailTrab)
+            args.putString("status", selectedService.status)
+
+            fragment.arguments = args
+            return fragment
+        }
+
+        //@JvmStatic
+        //fun newInstance(param1: String, param2: String) =
+        //    SelectedService().apply {
+        //        arguments = Bundle().apply {
+        //            putString(ARG_PARAM1, param1)
+        //            putString(ARG_PARAM2, param2)
+        //        }
+        //    }
     }
 }

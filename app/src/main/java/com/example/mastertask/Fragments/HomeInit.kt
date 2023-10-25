@@ -16,7 +16,7 @@ import com.example.mastertask.Models.UserViewModel
 import com.example.mastertask.OnCardClickListener
 import com.example.mastertask.R
 import com.google.firebase.auth.FirebaseAuth
-import java.nio.channels.ClosedSelectorException
+import java.security.Timestamp
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -48,9 +48,9 @@ class HomeInit : Fragment(), OnCardClickListener {
     val userEmail = currentUser?.email
 
     private val lista: List<User> = listOf(
-        User("1", "Nome1", "Endereço1", "Telefone1", 4.5, 10, /*outras informações*/),
-        User("2", "Nome2", "Endereço2", "Telefone2", 3.7, 8, /*outras informações*/),
-        // Adicione mais usuários de exemplo conforme necessário
+        User(id = "1", contato = "contato@example.com", cpf = "123.456.789-00", dataInicio = Timestamp.now(), dataNascimento = Timestamp.now(), disponibilidade = disponibilidade, endereco = "Rua Exemplo, 123", habilidades = habilidades, nome = "Nome Exemplo", numServicosFeitos = 10L, somaAvaliacoes = 4.5),
+        User(id = "2", contato = "contato@example.com", cpf = "123.456.789-00", dataInicio = Timestamp.now(), dataNascimento = Timestamp.now(), disponibilidade = disponibilidade, endereco = "Rua Exemplo, 123", habilidades = habilidades, nome = "Nome Exemplo", numServicosFeitos = 10L, somaAvaliacoes = 4.5),
+        User(id = "3", contato = "contato@example.com", cpf = "123.456.789-00", dataInicio = Timestamp.now(), dataNascimento = Timestamp.now(), disponibilidade = disponibilidade, endereco = "Rua Exemplo, 123", habilidades = habilidades, nome = "Nome Exemplo", numServicosFeitos = 10L, somaAvaliacoes = 4.5),
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -73,9 +73,9 @@ class HomeInit : Fragment(), OnCardClickListener {
         initModels()
         initViews(view)
 
-        setUpRecyclerView(recycler_view_recomendacoes, lista)
+        setUpRecyclerView(recycler_view_recomendacoes, lista) //ERA PRA TER UM THIS COMO TERCEIRO ARGUMENTO NESSA P***
         setUpRecyclerView(recycler_view_novos, lista)
-        setUpRecyclerView(recycler_view_jacontratados, lista, this)
+        setUpRecyclerView(recycler_view_jacontratados, lista)
     }
 
     override fun onCardClick(selectedService: SelectedService) {
