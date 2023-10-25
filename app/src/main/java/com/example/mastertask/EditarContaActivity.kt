@@ -16,7 +16,9 @@ import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mastertask.Adapters.EditAccountSkillsAdapter
+import com.example.mastertask.Data.Responses.CepResponse
 import com.example.mastertask.Models.SkillModel
+import com.example.mastertask.Services.ViaCepService
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -24,6 +26,8 @@ import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firestore.v1.Document
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -232,6 +236,31 @@ class EditarContaActivity : AppCompatActivity() {
         return if (remainder < 2) 0 else 11 - remainder
     }
 
+    private fun isValidCEP(cep: String): CepResponse? {
+        val retrofit = Retrofit.Builder()
+            .baseUrl("https://viacep.com.br/ws/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+
+        val viaCepService = retrofit.create(ViaCepService::class.java)
+        val call = viaCepService.getCep(cep)
+
+        try {
+            val response = call.execute()
+
+            if (response.isSuccessful) {
+                val cepData = response.body()
+                val data = CepResponse(cepData!!.cep, cepData.logradouro, cepData.bairro, cepData.localidade, cepData.uf)
+                return data
+            }
+            else
+                Toast.makeText(this, "Erro ao consultar o CEP. Código de status: ${response.code()}", Toast.LENGTH_LONG).show()
+        }
+        catch (e: Exception) { Toast.makeText(this, "Erro ao consultar o CEP", Toast.LENGTH_LONG).show() }
+
+        return null
+    }
+
     private fun handleConfirmEditAccount() {
 
         if (this.areFieldsEmpty()) {
@@ -252,7 +281,17 @@ class EditarContaActivity : AppCompatActivity() {
         }
 
         // Verificar CEP
-
+        val cep = this.txtCEP.text.toString()
+        val resultado = isValidCEP(cep)
+        if (resultado != null) {
+            // Precisamos agora pegar os dados retornados e:
+            // 1 - Mostrar nos labels
+            // 2 - Salvar no banco: CEP + Endereço
+        }
+        else {
+            Toast.makeText(this, "Erro ao consultar o CEP informado", Toast.LENGTH_LONG).show()
+            return
+        }
 
         val skillsHashMapList = ArrayList<Any>()
         // Para cada skill adicionada, vamos criar um hashmap, inserí-lo em um array e
