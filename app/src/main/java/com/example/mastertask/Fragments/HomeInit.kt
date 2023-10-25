@@ -135,6 +135,19 @@ class HomeInit : Fragment() {
         adapter.notifyDataSetChanged()
     }
 
+    interface OnCardClickListener{
+        fun onCardClick(selectedService: SelectedService)
+    }
+
+    override fun onCardClick(selectedService: SelectedService){
+        val selectedServiceFragment = SelectedService.newInstance(SelectedService)
+
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, selectedServiceFragment)
+            .addToBackStack(null)
+            .commit()
+    }
+
     companion object {
         /**
          * Use this factory method to create a new instance of

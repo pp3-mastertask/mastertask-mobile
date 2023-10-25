@@ -44,29 +44,38 @@ class SelectedService : Fragment() {
 
     private var habilidadeListener: OnHabilidadeSelecterdListener? = null
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.fragment_selected_service, container, false)
-        recyclerViewHabilidades = view.findViewById(R.id.recycler_view_skills_available)
+    override fun onCardClick(param1: String){
+        val selectedServiceFragment = SelectedService.newInstance(param1)
 
-        //adaptador para lista de habilidades la e o listener
-        habilidadeAdapter = HabilidadeAdapter {habilidade ->
-            habilidadeListener?.onHabilidadeSelected(habilidade)
-        }
-        recyclerViewHabilidades.adapter = habilidadeAdapter
-
-        //carrega a lista de habilidade usando o viewmodel
-        habilidadeViewModel.getHabilidades().observe(viewLifecycleOwner) {habilidades ->
-            habilidadeAdapter.submitList(habilidades)
-        }
-
-        return view
-
-        // Inflate the layout for this fragment
-        //return inflater.inflate(R.layout.fragment_selected_service, container, false)
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, param1)
+            //.addToBackStack(null)
+            .commit()
     }
+
+   override fun onCreateView(
+       inflater: LayoutInflater, container: ViewGroup?,
+       savedInstanceState: Bundle?
+   ): View? {
+       val view = inflater.inflate(R.layout.fragment_selected_service, container, false)
+       recyclerViewHabilidades = view.findViewById(R.id.recycler_view_skills_available)
+
+       //adaptador para lista de habilidades la e o listener
+       habilidadeAdapter = HabilidadeAdapter {habilidade ->
+           habilidadeListener?.onHabilidadeSelected(habilidade)
+       }
+       recyclerViewHabilidades.adapter = habilidadeAdapter
+
+       //carrega a lista de habilidade usando o viewmodel
+       habilidadeViewModel.getHabilidades().observe(viewLifecycleOwner) {habilidades ->
+           habilidadeAdapter.submitList(habilidades)
+       }
+
+       return view
+
+       // Inflate the layout for this fragment
+       //return inflater.inflate(R.layout.fragment_selected_service, container, false)
+   }
 
     fun setOnHabilidadeSelectedListener(listener: OnHabilidadeSelecterdListener){
         habilidadeListener = listener
