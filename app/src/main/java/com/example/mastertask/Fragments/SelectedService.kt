@@ -10,12 +10,20 @@ import com.example.mastertask.Data.Service
 import android.view.textclassifier.SelectionEvent
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
+import com.example.mastertask.Data.User
 import com.example.mastertask.Models.HabilidadeViewModel //new
 import com.example.mastertask.R
+import com.google.firebase.Timestamp
+import java.util.*
 
 // TODO: Rename parameter arguments, choose names that match
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+
+private const val ID = "id"
+private const val NOME = "nome"
+private const val ENDERECO = "endereco"
+private const val CONTATO = "contato"
+private const val SOMAAVALIACOES = "somaAvaliacoes"
+private const val NUMSERVICOESFEITOS = "numServicosFeitos"
 
 /**
  * A simple [Fragment] subclass.
@@ -23,15 +31,23 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class SelectedService : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private var id: String? = null
+    private var nome: String? = null
+    private var endereco: String? = null
+    private var contato: String? = null
+    private var somaAvaliacoes: Double? = null
+    private var numServicosFeitos: Long? = null
+    private var habilidades: List<Map<String?, Any?>>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+            id = it.getString(ID)
+            nome = it.getString(NOME)
+            endereco = it.getString(ENDERECO)
+            contato = it.getString(CONTATO)
+            somaAvaliacoes = it.getDouble(SOMAAVALIACOES)
+            numServicosFeitos = it.getLong(NUMSERVICOESFEITOS))
         }
     }
 
@@ -40,6 +56,10 @@ class SelectedService : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_selected_service, container, false)
+    }
+
+    fun setHabilidade(habilidade: List<Map<String?, Any?>>?){
+        habilidades = habilidade
     }
 
     companion object {
@@ -53,28 +73,15 @@ class SelectedService : Fragment() {
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance(selectedService: Service): SelectedService {
-            val fragment = SelectedService()
-            val args = Bundle()
-
-            // Passando os dados do Service para a fragment
-            args.putString("serviceId", selectedService.id)
-            args.putString("dataHora", selectedService.dataHora.toString())
-            args.putString("emailCliente", selectedService.emailCliente)
-            args.putString("emailTrab", selectedService.emailTrab)
-            args.putString("status", selectedService.status)
-
-            fragment.arguments = args
-            return fragment
+        fun newInstance(user: User) = SelectedService().apply {
+            arguments = Bundle().apply {
+                putString(ID, user.id)
+                putString(NOME, user.nome)
+                putString(ENDERECO, user.endereco)
+                putString(CONTATO, user.contato)
+                putDouble(SOMAAVALIACOES, user.somaAvaliacoes!!)
+                putLong(NUMSERVICOESFEITOS, user.numServicosFeitos!!)
+            }
         }
-
-        //@JvmStatic
-        //fun newInstance(param1: String, param2: String) =
-        //    SelectedService().apply {
-        //        arguments = Bundle().apply {
-        //            putString(ARG_PARAM1, param1)
-        //            putString(ARG_PARAM2, param2)
-        //        }
-        //    }
     }
 }
