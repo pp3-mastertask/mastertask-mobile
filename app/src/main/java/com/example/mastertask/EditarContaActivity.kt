@@ -42,7 +42,7 @@ class EditarContaActivity : AppCompatActivity() {
     private lateinit var txtCpf       : EditText
     private lateinit var dtNascimento: CalendarView
     private lateinit var txtContato   : EditText
-    private lateinit var txtLocalidade: EditText
+    private lateinit var txtCEP: EditText
 
     private var list_skills = ArrayList<SkillModel>()
     private lateinit var recyclerAdapter:EditAccountSkillsAdapter
@@ -68,7 +68,7 @@ class EditarContaActivity : AppCompatActivity() {
         this.txtCpf        = findViewById(R.id.editarConta_txtCpf)
         this.dtNascimento = findViewById(R.id.editarConta_calendarioDataNascimento)
         this.txtContato    = findViewById(R.id.editarConta_txtTelefone)
-        this.txtLocalidade = findViewById(R.id.editarConta_txtLocalidade)
+        this.txtCEP = findViewById(R.id.editarConta_txtCEP)
 
         this.setEventListeners()
     }
@@ -195,7 +195,7 @@ class EditarContaActivity : AppCompatActivity() {
         if (this.txtContato.text.toString() == ""
             || this.txtCpf.text.toString() == ""
             || this.dtNascimento.date.toString() == ""
-            || this.txtLocalidade.text.toString()  == "") {
+            || this.txtCEP.text.toString()  == "") {
             return true
         }
 
@@ -244,11 +244,15 @@ class EditarContaActivity : AppCompatActivity() {
             return
         }
 
+        // Verificar CPF
         val cpf = this.txtCpf.text.toString()
         if (!isValidCPF(cpf)) {
             Toast.makeText(this, "O CPF digitado não é válido!", Toast.LENGTH_LONG).show()
             return
         }
+
+        // Verificar CEP
+
 
         val skillsHashMapList = ArrayList<Any>()
         // Para cada skill adicionada, vamos criar um hashmap, inserí-lo em um array e
@@ -268,7 +272,7 @@ class EditarContaActivity : AppCompatActivity() {
             "dataInicio" to Timestamp.now(),
             "dataNascimento" to Timestamp(Date(dtNascimento.date)),
             "disponibilidade" to ArrayList<Timestamp>(),
-            "endereco" to this.txtLocalidade.text.toString(),
+            "endereco" to this.txtCEP.text.toString(),
             "habilidades" to skillsHashMapList,
             "somaAvaliacoes" to 0.0,
             "nome" to this.auth.currentUser!!.displayName,
@@ -307,7 +311,7 @@ class EditarContaActivity : AppCompatActivity() {
                             when (k) {
                                 "contato" -> this.txtContato.setText(v.toString())
                                 "cpf" -> this.txtCpf.setText(v.toString())
-                                "endereco" -> this.txtLocalidade.setText(v.toString())
+                                "endereco" -> this.txtCEP.setText(v.toString())
                                 "habilidades" -> {
                                     val skillsHashMapList = v as ArrayList<Any>
 

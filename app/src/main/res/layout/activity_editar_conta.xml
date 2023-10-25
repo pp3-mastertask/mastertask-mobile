@@ -130,16 +130,16 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:fontFamily="@font/montserrat_bold"
-                        android:text="Localidade"
+                        android:text="CEP"
                         android:textColor="@color/text_primary"
                         android:textSize="15sp" />
 
                     <EditText
-                        android:id="@+id/editarConta_txtLocalidade"
+                        android:id="@+id/editarConta_txtCEP"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
-                        android:hint="Digite seu Endereço"
+                        android:hint="_____-___"
                         android:backgroundTint="@color/text_terciary"
                         android:inputType="text"
                         android:minHeight="48dp"
