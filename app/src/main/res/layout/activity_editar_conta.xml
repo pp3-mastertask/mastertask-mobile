@@ -5,10 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".EditarContaActivity">
+    tools:context=".EditarContaActivity"
+    android:padding="20dp">
 
     <ScrollView
-        android:layout_width="409dp"
+        android:layout_width="match_parent"
         android:layout_height="729dp"
         android:layout_marginStart="1dp"
         android:layout_marginTop="1dp"
@@ -21,7 +22,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="20dp"
             android:orientation="vertical">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -41,11 +41,12 @@
 
                 <TextView
                     android:id="@+id/txtTesteAuth"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:fontFamily="@font/montserrat_bold"
                     android:text="Edite sua Conta"
+                    android:textAlignment="center"
                     android:textColor="@color/text_primary"
                     android:textSize="25sp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -74,6 +75,7 @@
                         android:layout_height="wrap_content"
                         android:ems="10"
                         android:hint="___.___.___-__"
+                        android:backgroundTint="@color/text_terciary"
                         android:inputType="number"
                         android:minHeight="48dp"
                         android:textColor="@color/text_primary"
@@ -91,7 +93,15 @@
                     <CalendarView
                         android:id="@+id/editarConta_calendarioDataNascimento"
                         android:layout_width="match_parent"
-                        android:layout_height="296dp" />
+                        android:layout_height="296dp"
+                        android:theme="@style/CustomCalendarMonth"
+                        android:dateTextAppearance="@style/CalenderViewDateCustomText"
+                        android:weekDayTextAppearance="@style/CalenderViewWeekCustomText"
+                        android:unfocusedMonthDateColor="@color/text_primary"
+                        android:selectedWeekBackgroundColor="@color/text_primary"
+                        android:weekSeparatorLineColor="@color/text_primary"
+                        android:focusedMonthDateColor="@color/text_primary"
+                        android:weekNumberColor="@color/text_primary"/>
 
                     <TextView
                         android:layout_width="match_parent"
@@ -108,6 +118,7 @@
                         android:layout_height="wrap_content"
                         android:ems="10"
                         android:hint="(XX)XXXXX-XXXX"
+                        android:backgroundTint="@color/text_terciary"
                         android:inputType="phone"
                         android:minHeight="48dp"
                         android:textColor="@color/text_primary"
@@ -129,6 +140,7 @@
                         android:layout_height="wrap_content"
                         android:ems="10"
                         android:hint="Digite seu Endereço"
+                        android:backgroundTint="@color/text_terciary"
                         android:inputType="text"
                         android:minHeight="48dp"
                         android:textColor="@color/text_primary"
@@ -176,8 +188,8 @@
                             android:layout_marginEnd="8dp"
                             android:layout_weight="1"
                             android:backgroundTint="@color/white"
-                            android:text="Cancelar"
                             android:fontFamily="@font/montserrat_bold"
+                            android:text="Cancelar"
                             android:textAllCaps="false"
                             android:textColor="@color/red"
                             app:cornerRadius="25dp"
@@ -191,8 +203,8 @@
                             android:layout_marginStart="8dp"
                             android:layout_weight="1"
                             android:backgroundTint="@color/green"
-                            android:text="Editar"
                             android:fontFamily="@font/montserrat_bold"
+                            android:text="Editar"
                             android:textAllCaps="false"
                             app:cornerRadius="25dp" />
                     </LinearLayout>
