@@ -47,6 +47,8 @@ class EditarContaActivity : AppCompatActivity() {
     private lateinit var dtNascimento: CalendarView
     private lateinit var txtContato   : EditText
     private lateinit var txtCEP: EditText
+    private lateinit var txtNumero: EditText
+    private lateinit var lbLogradouro: TextView
 
     private var list_skills = ArrayList<SkillModel>()
     private lateinit var recyclerAdapter:EditAccountSkillsAdapter
@@ -73,6 +75,8 @@ class EditarContaActivity : AppCompatActivity() {
         this.dtNascimento = findViewById(R.id.editarConta_calendarioDataNascimento)
         this.txtContato    = findViewById(R.id.editarConta_txtTelefone)
         this.txtCEP = findViewById(R.id.editarConta_txtCEP)
+        this.txtNumero = findViewById(R.id.editarConta_txtNumero)
+        this.lbLogradouro = findViewById(R.id.editarConta_lbLogradouro)
 
         this.setEventListeners()
     }
@@ -109,12 +113,26 @@ class EditarContaActivity : AppCompatActivity() {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun afterTextChanged(p0: Editable?) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if ((s?.length ?: 0) >= 3 && (s?.length ?: 0) <= 11) {
+                if ((s?.length ?: 0) >= 2 && (s?.length ?: 0) <= 11) {
                     val formattedText = formatString(s.toString(), "CONTACT")
-                    txtContato.removeTextChangedListener(this) // Remover novamente o evento
+                    txtContato.removeTextChangedListener(this)
                     txtContato.setText(formattedText)
-                    txtContato.setSelection(formattedText.length) // Colocar o cursor no fim
-                    txtContato.addTextChangedListener(this) // Adicionar novamente o evento
+                    txtContato.setSelection(formattedText.length)
+                    txtContato.addTextChangedListener(this)
+                }
+            }
+        })
+
+        this.txtCEP.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun afterTextChanged(p0: Editable?) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if ((s?.length ?: 0) >= 5 && (s?.length ?: 0) <= 8) {
+                    val formattedText = formatString(s.toString(), "CEP")
+                    txtCEP.removeTextChangedListener(this)
+                    txtCEP.setText(formattedText)
+                    txtCEP.setSelection(formattedText.length)
+                    txtCEP.addTextChangedListener(this)
                 }
             }
         })
@@ -139,6 +157,11 @@ class EditarContaActivity : AppCompatActivity() {
                         } else if (i == 2) {
                             append(')')
                         } else if (i == 7 || i == 11) {
+                            append('-')
+                        }
+                    }
+                    "CEP" -> {
+                        if (i == 5) {
                             append('-')
                         }
                     }
@@ -199,7 +222,8 @@ class EditarContaActivity : AppCompatActivity() {
         if (this.txtContato.text.toString() == ""
             || this.txtCpf.text.toString() == ""
             || this.dtNascimento.date.toString() == ""
-            || this.txtCEP.text.toString()  == "") {
+            || this.txtCEP.text.toString()  == ""
+            || this.txtNumero.text.toString() == "") {
             return true
         }
 
@@ -282,11 +306,11 @@ class EditarContaActivity : AppCompatActivity() {
 
         // Verificar CEP
         val cep = this.txtCEP.text.toString()
+        var enderecoFinalString = ""
         val resultado = isValidCEP(cep)
         if (resultado != null) {
-            // Precisamos agora pegar os dados retornados e:
-            // 1 - Mostrar nos labels
-            // 2 - Salvar no banco: CEP + Endereço
+            enderecoFinalString = resultado.logradouro + " - " + resultado.bairro + ", " + resultado.localidade + " - " + resultado.uf
+            this.lbLogradouro.setText("Logradouro: " + enderecoFinalString)
         }
         else {
             Toast.makeText(this, "Erro ao consultar o CEP informado", Toast.LENGTH_LONG).show()
@@ -306,13 +330,15 @@ class EditarContaActivity : AppCompatActivity() {
         }
 
         val userUpdatedData = hashMapOf(
+            "cep" to cep,
             "contato" to this.txtContato.text.toString(),
             "cpf" to cpf,
             "dataInicio" to Timestamp.now(),
             "dataNascimento" to Timestamp(Date(dtNascimento.date)),
             "disponibilidade" to ArrayList<Timestamp>(),
-            "endereco" to this.txtCEP.text.toString(),
+            "endereco" to enderecoFinalString,
             "habilidades" to skillsHashMapList,
+            "numeroResidencia" to this.txtNumero.text.toString(),
             "somaAvaliacoes" to 0.0,
             "nome" to this.auth.currentUser!!.displayName,
             "numServicosFeitos" to 0
@@ -348,9 +374,10 @@ class EditarContaActivity : AppCompatActivity() {
                     if (currentUserData != null) {
                         for ((k, v) in currentUserData!!) {
                             when (k) {
+                                "cep" -> this.txtCEP.setText(v.toString())
                                 "contato" -> this.txtContato.setText(v.toString())
                                 "cpf" -> this.txtCpf.setText(v.toString())
-                                "endereco" -> this.txtCEP.setText(v.toString())
+                                "endereco" -> this.lbLogradouro.setText("Logradouro: " + v.toString())
                                 "habilidades" -> {
                                     val skillsHashMapList = v as ArrayList<Any>
 
@@ -367,6 +394,7 @@ class EditarContaActivity : AppCompatActivity() {
                                         }
                                     }
                                 }
+                                "numeroResidencia" -> this.txtNumero.setText(v.toString())
                             }
                         }
                     }
