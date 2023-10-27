@@ -134,7 +134,7 @@ class HomeSearch : Fragment() {
     }
 
     fun setUpResults(recyclerView: RecyclerView, lista: List<User>) {
-        val adapter = CardViewAdapter(lista)
+        val adapter = CardViewAdapter(lista, null)
         recyclerView.adapter = adapter
         adapter.notifyDataSetChanged()
     }

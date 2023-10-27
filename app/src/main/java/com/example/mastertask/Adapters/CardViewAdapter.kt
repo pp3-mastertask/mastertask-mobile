@@ -14,7 +14,7 @@ import com.example.mastertask.R
 import com.squareup.picasso.Picasso
 
 class CardViewAdapter(private val list: List<User>,
-                      private val onCardClickListener: OnCardClickListener
+                      private val onCardClickListener: OnCardClickListener?
                   ) : RecyclerView.Adapter<CardViewAdapter.Card>() {
 
     lateinit var context: Context

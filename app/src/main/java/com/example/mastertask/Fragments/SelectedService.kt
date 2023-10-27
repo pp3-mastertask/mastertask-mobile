@@ -47,7 +47,7 @@ class SelectedService : Fragment() {
             endereco = it.getString(ENDERECO)
             contato = it.getString(CONTATO)
             somaAvaliacoes = it.getDouble(SOMAAVALIACOES)
-            numServicosFeitos = it.getLong(NUMSERVICOESFEITOS))
+            numServicosFeitos = it.getLong(NUMSERVICOESFEITOS)
         }
     }
 

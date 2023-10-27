@@ -15,7 +15,6 @@ import com.example.mastertask.Data.Service
 import com.example.mastertask.Data.User
 import com.example.mastertask.Models.ServiceViewModel
 import com.example.mastertask.Models.UserViewModel
-import com.example.mastertask.OnCardClickListener
 import com.example.mastertask.R
 import com.google.firebase.auth.FirebaseAuth
 import java.security.Timestamp
@@ -130,10 +129,8 @@ class HomeInit : Fragment() {
         val adapter = CardViewAdapter(lista, object :
             CardViewAdapter.OnCardClickListener {
             override fun onCardClick(user: User) {
-                val y = SelectedService.newInstance(
-                    user!!.id!!, user.nome!!, user.endereco!!,
-                    user.contato!!, user.somaAvaliacoes!!, user.numServicosFeitos!!)
-                y.setHabilidades(user.habilidades!!)
+                val y = SelectedService.newInstance(user)
+                y.setHabilidade(user.habilidades!!)
                 parentFragmentManager.beginTransaction()
                     .replace(R.id.fragment_container, y).commit()
             }
