@@ -15,6 +15,7 @@ import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.mastertask.Adapters.BadgeViewAdapter
 import com.example.mastertask.Adapters.EditAccountSkillsAdapter
 import com.example.mastertask.Data.Responses.CepResponse
 import com.example.mastertask.Models.SkillModel
@@ -28,6 +29,7 @@ import com.google.firebase.ktx.Firebase
 import com.google.firestore.v1.Document
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.text.FieldPosition
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -82,7 +84,34 @@ class EditarContaActivity : AppCompatActivity() {
     }
 
     private fun configureRecyclerView() {
-        this.recyclerAdapter = EditAccountSkillsAdapter(this.list_skills)
+        this.recyclerAdapter = EditAccountSkillsAdapter(this.list_skills, object :
+            EditAccountSkillsAdapter.OnBadgeClickListener {
+                override fun onBadgeClick (badge: SkillModel, position: Int) {
+                    val dg: Dialog = Dialog(this@EditarContaActivity)
+
+                    dg.requestWindowFeature(Window.FEATURE_NO_TITLE)
+                    dg.setCancelable(true)
+                    dg.setContentView(R.layout.add_skill_dialog)
+
+                    val txtNomeSkill: EditText = dg.findViewById(R.id.add_skill_name)
+                    val txtPrecoSkill: EditText = dg.findViewById(R.id.add_skill_price)
+                    val btnCancelAddSkill: Button = dg.findViewById(R.id.add_skill_cancel)
+                    val btnAdicionarSkill: Button = dg.findViewById(R.id.add_skill_confirm)
+
+                    txtNomeSkill.setText(badge.nome)
+                    txtPrecoSkill.setText(badge.preco.toString())
+
+                    btnCancelAddSkill.setOnClickListener{ dg.cancel() }
+
+                    btnAdicionarSkill.setOnClickListener {
+                        if (txtNomeSkill.text.toString() != "" && txtPrecoSkill.text.toString() != "") {
+                            list_skills[position] = SkillModel(txtNomeSkill.text.toString(), txtPrecoSkill.text.toString().toDouble())
+                        }
+                    }
+                    dg.show()
+                }
+            }
+        )
 
         val recyclerView: RecyclerView = findViewById(R.id.editarConta_recyclerView)
         val layoutManager              = LinearLayoutManager(this)
