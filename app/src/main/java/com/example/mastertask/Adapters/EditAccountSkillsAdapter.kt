@@ -8,11 +8,20 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.mastertask.Models.SkillModel
 import com.example.mastertask.R
 
-class EditAccountSkillsAdapter(private var lista_servicos: List<SkillModel>)
+class EditAccountSkillsAdapter(
+    private var lista_servicos: List<SkillModel>,
+    private val onBadgeClickListener: OnBadgeClickListener
+    )
     : RecyclerView.Adapter<EditAccountSkillsAdapter.ServicesViewHolder>()
 {
     inner class ServicesViewHolder(view: View): RecyclerView.ViewHolder(view) {
         var serviceTextView: TextView = view.findViewById(R.id.lbServiceBadge)
+
+        init {
+            itemView.setOnClickListener {
+                onBadgeClickListener.onBadgeClick(lista_servicos[adapterPosition], adapterPosition)
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ServicesViewHolder {
@@ -30,5 +39,9 @@ class EditAccountSkillsAdapter(private var lista_servicos: List<SkillModel>)
 
     override fun getItemCount(): Int {
         return lista_servicos.size
+    }
+
+    interface OnBadgeClickListener {
+        fun onBadgeClick (badge: SkillModel, position: Int)
     }
 }
