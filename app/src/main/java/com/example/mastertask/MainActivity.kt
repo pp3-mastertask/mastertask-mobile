@@ -106,7 +106,7 @@ class MainActivity : AppCompatActivity() {
                 "contato" to "",
                 "cpf" to "",
                 "dataNascimento" to Timestamp(-1, 0),
-                "disponibilidade" to ArrayList<Timestamp>(),
+                "imagem" to account.photoUrl.toString(),
                 "endereco" to "",
                 "habilidades" to ArrayList<HashMap<*,*>>(),
                 "somaAvaliacoes" to 0.0,

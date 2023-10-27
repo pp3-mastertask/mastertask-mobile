@@ -171,7 +171,7 @@ class EditarContaActivity : AppCompatActivity() {
             "cpf" to this.txtCpf.text.toString(),
             "dataInicio" to Timestamp.now(),
             "dataNascimento" to Timestamp(Date(dtNascimento.date)),
-            "disponibilidade" to ArrayList<Timestamp>(),
+            "imagem" to this.auth.currentUser!!.photoUrl.toString(),
             "endereco" to this.txtLocalidade.text.toString(),
             "habilidades" to skillsHashMapList,
             "somaAvaliacoes" to 0.0,
