@@ -6,41 +6,71 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.FragmentContainer
+import androidx.recyclerview.widget.RecyclerView
 import com.example.mastertask.Data.Service
 import com.example.mastertask.Data.User
 import com.example.mastertask.Models.ServiceViewModel
 import com.example.mastertask.Models.UserViewModel
 import com.example.mastertask.R
 import com.example.mastertask.R.id
+import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
+import org.w3c.dom.Text
+import java.util.Date
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [ServiceConfirmClient.newInstance] factory method to
- * create an instance of this fragment.
- */
+private const val ID = "id"
+private const val NOME = "nome"
+private const val IMGURL = "imgUrl"
+private const val ENDERECO = "endereco"
+private const val CONTATO = "contato"
+private const val SOMAAVALIACOES = "somaAvaliacoes"
+private const val DATAHORA = "dataHora"
+private const val STATUS = "status"
 
 //TODO: criar todas as views do xml confirm service client, preencher informacoes (ver status confirm worker), eventlisteners dos botoes de confirmar solicitacao de servico e de cancelar servico proposto
 class ServiceConfirmClient : Fragment() {
-    private var param1: String? = null
-    private var param2: String? = null
+    private var id: String? = null
+    private var nome: String? = null
+    private var imgUrl: String? = null
+    private var endereco: String? = null
+    private var contato: String? = null
+    private var somaAvaliacoes: Double? = null
+    private var dataHora: Timestamp? = null
+    private var habilidades: List<Map<String?, Any?>>? = null
+
+    private lateinit var lbNomePrestador : TextView
+    private lateinit var lbAvaliacaoPrestador : TextView
+    private lateinit var lbEnderecoPrestador : TextView
+    private lateinit var lbDataPrevista : TextView
+    private lateinit var lbTotalAPagar : TextView
+
+    private lateinit var imgFotoPerfil: ImageView
+
+    private lateinit var btnCancelar : Button
+    private lateinit var btnConcluir : Button
+
+    private lateinit var rvServicosSolicitados : RecyclerView
+    private lateinit var rvPrecosServicos : RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+            id = it.getString(ID)
+            nome = it.getString(NOME)
+            imgUrl = it.getString(IMGURL)
+            endereco = it.getString(ENDERECO)
+            contato = it.getString(CONTATO)
+            somaAvaliacoes = it.getDouble(SOMAAVALIACOES)
+            dataHora = Timestamp(Date(it.getLong(DATAHORA)))
         }
     }
 
-
+    fun setHabilidades(hab: List<Map<String?, Any?>>){
+        habilidades = hab
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?
@@ -48,6 +78,35 @@ class ServiceConfirmClient : Fragment() {
         return inflater.inflate(R.layout.fragment_service_confirm_client, container, false)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        initModels()
+        initViews(view)
+    }
+
+    fun initModels(){
+        
+    }
+
+    fun initViews(view: View){
+        lbNomePrestador = view.findViewById(R.id.lb_nome_prestador) as TextView
+        lbEnderecoPrestador = view.findViewById(R.id.lb_endereco_prestador) as TextView
+        lbAvaliacaoPrestador = view.findViewById(R.id.lb_avaliacao_prestador) as TextView
+        lbTotalAPagar = view.findViewById(R.id.lb_preco_total) as TextView
+        lbDataPrevista = view.findViewById(R.id.lb_data_prevista) as TextView
+
+        imgFotoPerfil = view.findViewById(R.id.imgFotoPerfil) as ImageView
+
+        btnConcluir = view.findViewById(R.id.btnConcluir) as Button
+        btnCancelar = view.findViewById(R.id.btnCancelar) as Button
+
+        rvServicosSolicitados = view.findViewById(R.id.rv_servicos_solicitados) as RecyclerView
+        rvPrecosServicos = view.findViewById(R.id.recycler_view_precos_servicos) as RecyclerView
+
+        //addValues()
+        //addEventListeners()
+    }
 
     companion object {
         /**
