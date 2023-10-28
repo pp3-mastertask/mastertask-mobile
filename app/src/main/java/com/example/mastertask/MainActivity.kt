@@ -59,6 +59,9 @@ class MainActivity : AppCompatActivity() {
                     btnGoogleAuth.isEnabled = true
                 }
         }
+        else {
+            btnGoogleAuth.isEnabled = true
+        }
 
         this.btnGoogleAuth.setOnClickListener {
             this.authenticateWithGoogle()
