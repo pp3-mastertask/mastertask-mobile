@@ -73,9 +73,9 @@ class AvaliacaoViewModel: ViewModel() {
                 val evaluation = Avaliacao()
                 evaluation.id = item.id
                 evaluation.comentario = item.data!!["comentario"] as String?
-                try {
+                if (item.data!!["estrelas"] is Double)
                     evaluation.estrelas = item.data!!["estrelas"] as Double?
-                } catch (e: Exception) {
+                else {
                     val a = item.data!!["estrelas"] as Long?
                     evaluation.estrelas = a?.toDouble()
                 }
@@ -98,9 +98,9 @@ class AvaliacaoViewModel: ViewModel() {
             val evaluation = Avaliacao()
             evaluation.id = it.id
             evaluation.comentario = it.data!!["comentario"] as String?
-            try {
+            if (it.data!!["estrelas"] is Long)
                 evaluation.estrelas = it.data!!["estrelas"] as Double?
-            } catch (e: Exception) {
+            else {
                 val a = it.data!!["estrelas"] as Long?
                 evaluation.estrelas = a?.toDouble()
             }

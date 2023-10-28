@@ -12,32 +12,23 @@ import android.widget.CalendarView
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.widget.addTextChangedListener
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.mastertask.Adapters.BadgeViewAdapter
 import com.example.mastertask.Adapters.EditAccountSkillsAdapter
 import com.example.mastertask.Data.Responses.CepResponse
 import com.example.mastertask.Models.SkillModel
 import com.example.mastertask.Services.ViaCepService
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.google.firestore.v1.Document
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.text.FieldPosition
-import java.text.SimpleDateFormat
 import java.util.*
-import java.util.concurrent.TimeUnit
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
-import kotlin.time.Duration.Companion.minutes
-import kotlin.time.Duration.Companion.seconds
-import kotlin.time.DurationUnit
 
 class EditarContaActivity : AppCompatActivity() {
 
@@ -114,8 +105,6 @@ class EditarContaActivity : AppCompatActivity() {
         )
 
         val recyclerView: RecyclerView = findViewById(R.id.editarConta_recyclerView)
-        val layoutManager              = LinearLayoutManager(this)
-        recyclerView.layoutManager     = layoutManager
         recyclerView.adapter           = this.recyclerAdapter
     }
 
@@ -165,8 +154,9 @@ class EditarContaActivity : AppCompatActivity() {
                 }
 
                 if (s != null)
-                    if (s.length == 8) {
-                        val resultado = isValidCEP(s.toString())
+                    if (s.length == 9) {
+                        var cep = s.toString().replace("-", "")
+                        val resultado = isValidCEP(cep)
                         if (resultado != null) {
                             val enderecoFinalString = resultado.logradouro + " - "
                             resultado.bairro + ", " + resultado.localidade + " - " + resultado.uf
@@ -316,8 +306,7 @@ class EditarContaActivity : AppCompatActivity() {
 
             if (response.isSuccessful) {
                 val cepData = response.body()
-                val data = CepResponse(cepData!!.cep, cepData.logradouro, cepData.bairro, cepData.localidade, cepData.uf)
-                return data
+                return cepData
             }
             else
                 Toast.makeText(this, "Erro ao consultar o CEP. Código de status: ${response.code()}", Toast.LENGTH_LONG).show()
@@ -347,7 +336,7 @@ class EditarContaActivity : AppCompatActivity() {
         }
 
         // Verificar CEP
-        val cep = this.txtCEP.text.toString()
+        var cep = this.txtCEP.text.toString().replace("-", "")
         var enderecoFinalString = ""
         val resultado = isValidCEP(cep)
         if (resultado != null) {

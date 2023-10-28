@@ -82,10 +82,9 @@ class UserViewModel: ViewModel() {
                 user.nome = item.data!!["nome"] as String?
                 user.numServicosFeitos = item.data!!["numServicosFeitos"] as Long?
                 user.numeroResidencia = item.data!!["numeroResidencia"] as Long?
-                try {
+                if (item.data!!["somaAvaliacoes"] is Long)
                     user.somaAvaliacoes = (item.data!!["somaAvaliacoes"] as Long).toDouble()
-                }
-                catch (e: Exception) {
+                else {
                     user.somaAvaliacoes = item.data!!["somaAvaliacoes"] as Double?
                 }
                 users.add(user)
@@ -114,10 +113,9 @@ class UserViewModel: ViewModel() {
             user.nome = it.data!!["nome"] as String?
             user.numServicosFeitos = it.data!!["numServicosFeitos"] as Long?
             user.numeroResidencia = it.data!!["numeroResidencia"] as Long?
-            try {
+            if (it.data!!["somaAvaliacoes"] is Long)
                 user.somaAvaliacoes = (it.data!!["somaAvaliacoes"] as Long).toDouble()
-            }
-            catch (e: Exception) {
+            else {
                 user.somaAvaliacoes = it.data!!["somaAvaliacoes"] as Double?
             }
             getItemLiveData.setValue(user)

@@ -36,7 +36,7 @@ class CardViewAdapter(private val list: List<User>,
             recyclerView = view.findViewById<View>(R.id.recycler_view_services) as RecyclerView
         }
 
-        fun bind(user: User, listener: OnCardClickListener) {
+        fun bind(user: User, listener: OnCardClickListener?) {
             nome.text = user.nome
             endereco.text = user.endereco
             telefone.text = user.contato
@@ -77,7 +77,7 @@ class CardViewAdapter(private val list: List<User>,
         holder: Card,
         position: Int
     ) {
-        holder.bind(list[position], onCardClickListener!!)
+        holder.bind(list[position], onCardClickListener)
     }
 
     override fun getItemCount(): Int {

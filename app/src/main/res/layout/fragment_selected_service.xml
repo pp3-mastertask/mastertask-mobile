@@ -4,12 +4,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     tools:context=".Fragments.SelectedService">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context=".Fragments.SelectedService">
+        tools:context=".Fragments.SelectedService"
+        android:padding="20dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout"
@@ -23,6 +24,7 @@
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/imgFotoPerfil"
+                android:layout_margin="10dp"
                 android:layout_width="69dp"
                 android:layout_height="69dp"
                 android:contentDescription="Profile icon"
@@ -38,10 +40,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:fontFamily="@font/montserrat_bold"
+                android:padding="5dp"
                 android:paddingBottom="5dp"
                 android:text="Nome"
-                android:textColor="@color/text_primary"
-                android:textSize="14sp"
+                android:textColor="@color/white"
+                android:textSize="16sp"
                 app:layout_constraintStart_toEndOf="@+id/imgFotoPerfil"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="HardcodedText" />
@@ -67,10 +70,11 @@
                     android:id="@+id/location"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/montserrat_medium"
+                    android:fontFamily="@font/montserrat_semi_bold"
+                    android:padding="5dp"
                     android:text="Cidade - Estado"
-                    android:textColor="@color/text_primary"
-                    android:textSize="12sp"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
                     tools:ignore="HardcodedText,SmallSp" />
             </LinearLayout>
 
@@ -95,10 +99,11 @@
                     android:id="@+id/phone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/montserrat_medium"
+                    android:fontFamily="@font/montserrat_semi_bold"
+                    android:padding="5dp"
                     android:text="(XX) XXXXX-XXXX"
-                    android:textColor="@color/text_primary"
-                    android:textSize="12sp"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
                     tools:ignore="HardcodedText,SmallSp" />
             </LinearLayout>
 
@@ -121,10 +126,11 @@
                     android:id="@+id/stars"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/montserrat_medium"
+                    android:fontFamily="@font/montserrat_semi_bold"
+                    android:padding="5dp"
                     android:text="N.N"
-                    android:textColor="@color/text_primary"
-                    android:textSize="12sp"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
                     tools:ignore="HardcodedText,SmallSp" />
             </LinearLayout>
 
@@ -184,13 +190,22 @@
             android:layout_marginEnd="33dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView2" />
+            app:layout_constraintTop_toBottomOf="@+id/textView2"
+            android:theme="@style/CustomCalendarMonth"
+            android:dateTextAppearance="@style/CalenderViewDateCustomText"
+            android:weekDayTextAppearance="@style/CalenderViewWeekCustomText"
+            android:unfocusedMonthDateColor="@color/text_primary"
+            android:selectedWeekBackgroundColor="@color/text_primary"
+            android:weekSeparatorLineColor="@color/text_primary"
+            android:focusedMonthDateColor="@color/text_primary"
+            android:weekNumberColor="@color/text_primary"/>
 
         <Button
             android:id="@+id/btnProximo"
-            android:layout_width="193dp"
+            android:layout_width="125dp"
             android:layout_height="48dp"
             android:layout_marginTop="20dp"
+            android:layout_marginEnd="0dp"
             android:backgroundTint="@color/green"
             android:fontFamily="@font/montserrat_bold"
             android:text="Próximo"
@@ -203,19 +218,16 @@
 
         <Button
             android:id="@+id/btnCancelar"
-            android:layout_width="193dp"
+            android:layout_width="125dp"
             android:layout_height="48dp"
-            android:layout_marginStart="37dp"
+            android:layout_marginStart="0dp"
             android:layout_marginTop="20dp"
-            android:layout_marginEnd="26dp"
             android:backgroundTint="@color/white"
             android:fontFamily="@font/montserrat_bold"
             android:text="Cancelar"
             android:textAllCaps="false"
             android:textColor="@color/red_dark"
             app:cornerRadius="30dp"
-            app:layout_constraintEnd_toStartOf="@+id/btnProximo"
-            app:layout_constraintHorizontal_bias="0.973"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/calendarView"
             app:strokeColor="@color/red_dark"

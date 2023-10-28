@@ -163,10 +163,9 @@ class ServiceConfirmWorker : Fragment() {
 
         var precoTotal = 0.0
         habilidades!!.forEach {
-            try {
+            if (it["preco"] is Long)
                 precoTotal += (it["preco"] as Long).toDouble()
-            }
-            catch (e: Error) {
+            else {
                 precoTotal += it["preco"] as Double
             }
         }

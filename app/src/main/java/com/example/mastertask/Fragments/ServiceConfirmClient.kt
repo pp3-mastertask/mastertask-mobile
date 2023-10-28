@@ -23,7 +23,6 @@ import java.util.ArrayList
 import java.util.Currency
 import java.util.Date
 
-private const val ID = "id"
 private const val NOME = "nome"
 private const val IMGURL = "imgUrl"
 private const val ENDERECO = "endereco"
@@ -35,9 +34,7 @@ private const val EMAILCLIENTE = "emailCliente"
 private const val EMAILTRAB = "emailTrab"
 private const val STATUS = "status"
 
-//TODO: criar todas as views do xml confirm service client, preencher informacoes (ver status confirm worker), eventlisteners dos botoes de confirmar solicitacao de servico e de cancelar servico proposto
 class ServiceConfirmClient : Fragment() {
-    private var id: String? = null
     private var nome: String? = null
     private var imgUrl: String? = null
     private var endereco: String? = null
@@ -66,18 +63,19 @@ class ServiceConfirmClient : Fragment() {
 
     val serviceViewModel : ServiceViewModel by viewModels()
 
-    var serviceArrayList : ArrayList<Service> = ArrayList()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            id = it.getString(ID)
             nome = it.getString(NOME)
             imgUrl = it.getString(IMGURL)
             endereco = it.getString(ENDERECO)
             contato = it.getString(CONTATO)
             somaAvaliacoes = it.getDouble(SOMAAVALIACOES)
+            numServicosFeitos = it.getLong(NUMEROSERVICOSFEITOS)
             dataHora = Timestamp(Date(it.getLong(DATAHORA)))
+            emailCliente = it.getString(EMAILCLIENTE)
+            emailTrab = it.getString(EMAILTRAB)
+            status = it.getString(STATUS)
         }
     }
 
@@ -102,7 +100,7 @@ class ServiceConfirmClient : Fragment() {
 
         lbNomePrestador.text = nome
         lbEnderecoPrestador.text = endereco
-        if ((somaAvaliacoes!!.div(numServicosFeitos!!)).isNaN())
+        if (numServicosFeitos!! == 0L)
             lbAvaliacaoPrestador.text = 0.0.toString()
         else
             lbAvaliacaoPrestador.text = (somaAvaliacoes!!.div(numServicosFeitos!!)).toString()
@@ -110,10 +108,9 @@ class ServiceConfirmClient : Fragment() {
 
         var precoTotal = 0.0
         habilidades!!.forEach {
-            try {
+            if (it["preco"] is Long)
                 precoTotal += (it["preco"] as Long).toDouble()
-            }
-            catch (e: Error) {
+            else {
                 precoTotal += it["preco"] as Double
             }
         }
@@ -133,20 +130,16 @@ class ServiceConfirmClient : Fragment() {
 
     fun addEventListeners(){
         btnConcluir.setOnClickListener {
-            val service = Service(id, dataHora, emailCliente, emailTrab, habilidades, "Aceito")
+            val service = Service("", dataHora, emailCliente, emailTrab, habilidades, status)
             serviceViewModel.create(service)
 
             parentFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, ServicesFragment()).commit()
+                .replace(R.id.fragment_container, HomeFragment()).commit()
         }
 
         btnCancelar.setOnClickListener {
-            val service = Service(id, dataHora, emailCliente, emailTrab, habilidades,
-                "Cancelado")
-            serviceViewModel.update(service)
-
             parentFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, ServicesFragment()).commit()
+                .replace(R.id.fragment_container, HomeFragment()).commit()
         }
     }
 
@@ -165,19 +158,18 @@ class ServiceConfirmClient : Fragment() {
         rvServicosSolicitados = view.findViewById(R.id.rv_servicos_solicitados) as RecyclerView
         rvPrecosServicos = view.findViewById(R.id.recycler_view_precos_servicos) as RecyclerView
 
-        //addValues()
-        //addEventListeners()
+        addValues()
+        addEventListeners()
     }
 
     companion object {
         @JvmStatic
-        fun newInstance(id: String, nome: String, imgUrl: String, endereco: String, contato: String,
+        fun newInstance(nome: String, imgUrl: String, endereco: String, contato: String,
                         somaAvaliacoes: Double, numServicosFeitos: Long, dataHora: Timestamp,
                         emailCliente: String, emailTrab: String, status: String?) =
-            ServiceConfirmWorker().apply {
+            ServiceConfirmClient().apply {
                 arguments = Bundle().apply {
-                    putString(ID, id)
-                    putString(ID, nome)
+                    putString(NOME, nome)
                     putString(IMGURL, imgUrl)
                     putString(ENDERECO, endereco)
                     putString(CONTATO, contato)

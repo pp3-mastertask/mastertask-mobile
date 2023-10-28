@@ -1,5 +1,7 @@
 package com.example.mastertask.Fragments
 
+import android.annotation.SuppressLint
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -7,20 +9,28 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.CalendarView
+import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mastertask.Adapters.BadgeViewAdapter
 import com.example.mastertask.Data.User
 import com.example.mastertask.R
+import com.google.android.material.imageview.ShapeableImageView
+import com.google.firebase.Timestamp
+import com.google.firebase.auth.FirebaseAuth
+import com.squareup.picasso.Picasso
 import java.util.*
 import kotlin.collections.ArrayList
 
-private const val ID = "id"
 private const val NOME = "nome"
+private const val IMGURL = "imgUrl"
 private const val ENDERECO = "endereco"
 private const val CONTATO = "contato"
 private const val SOMAAVALIACOES = "somaAvaliacoes"
 private const val NUMSERVICOESFEITOS = "numServicosFeitos"
+private const val EMAILCLIENTE = "emailCliente"
+private const val EMAILTRAB = "emailTrab"
 
 /**
  * A simple [Fragment] subclass.
@@ -28,16 +38,19 @@ private const val NUMSERVICOESFEITOS = "numServicosFeitos"
  * create an instance of this fragment.
  */
 class SelectedService : Fragment() {
-    private var id: String? = null
+    private var imgUrl: String? = null
     private var nome: String? = null
     private var endereco: String? = null
     private var contato: String? = null
     private var somaAvaliacoes: Double? = null
     private var numServicosFeitos: Long? = null
+    private var emailCliente: String? = null
+    private var emailTrab: String? = null
     private var habilidades: List<Map<String?, Any?>>? = null
 
     private var selectedSkills: ArrayList<Map<String?, Any?>>? = ArrayList()
 
+    lateinit var nameWorker: TextView
     lateinit var location : TextView
     lateinit var stars : TextView
     lateinit var phone : TextView
@@ -49,12 +62,16 @@ class SelectedService : Fragment() {
 
     lateinit var rvHabilidades : RecyclerView
 
+    lateinit var imgFotoPerfil : ShapeableImageView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            id = it.getString(ID)
+            imgUrl = it.getString(IMGURL)
             nome = it.getString(NOME)
             endereco = it.getString(ENDERECO)
+            emailCliente = it.getString(EMAILCLIENTE)
+            emailTrab = it.getString(EMAILTRAB)
             contato = it.getString(CONTATO)
             somaAvaliacoes = it.getDouble(SOMAAVALIACOES)
             numServicosFeitos = it.getLong(NUMSERVICOESFEITOS)
@@ -77,23 +94,30 @@ class SelectedService : Fragment() {
     }
 
     fun PreencherInfo(){
+        nameWorker.setText(nome)
         location.setText(endereco)
-        phone.setText(phone.toString())
-        stars.setText(stars.toString())
+        phone.setText(contato.toString())
+        if (numServicosFeitos != 0L)
+            stars.setText(somaAvaliacoes!!.div(numServicosFeitos!!).toString())
+        stars.setText("0.0")
 
         val badgeHabilidades = BadgeViewAdapter(habilidades, object :
             BadgeViewAdapter.OnBadgeClickListener {
-            override fun onBadgeClick (badge: Map<String?, Any?>, position: Int) {
+            override fun onBadgeClick (badge: Map<String?, Any?>, position: Int, holder: View) {
 
                 if(!selectedSkills!!.contains(badge)){
                     selectedSkills!!.add(badge)
+                    holder.background = resources.getDrawable(R.drawable.badge_selected)
                 } else {
                     selectedSkills!!.remove(badge)
+                    holder.background = resources.getDrawable(R.drawable.badge)
                 }
             }})
 
         rvHabilidades.adapter = badgeHabilidades
         badgeHabilidades.notifyDataSetChanged()
+
+        Picasso.get().load(imgUrl).into(imgFotoPerfil)
     }
 
     fun ColocarEventListeners(){
@@ -102,15 +126,26 @@ class SelectedService : Fragment() {
                 .replace(R.id.fragment_container, HomeFragment()).commit()
         }
 
-        proximo.setOnClickListener{
-            // val y = ServiceConfirmClient.newInstance(id, nome,  )
-            // y.setHabilidades(selectedSkills!!)
-            // parentFragmentManager.beginTransaction()
-                // .replace(R.id.fragment_container, y).commit()
+        proximo.setOnClickListener {
+            if (selectedSkills!!.isEmpty()) {
+                Toast.makeText(context, "Selecione um serviço antes de prosseguir!",
+                    Toast.LENGTH_LONG).show()
+            }
+            else {
+                val currentUser = FirebaseAuth.getInstance().currentUser!!
+                val userEmail = currentUser.email.toString()
+                 val y = ServiceConfirmClient.newInstance(nome!!, imgUrl!!, endereco!!, contato!!,
+                     somaAvaliacoes!!, numServicosFeitos!!, Timestamp.now(), userEmail, emailTrab!!,
+                     "Pendente")
+                 y.setHabilidades(selectedSkills!!)
+                 parentFragmentManager.beginTransaction()
+                     .replace(R.id.fragment_container, y).commit()
+            }
         }
     }
 
     fun initViews(view : View) {
+        nameWorker = view.findViewById(R.id.nameProfissional) as TextView
         location = view.findViewById(R.id.location) as TextView
         phone = view.findViewById(R.id.phone) as TextView
         stars = view.findViewById(R.id.stars) as TextView
@@ -118,6 +153,7 @@ class SelectedService : Fragment() {
         calendar = view.findViewById(R.id.calendarView) as CalendarView
         cancelar = view.findViewById(R.id.btnCancelar) as Button
         proximo  = view.findViewById(R.id.btnProximo) as Button
+        imgFotoPerfil = view.findViewById(R.id.imgFotoPerfil) as ShapeableImageView
     }
 
     fun setHabilidade(habilidade: List<Map<String?, Any?>>?){
@@ -126,21 +162,13 @@ class SelectedService : Fragment() {
 
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment SelectedService.
-         */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(user: User) = SelectedService().apply {
             arguments = Bundle().apply {
-                putString(ID, user.id)
+                putString(IMGURL, user.imagem)
                 putString(NOME, user.nome)
                 putString(ENDERECO, user.endereco)
+                putString(EMAILTRAB, user.id)
                 putString(CONTATO, user.contato)
                 putDouble(SOMAAVALIACOES, user.somaAvaliacoes!!)
                 putLong(NUMSERVICOESFEITOS, user.numServicosFeitos!!)

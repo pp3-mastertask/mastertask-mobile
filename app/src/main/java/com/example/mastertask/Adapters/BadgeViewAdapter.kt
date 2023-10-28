@@ -5,7 +5,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.mastertask.Models.SkillModel
 import com.example.mastertask.R
 
 class BadgeViewAdapter (private val list: List<Map<String?, Any?>>?,
@@ -18,11 +17,11 @@ class BadgeViewAdapter (private val list: List<Map<String?, Any?>>?,
             habilidade = view.findViewById<View>(R.id.lbServiceBadge) as TextView
         }
 
-        fun bind(hab: Map<String?, Any?>, listener: OnBadgeClickListener, position: Int) {
+        fun bind(hab: Map<String?, Any?>, listener: OnBadgeClickListener?, position: Int) {
             habilidade.text = hab.getValue("habilidade") as String?
 
             if (listener != null)
-                habilidade.setOnClickListener { listener.onBadgeClick(hab, position) }
+                habilidade.setOnClickListener { listener.onBadgeClick(hab, position, habilidade) }
         }
     }
 
@@ -46,7 +45,7 @@ class BadgeViewAdapter (private val list: List<Map<String?, Any?>>?,
         holder: Badge,
         position: Int
     ) {
-        holder.bind(list!![position], listener!!, position)
+        holder.bind(list!![position], listener, position)
     }
 
     override fun getItemCount(): Int {
@@ -54,6 +53,6 @@ class BadgeViewAdapter (private val list: List<Map<String?, Any?>>?,
     }
 
     interface OnBadgeClickListener {
-        fun onBadgeClick (badge: Map<String?, Any?>, position: Int)
+        fun onBadgeClick (badge: Map<String?, Any?>, position: Int, view: View)
     }
 }

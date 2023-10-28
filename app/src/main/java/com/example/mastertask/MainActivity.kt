@@ -42,6 +42,7 @@ class MainActivity : AppCompatActivity() {
         this.googleSignInClient = GoogleSignIn.getClient(this, gso)
 
         this.btnGoogleAuth = findViewById(R.id.main_btnGoogleAuth)
+        btnGoogleAuth.isEnabled = false
 
         if (auth.currentUser != null) {
             this.db.collection("usuarios")
@@ -55,6 +56,7 @@ class MainActivity : AppCompatActivity() {
                         auth.signOut()
                         googleSignInClient.signOut()
                     }
+                    btnGoogleAuth.isEnabled = true
                 }
         }
 

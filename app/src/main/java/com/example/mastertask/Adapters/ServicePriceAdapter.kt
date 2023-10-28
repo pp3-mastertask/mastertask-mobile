@@ -43,7 +43,11 @@ class ServicePriceAdapter (private val list: List<Map<String?, Any?>>?) :
         val format: NumberFormat = NumberFormat.getCurrencyInstance()
         format.setMaximumFractionDigits(2)
         format.setCurrency(Currency.getInstance("BRL"))
-        holder.preco.text = format.format(list[position].getValue("preco") as Long?)
+        var preco = list[position].getValue("preco")
+        if (preco is Long)
+            holder.preco.text = format.format(preco as Long?)
+        else
+            holder.preco.text = format.format(preco as Double?)
     }
 
     override fun getItemCount(): Int {
