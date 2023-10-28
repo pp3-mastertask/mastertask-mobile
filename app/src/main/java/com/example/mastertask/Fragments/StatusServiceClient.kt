@@ -12,7 +12,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mastertask.Adapters.BadgeViewAdapter
-import com.example.mastertask.Data.Avaliacao
 import com.example.mastertask.Data.Service
 import com.example.mastertask.Models.ServiceViewModel
 import com.google.firebase.Timestamp
@@ -180,7 +179,7 @@ class StatusServiceClient : Fragment() {
         format.setCurrency(Currency.getInstance("BRL"))
         lbTotalAPagar.text = format.format(precoTotal)
 
-        val adapterHabilidades = BadgeViewAdapter(habilidades)
+        val adapterHabilidades = BadgeViewAdapter(habilidades, null)
         rvServicosSolicitados.adapter = adapterHabilidades
         adapterHabilidades.notifyDataSetChanged()
 

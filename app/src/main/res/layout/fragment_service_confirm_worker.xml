@@ -27,14 +27,14 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="52dp"
         android:layout_marginTop="84dp"
         android:text="Solicitação do serviço"
+        android:textAlignment="center"
+        android:textColor="@color/text_primary"
         android:textSize="30dp"
         android:textStyle="bold"
-        android:textColor="@color/text_primary"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -55,20 +55,6 @@
             android:background="@drawable/radiussquare">
 
             <TextView
-                android:id="@+id/lb_endereco_cliente"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="28dp"
-                android:layout_marginTop="164dp"
-                android:text="Valinhos - SP"
-                android:textAlignment="center"
-                android:textColor="#72000000"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
                 android:id="@+id/textView2"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
@@ -82,12 +68,13 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
+            <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/imgFotoPerfil"
                 android:layout_width="74dp"
                 android:layout_height="84dp"
                 android:layout_marginStart="68dp"
                 android:layout_marginTop="60dp"
+                app:shapeAppearanceOverlay="@style/Circular"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/profilepic" />
@@ -97,28 +84,28 @@
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
-                android:layout_marginTop="204dp"
+                android:layout_marginTop="12dp"
                 android:text="Nota 4.6"
                 android:textAlignment="center"
                 android:textColor="#72000000"
                 android:textSize="12sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/lb_nome_cliente" />
 
             <TextView
                 android:id="@+id/lb_nome_cliente"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="28dp"
-                android:layout_marginTop="140dp"
+                android:layout_marginTop="16dp"
                 android:text="Charles Leclerc"
                 android:textAlignment="center"
                 android:textColor="@color/text_primary"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/imgFotoPerfil" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -194,15 +181,15 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_servicos_solicitados"
-                android:layout_width="146dp"
-                android:layout_height="135dp"
-                android:layout_marginTop="76dp"
+                android:layout_width="143dp"
+                android:layout_height="123dp"
+                android:layout_marginTop="12dp"
                 android:layout_marginEnd="28dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:listitem="@layout/service_badge"
+                android:orientation="vertical"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                android:orientation="vertical">
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView6"
+                tools:listitem="@layout/service_badge">
 
             </androidx.recyclerview.widget.RecyclerView>
 
@@ -218,7 +205,7 @@
                 android:id="@+id/textView7"
                 android:layout_width="150dp"
                 android:layout_height="26dp"
-                android:layout_marginStart="4dp"
+                android:layout_marginStart="24dp"
                 android:layout_marginTop="16dp"
                 android:text="Data prevista"
                 android:textAlignment="center"
@@ -233,15 +220,15 @@
                 android:id="@+id/lb_data_prevista"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:layout_marginTop="40dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="6dp"
                 android:text="24/09/2023"
                 android:textAlignment="center"
                 android:textColor="#30A398"
                 android:textSize="18dp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -254,21 +241,22 @@
                 android:id="@+id/lb_total_a_receber"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:layout_marginTop="64dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="8dp"
                 android:text="R$107,04"
                 android:textAlignment="center"
                 android:textColor="#30A398"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
             <TextView
+                android:id="@+id/textView8"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:layout_marginTop="36dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="40dp"
                 android:text="Total a receber"
                 android:textAlignment="center"
                 android:textColor="@color/text_primary"
@@ -320,29 +308,16 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout5" />
 
     <TextView
-        android:id="@+id/lb_endereco_completo"
-        android:layout_width="wrap_content"
+        android:id="@+id/lb_endereco_cliente"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="52dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="40dp"
         android:text="Rua XXX, n YY, Jd. AAA"
         android:textColor="@color/text_primary"
-        android:textSize="14dp"
+        android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout5"
-        tools:ignore="MissingConstraints" />
-
-    <TextView
-        android:id="@+id/lb_tempo_distancia"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="20dp"
-        android:text="10min"
-        android:textColor="@color/text_primary"
-        android:textSize="14dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout6"
         tools:ignore="MissingConstraints" />
 
 

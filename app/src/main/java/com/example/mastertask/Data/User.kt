@@ -8,6 +8,7 @@ import com.google.firebase.firestore.IgnoreExtraProperties
 @IgnoreExtraProperties
 data class User (
     var id: String? = null,
+    var cep: String? = null,
     var contato: String? = null,
     var cpf: String? = null,
     var dataInicio: Timestamp? = null,
@@ -17,12 +18,14 @@ data class User (
     var imagem: String? = null,
     var nome: String? = null,
     var numServicosFeitos: Long? = null,
+    var numeroResidencia: Long? = null,
     var somaAvaliacoes: Double? = null,
 ) {
     @Exclude
     fun toMap(): Map<String, Any?> {
         return mapOf(
             "id" to id,
+            "cep" to cep,
             "contato" to contato,
             "cpf" to cpf,
             "dataInicio" to dataInicio,
@@ -32,6 +35,7 @@ data class User (
             "imagem" to imagem,
             "nome" to nome,
             "numServicosFeitos" to numServicosFeitos,
+            "numeroResidencia" to numeroResidencia,
             "somaAvaliacoes" to somaAvaliacoes,
         )
     }

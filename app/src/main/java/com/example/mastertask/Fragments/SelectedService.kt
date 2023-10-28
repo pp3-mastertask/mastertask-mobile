@@ -1,30 +1,19 @@
 package com.example.mastertask.Fragments
 
-import HabilidadeAdapter //new
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.mastertask.Data.Service
-import android.view.textclassifier.SelectionEvent
 import android.widget.Button
 import android.widget.CalendarView
 import android.widget.TextView
-import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mastertask.Adapters.BadgeViewAdapter
-import com.example.mastertask.Adapters.CardViewAdapterServices
-import com.example.mastertask.Data.CardServiceInfo
 import com.example.mastertask.Data.User
-import com.example.mastertask.Models.HabilidadeViewModel //new
-import com.example.mastertask.Models.SkillModel
 import com.example.mastertask.R
-import com.google.firebase.Timestamp
 import java.util.*
 import kotlin.collections.ArrayList
-
-// TODO: Rename parameter arguments, choose names that match
 
 private const val ID = "id"
 private const val NOME = "nome"
@@ -84,6 +73,7 @@ class SelectedService : Fragment() {
 
         initViews(view)
         PreencherInfo()
+        ColocarEventListeners()
     }
 
     fun PreencherInfo(){
@@ -112,16 +102,11 @@ class SelectedService : Fragment() {
                 .replace(R.id.fragment_container, HomeFragment()).commit()
         }
 
-        //TODO:passar informacoes do servico para tela de confirmacao de servicodo trabalhador (todas as infos do dataclassservice dentro da pasta data)
         proximo.setOnClickListener{
-            val y = ServiceConfirmClient.newInstance(
-                item!!.id!!, item.nome!!, item.imgFoto!!, item.endereco!!,
-                item.contato!!, item.somaAvaliacoes!!, item.numServicosFeitos!!,
-                item.dataHora!!, item.emailCliente!!, item.emailTrab!!, item.status!!
-            )
-            y.setHabilidades(item.habilidades!!)
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, y).commit()
+            // val y = ServiceConfirmClient.newInstance(id, nome,  )
+            // y.setHabilidades(selectedSkills!!)
+            // parentFragmentManager.beginTransaction()
+                // .replace(R.id.fragment_container, y).commit()
         }
     }
 

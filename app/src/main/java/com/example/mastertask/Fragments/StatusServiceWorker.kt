@@ -176,7 +176,7 @@ class StatusServiceWorker : Fragment() {
         format.setCurrency(Currency.getInstance("BRL"))
         lbTotalAReceber.text = format.format(precoTotal)
 
-        val adapter_servicos = BadgeViewAdapter(habilidades)
+        val adapter_servicos = BadgeViewAdapter(habilidades, null)
         rvServicosSolicitados.adapter = adapter_servicos
         adapter_servicos.notifyDataSetChanged()
 

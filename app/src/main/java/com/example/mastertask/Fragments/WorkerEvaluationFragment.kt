@@ -150,7 +150,7 @@ class WorkerEvaluationFragment : Fragment() {
         this.lbEndereco.text = this.endereco
         this.lbAvaliacao.text = (this.somaAvaliacoes!!.div(this.numServicosFeitos!!)).toString()
 
-        val adapter_servicos = BadgeViewAdapter(habilidades)
+        val adapter_servicos = BadgeViewAdapter(habilidades, null)
         this.rvHabilidades.adapter = adapter_servicos
         adapter_servicos.notifyDataSetChanged()
     }

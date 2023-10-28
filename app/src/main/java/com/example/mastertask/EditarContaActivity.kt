@@ -163,6 +163,19 @@ class EditarContaActivity : AppCompatActivity() {
                     txtCEP.setSelection(formattedText.length)
                     txtCEP.addTextChangedListener(this)
                 }
+
+                if (s != null)
+                    if (s.length == 8) {
+                        val resultado = isValidCEP(s.toString())
+                        if (resultado != null) {
+                            val enderecoFinalString = resultado.logradouro + " - "
+                            resultado.bairro + ", " + resultado.localidade + " - " + resultado.uf
+                            lbLogradouro.text = "Logradouro:" + enderecoFinalString
+                        } else {
+                            Toast.makeText(this@EditarContaActivity,
+                                "Erro ao consultar o CEP informado", Toast.LENGTH_LONG).show()
+                        }
+                    }
             }
         })
     }

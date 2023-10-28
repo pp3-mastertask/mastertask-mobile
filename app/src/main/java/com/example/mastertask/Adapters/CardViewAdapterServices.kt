@@ -56,7 +56,7 @@ class CardViewAdapterServices (private val list: List<CardServiceInfo>,
 
             itemView.setOnClickListener { listener.onItemClick(item) }
 
-            val badgeViewAdapter = BadgeViewAdapter(item.habilidades)
+            val badgeViewAdapter = BadgeViewAdapter(item.habilidades, null)
             recyclerView.adapter = badgeViewAdapter
         }
     }

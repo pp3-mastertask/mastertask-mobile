@@ -8,14 +8,11 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mastertask.Adapters.BadgeViewAdapter
 import com.example.mastertask.EditarContaActivity
 import com.example.mastertask.MainActivity
-import com.example.mastertask.Models.SkillModel
 import com.example.mastertask.R
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -125,7 +122,7 @@ class UserFragment : Fragment() {
                 }
             }
 
-        this.badgeAdapter = BadgeViewAdapter(this.list_skills)
+        this.badgeAdapter = BadgeViewAdapter(this.list_skills, null)
         this.rvHabilidades.adapter = this.badgeAdapter
         this.badgeAdapter.notifyDataSetChanged()
     }

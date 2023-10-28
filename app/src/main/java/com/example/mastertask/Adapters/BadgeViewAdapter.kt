@@ -9,13 +9,20 @@ import com.example.mastertask.Models.SkillModel
 import com.example.mastertask.R
 
 class BadgeViewAdapter (private val list: List<Map<String?, Any?>>?,
-                        private val onBadgeClickListener: BadgeViewAdapter.OnBadgeClickListener) :
+                        private val listener: OnBadgeClickListener?) :
     RecyclerView.Adapter<BadgeViewAdapter.Badge>()
 {
     inner class Badge(view: View) : RecyclerView.ViewHolder(view) {
         var habilidade: TextView
         init {
             habilidade = view.findViewById<View>(R.id.lbServiceBadge) as TextView
+        }
+
+        fun bind(hab: Map<String?, Any?>, listener: OnBadgeClickListener, position: Int) {
+            habilidade.text = hab.getValue("habilidade") as String?
+
+            if (listener != null)
+                habilidade.setOnClickListener { listener.onBadgeClick(hab, position) }
         }
     }
 
@@ -39,7 +46,7 @@ class BadgeViewAdapter (private val list: List<Map<String?, Any?>>?,
         holder: Badge,
         position: Int
     ) {
-        holder.habilidade.text = list!![position].getValue("habilidade") as String?
+        holder.bind(list!![position], listener!!, position)
     }
 
     override fun getItemCount(): Int {

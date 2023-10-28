@@ -8,8 +8,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.mastertask.Data.CardServiceInfo
 import com.example.mastertask.Data.User
-import com.example.mastertask.Fragments.SelectedService
 import com.example.mastertask.R
 import com.squareup.picasso.Picasso
 
@@ -35,6 +35,27 @@ class CardViewAdapter(private val list: List<User>,
             imagem = view.findViewById<View>(R.id.imgFotoPerfil) as ImageView
             recyclerView = view.findViewById<View>(R.id.recycler_view_services) as RecyclerView
         }
+
+        fun bind(user: User, listener: OnCardClickListener) {
+            nome.text = user.nome
+            endereco.text = user.endereco
+            telefone.text = user.contato
+            if (user.numServicosFeitos != 0L)
+                estrelas.text = (user.somaAvaliacoes?.div(user.numServicosFeitos!!)).toString()
+            else
+                estrelas.text = "0"
+
+            Picasso.get().load(user.imagem).into(imagem)
+
+            val layoutManager: RecyclerView.LayoutManager =
+                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            recyclerView.layoutManager = layoutManager
+            val badgeViewAdapter = BadgeViewAdapter(user.habilidades, null)
+            recyclerView.adapter = badgeViewAdapter
+
+            if (listener != null)
+                itemView.setOnClickListener { listener.onCardClick(user) }
+        }
     }
 
     override fun onCreateViewHolder(
@@ -56,22 +77,7 @@ class CardViewAdapter(private val list: List<User>,
         holder: Card,
         position: Int
     ) {
-        val user: User = list[position]
-        holder.nome.text = user.nome
-        holder.endereco.text = user.endereco
-        holder.telefone.text = user.contato
-        if (user.numServicosFeitos != 0L)
-            holder.estrelas.text = (user.somaAvaliacoes?.div(user.numServicosFeitos!!)).toString()
-        else
-            holder.estrelas.text = "0"
-
-        Picasso.get().load(user.imagem).into(holder.imagem)
-
-        val layoutManager: RecyclerView.LayoutManager =
-            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        holder.recyclerView.layoutManager = layoutManager
-        val badgeViewAdapter = BadgeViewAdapter(user.habilidades)
-        holder.recyclerView.adapter = badgeViewAdapter
+        holder.bind(list[position], onCardClickListener!!)
     }
 
     override fun getItemCount(): Int {

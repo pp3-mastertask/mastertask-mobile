@@ -29,16 +29,16 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="84dp"
         android:layout_marginTop="76dp"
         android:text="Status do serviço"
+        android:textAlignment="center"
+        android:textColor="@color/text_primary"
         android:textSize="30dp"
         android:textStyle="bold"
-        android:textColor="@color/text_primary"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
         android:id="@+id/linearLayout4"
@@ -55,12 +55,13 @@
             android:layout_height="275dp"
             android:background="@drawable/radiussquare">
 
-            <ImageView
+            <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/imgFotoPerfil"
                 android:layout_width="75dp"
                 android:layout_height="78dp"
                 android:layout_marginStart="64dp"
                 android:layout_marginTop="56dp"
+                app:shapeAppearanceOverlay="@style/Circular"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/profilepic" />

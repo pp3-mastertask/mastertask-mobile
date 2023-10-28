@@ -134,7 +134,15 @@ class HomeSearch : Fragment() {
     }
 
     fun setUpResults(recyclerView: RecyclerView, lista: List<User>) {
-        val adapter = CardViewAdapter(lista, null)
+        val adapter = CardViewAdapter(lista, object :
+            CardViewAdapter.OnCardClickListener {
+            override fun onCardClick(user: User) {
+                val y = SelectedService.newInstance(user)
+                y.setHabilidade(user.habilidades!!)
+                parentFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, y).commit()
+            }
+        })
         recyclerView.adapter = adapter
         adapter.notifyDataSetChanged()
     }

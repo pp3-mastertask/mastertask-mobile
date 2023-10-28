@@ -55,12 +55,13 @@
             android:layout_height="258dp"
             android:background="@drawable/radiussquare">
 
-            <ImageView
+            <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/imgFotoPerfil"
                 android:layout_width="75dp"
                 android:layout_height="78dp"
                 android:layout_marginStart="64dp"
                 android:layout_marginTop="56dp"
+                app:shapeAppearanceOverlay="@style/Circular"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/profilepic" />

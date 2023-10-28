@@ -9,18 +9,14 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.fragment.app.FragmentContainer
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mastertask.Adapters.BadgeViewAdapter
 import com.example.mastertask.Data.Service
-import com.example.mastertask.Data.User
 import com.example.mastertask.Models.ServiceViewModel
-import com.example.mastertask.Models.UserViewModel
 import com.example.mastertask.R
-import com.example.mastertask.R.id
 import com.google.firebase.Timestamp
-import com.google.firebase.auth.FirebaseAuth
-import org.w3c.dom.Text
+import com.squareup.picasso.Picasso
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.ArrayList
@@ -126,7 +122,7 @@ class ServiceConfirmClient : Fragment() {
         format.setCurrency(Currency.getInstance("BRL"))
         lbTotalAPagar.text = format.format(precoTotal)
 
-        val adapterHabilidades = BadgeViewAdapter(habilidades)
+        val adapterHabilidades = BadgeViewAdapter(habilidades, null)
         rvServicosSolicitados.adapter = adapterHabilidades
         adapterHabilidades.notifyDataSetChanged()
 
@@ -174,10 +170,9 @@ class ServiceConfirmClient : Fragment() {
     }
 
     companion object {
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(id: String, nome: String, imgUrl: String, endereco: String, contato: String,
-                        somaAvaliacoes: Double, numServicosFeitos: Long, dataHora: Timestamp
+                        somaAvaliacoes: Double, numServicosFeitos: Long, dataHora: Timestamp,
                         emailCliente: String, emailTrab: String, status: String?) =
             ServiceConfirmWorker().apply {
                 arguments = Bundle().apply {

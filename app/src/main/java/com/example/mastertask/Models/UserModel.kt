@@ -71,6 +71,7 @@ class UserViewModel: ViewModel() {
             for (item in it.documents) {
                 val user = User()
                 user.id = item.id
+                user.cep = item.data!!["cep"] as String?
                 user.contato = item.data!!["contato"] as String?
                 user.cpf = item.data!!["cpf"] as String?
                 user.dataInicio = item.data!!["dataInicio"] as Timestamp?
@@ -80,6 +81,7 @@ class UserViewModel: ViewModel() {
                 user.habilidades = item.data!!["habilidades"] as List<Map<String?, Any?>>?
                 user.nome = item.data!!["nome"] as String?
                 user.numServicosFeitos = item.data!!["numServicosFeitos"] as Long?
+                user.numeroResidencia = item.data!!["numeroResidencia"] as Long?
                 try {
                     user.somaAvaliacoes = (item.data!!["somaAvaliacoes"] as Long).toDouble()
                 }
@@ -101,6 +103,7 @@ class UserViewModel: ViewModel() {
         docRef.document(id).get().addOnSuccessListener {
             val user = User()
             user.id = it.id
+            user.cep = it.data!!["cep"] as String?
             user.contato = it.data!!["contato"] as String?
             user.cpf = it.data!!["cpf"] as String?
             user.dataInicio = it.data!!["dataInicio"] as Timestamp?
@@ -110,6 +113,7 @@ class UserViewModel: ViewModel() {
             user.habilidades = it.data!!["habilidades"] as List<Map<String?, Any?>>?
             user.nome = it.data!!["nome"] as String?
             user.numServicosFeitos = it.data!!["numServicosFeitos"] as Long?
+            user.numeroResidencia = it.data!!["numeroResidencia"] as Long?
             try {
                 user.somaAvaliacoes = (it.data!!["somaAvaliacoes"] as Long).toDouble()
             }
