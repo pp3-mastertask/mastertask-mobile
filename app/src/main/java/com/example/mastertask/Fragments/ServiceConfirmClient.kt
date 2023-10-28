@@ -34,7 +34,10 @@ private const val ENDERECO = "endereco"
 private const val CONTATO = "contato"
 private const val SOMAAVALIACOES = "somaAvaliacoes"
 private const val DATAHORA = "dataHora"
-private conts val NUMEROSERVICOSFEITOS = "numServicosFeitos"
+private const val NUMEROSERVICOSFEITOS = "numServicosFeitos"
+private const val EMAILCLIENTE = "emailCliente"
+private const val EMAILTRAB = "emailTrab"
+private const val STATUS = "status"
 
 //TODO: criar todas as views do xml confirm service client, preencher informacoes (ver status confirm worker), eventlisteners dos botoes de confirmar solicitacao de servico e de cancelar servico proposto
 class ServiceConfirmClient : Fragment() {
@@ -46,7 +49,10 @@ class ServiceConfirmClient : Fragment() {
     private var somaAvaliacoes: Double? = null
     private var numServicosFeitos: Long? = null
     private var dataHora: Timestamp? = null
+    private var emailCliente: String? = null
+    private var emailTrab: String? = null
     private var habilidades: List<Map<String?, Any?>>? = null
+    private var status: String? = null
 
     private lateinit var lbNomePrestador : TextView
     private lateinit var lbAvaliacaoPrestador : TextView
@@ -137,6 +143,15 @@ class ServiceConfirmClient : Fragment() {
             parentFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, ServicesFragment()).commit()
         }
+
+        btnCancelar.setOnClickListener {
+            val service = Service(id, dataHora, emailCliente, emailTrab, habilidades,
+                "Cancelado")
+            serviceViewModel.update(service)
+
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, ServicesFragment()).commit()
+        }
     }
 
     fun initViews(view: View){
@@ -159,14 +174,6 @@ class ServiceConfirmClient : Fragment() {
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ServiceConfirm.
-         */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(id: String, nome: String, imgUrl: String, endereco: String, contato: String,
