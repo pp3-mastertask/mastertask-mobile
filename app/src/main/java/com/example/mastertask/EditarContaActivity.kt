@@ -159,7 +159,7 @@ class EditarContaActivity : AppCompatActivity() {
                         isValidCEP(cep) {
                             if (it != null) {
                                 val enderecoFinalString = it.logradouro + " - "
-                                it.bairro + ", " + it.localidade + " - " + it.uf
+                                it.bairro + ", " + it.cidade + " - " + it.estado
                                 lbLogradouro.text = "Logradouro:" + enderecoFinalString
                             } else {
                                 Toast.makeText(this@EditarContaActivity,
@@ -295,7 +295,7 @@ class EditarContaActivity : AppCompatActivity() {
 
     private fun isValidCEP(cep: String, callback: (CepResponse?) -> Unit) {
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://viacep.com.br/ws/")
+            .baseUrl("https://api.postmon.com.br/v1/cep/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
