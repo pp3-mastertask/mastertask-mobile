@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.RatingBar
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mastertask.Adapters.BadgeViewAdapter
@@ -17,8 +18,11 @@ import com.example.mastertask.Data.User
 import com.example.mastertask.Models.AvaliacaoViewModel
 import com.example.mastertask.Models.UserViewModel
 import com.example.mastertask.R
+import com.google.android.material.imageview.ShapeableImageView
+import com.squareup.picasso.Picasso
 
 private const val ID_SERVICO = "idServico"
+private const val IMAGEM = "imagem"
 private const val NOME = "nome"
 private const val EMAIL = "email"
 private const val ENDERECO = "endereco"
@@ -32,6 +36,7 @@ private const val NUM_SERVICOES_FEITOS = "numServicosFeitos"
  */
 class WorkerEvaluationFragment : Fragment() {
     private var idServico: String? = null
+    private var imagem: String? = null
     private var nome: String? = null
     private var endereco: String? = null
     private var somaAvaliacoes: Double = 0.0
@@ -53,6 +58,8 @@ class WorkerEvaluationFragment : Fragment() {
     private lateinit var btnNaoTerminarAvaliacao : Button
     private lateinit var btnTerminarAvaliacao : Button
 
+    private lateinit var imgFotoPerfil : ShapeableImageView
+
     private lateinit var rvHabilidades : RecyclerView
     private lateinit var habilidades: List<Map<String?, Any?>>
 
@@ -63,6 +70,7 @@ class WorkerEvaluationFragment : Fragment() {
         super.onCreate(savedInstanceState)
         arguments?.let {
             this.idServico = it.getString(ID_SERVICO)
+            this.imagem = it.getString(IMAGEM)
             this.nome = it.getString(NOME)
             this.endereco = it.getString(ENDERECO)
             this.somaAvaliacoes = it.getDouble(SOMA_AVALIACOES)
@@ -95,6 +103,8 @@ class WorkerEvaluationFragment : Fragment() {
 
         this.txtFeedback = view.findViewById(R.id.edit_text)
         this.ratingBar = view.findViewById(R.id.ratingBar)
+
+        this.imgFotoPerfil = view.findViewById(R.id.imgFotoPerfil)
 
         this.rvHabilidades = view.findViewById(R.id.rvHabilidades)
 
@@ -135,8 +145,9 @@ class WorkerEvaluationFragment : Fragment() {
             this.avaliacao.servico = idServico
 
             this.avaliacaoViewModel.create(this.avaliacao)
-            this.usuario.somaAvaliacoes!!.plus(avaliacao)
-            this.usuario.numServicosFeitos!!.plus(1)
+
+            this.usuario.somaAvaliacoes = this.usuario.somaAvaliacoes?.plus(avaliacao)
+            this.usuario.numServicosFeitos = this.usuario.numServicosFeitos?.plus(1)
 
             this.userViewModel.update(this.usuario)
 
@@ -146,9 +157,14 @@ class WorkerEvaluationFragment : Fragment() {
     }
 
     fun addValues() {
+        Picasso.get().load(imagem).into(imgFotoPerfil)
+
         this.lbNome.text = this.nome
         this.lbEndereco.text = this.endereco
-        this.lbAvaliacao.text = (this.somaAvaliacoes!!.div(this.numServicosFeitos!!)).toString()
+        if (this.numServicosFeitos == 0L)
+            this.lbAvaliacao.text = "0.0"
+        else
+            this.lbAvaliacao.text = (this.somaAvaliacoes.div(this.numServicosFeitos)).toString()
 
         val adapter_servicos = BadgeViewAdapter(habilidades, null)
         this.rvHabilidades.adapter = adapter_servicos
@@ -183,7 +199,8 @@ class WorkerEvaluationFragment : Fragment() {
          * this fragment using the provided parameters.
          *
          * @param idServico Service id.
-         * @param nome Name of the worker.
+         * @param imagem Profile picture.
+         * @param nome Worker's name.
          * @param endereco Worker address.
          * @param somaAvaliacoes Evaluation sum.
          * @param numServicosFeitos Number of done services.
@@ -191,11 +208,12 @@ class WorkerEvaluationFragment : Fragment() {
          * @return A new instance of fragment WorkerEvaluation.
          */
         @JvmStatic
-        fun newInstance(idServico: String?, nome: String, endereco: String, somaAvaliacoes: Double,
-                        numServicosFeitos: Long, email: String) =
+        fun newInstance(idServico: String?, imagem: String, nome: String, endereco: String,
+                        somaAvaliacoes: Double, numServicosFeitos: Long, email: String) =
             WorkerEvaluationFragment().apply {
                 arguments = Bundle().apply {
                     putString(ID_SERVICO, idServico)
+                    putString(IMAGEM, imagem)
                     putString(NOME, nome)
                     putString(ENDERECO, endereco)
                     putDouble(SOMA_AVALIACOES, somaAvaliacoes)
