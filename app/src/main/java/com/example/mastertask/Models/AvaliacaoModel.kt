@@ -37,7 +37,7 @@ class AvaliacaoViewModel: ViewModel() {
 
     fun create(avaliacao: Avaliacao) {
         val docRef = db.collection(evaluations)
-        docRef.add(avaliacao.toMap().keys.minus("id")).addOnSuccessListener {
+        docRef.add(avaliacao.toMap()).addOnSuccessListener {
             createLiveData.postValue(true)
         }.addOnFailureListener {
             Log.d("create", it.localizedMessage!!)

@@ -192,8 +192,8 @@ class StatusServiceClient : Fragment() {
             val service = Service(id, dataHora, emailCliente, emailTrab, habilidades,
                 "Finalizado (cliente)")
             serviceViewModel.update(service)
-            val y = WorkerEvaluationFragment.newInstance(id!!, nome!!, endereco!!, somaAvaliacoes!!,
-                numServicosFeitos!!, emailTrab!!)
+            val y = WorkerEvaluationFragment.newInstance(id!!, imgUrl!!, nome!!, endereco!!,
+                somaAvaliacoes!!, numServicosFeitos!!, emailTrab!!)
             y.setHabilidades(habilidades!!)
             parentFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, y).commit()

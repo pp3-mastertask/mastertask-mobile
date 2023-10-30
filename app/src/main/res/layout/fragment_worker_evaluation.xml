@@ -1,286 +1,291 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="700dp"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    tools:context=".Fragments.WorkerEvaluationFragment">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <LinearLayout
-        android:id="@+id/linearLayout2"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/green_light"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:padding="10dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <!-- app:shapeAppearanceOverlay="@style/Circular" -->
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/imgFotoPerfil"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
-            app:shapeAppearanceOverlay="@style/Circular"
-            android:contentDescription="Profile icon"
-            android:padding="5dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="HardcodedText"
-            tools:srcCompat="@tools:sample/avatars" />
+        tools:context=".Fragments.WorkerEvaluationFragment">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:id="@+id/linearLayout2"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingHorizontal="25dp">
+            android:background="@color/green_light"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:id="@+id/nameProfissional"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/montserrat_bold"
-                android:paddingBottom="5dp"
-                android:text="Nome"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-                tools:ignore="HardcodedText" />
+            <!-- app:shapeAppearanceOverlay="@style/Circular" -->
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/imgFotoPerfil"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                app:shapeAppearanceOverlay="@style/Circular"
+                android:contentDescription="Profile icon"
+                android:padding="5dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="HardcodedText"
+                tools:srcCompat="@tools:sample/avatars" />
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="18dp"
-                    android:layout_height="match_parent"
-                    android:contentDescription="Pin"
-                    android:src="@android:drawable/ic_dialog_map"
-                    app:srcCompat="@android:drawable/ic_menu_mylocation"
-                    tools:ignore="HardcodedText" />
+                android:orientation="vertical"
+                android:paddingHorizontal="25dp">
 
                 <TextView
-                    android:id="@+id/location"
+                    android:id="@+id/nameProfissional"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/montserrat_bold"
-                    android:padding="5dp"
-                    android:text="Cidade - Estado"
+                    android:paddingBottom="5dp"
+                    android:text="Nome"
                     android:textColor="@color/white"
-                    android:textSize="14sp"
-                    tools:ignore="HardcodedText" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="18dp"
-                    android:layout_height="match_parent"
-                    android:contentDescription="Star"
-                    android:src="@android:drawable/star_off"
+                    android:textSize="20sp"
                     tools:ignore="HardcodedText" />
 
-                <TextView
-                    android:id="@+id/stars"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/montserrat_bold"
-                    android:padding="5dp"
-                    android:text="N.N"
-                    android:textColor="@color/white"
-                    android:textSize="14sp"
-                    tools:ignore="HardcodedText" />
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="match_parent"
+                        android:contentDescription="Pin"
+                        android:src="@android:drawable/ic_dialog_map"
+                        app:srcCompat="@android:drawable/ic_menu_mylocation"
+                        tools:ignore="HardcodedText" />
+
+                    <TextView
+                        android:id="@+id/location"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/montserrat_bold"
+                        android:padding="5dp"
+                        android:text="Cidade - Estado"
+                        android:textColor="@color/white"
+                        android:textSize="14sp"
+                        tools:ignore="HardcodedText" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="match_parent"
+                        android:contentDescription="Star"
+                        android:src="@android:drawable/star_off"
+                        tools:ignore="HardcodedText" />
+
+                    <TextView
+                        android:id="@+id/stars"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/montserrat_bold"
+                        android:padding="5dp"
+                        android:text="N.N"
+                        android:textColor="@color/white"
+                        android:textSize="14sp"
+                        tools:ignore="HardcodedText" />
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:fontFamily="@font/montserrat_bold"
-        android:text="Avalie o serviço"
-        android:textAlignment="center"
-        android:textColor="@color/text_primary"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
-        tools:ignore="HardcodedText" />
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="Avalie o serviço"
+            android:textAlignment="center"
+            android:textColor="@color/text_primary"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+            tools:ignore="HardcodedText" />
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="19dp"
-        android:fontFamily="@font/montserrat_bold"
-        android:text="O serviço foi finalizado corretamente?"
-        android:textColor="@color/text_primary"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rvHabilidades"
-        tools:ignore="HardcodedText" />
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="19dp"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="O serviço foi finalizado corretamente?"
+            android:textColor="@color/text_primary"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rvHabilidades"
+            tools:ignore="HardcodedText" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnNao"
-        android:layout_width="171dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="14dp"
-        android:background="@drawable/round_button"
-        android:backgroundTint="@color/red_dark"
-        android:fontFamily="@font/montserrat_bold"
-        android:text="Não"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
-        tools:ignore="HardcodedText" />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnNao"
+            android:layout_width="171dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="14dp"
+            android:background="@drawable/round_button"
+            android:backgroundTint="@color/red_dark"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="Não"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView2"
+            tools:ignore="HardcodedText" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnSim"
-        android:layout_width="168dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="21dp"
-        android:layout_marginTop="14dp"
-        android:background="@drawable/round_button"
-        android:backgroundTint="@color/green"
-        android:fontFamily="@font/montserrat_bold"
-        android:text="Sim"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        app:layout_constraintStart_toEndOf="@+id/btnNao"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
-        tools:ignore="HardcodedText" />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnSim"
+            android:layout_width="168dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="21dp"
+            android:layout_marginTop="14dp"
+            android:background="@drawable/round_button"
+            android:backgroundTint="@color/green"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="Sim"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@+id/btnNao"
+            app:layout_constraintTop_toBottomOf="@+id/textView2"
+            tools:ignore="HardcodedText" />
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
-        android:fontFamily="@font/montserrat_bold"
-        android:text="Feedback"
-        android:textColor="@color/text_primary"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnNao"
-        tools:ignore="HardcodedText" />
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="Feedback"
+            android:textColor="@color/text_primary"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnNao"
+            tools:ignore="HardcodedText" />
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
-        android:fontFamily="@font/montserrat_bold"
-        android:text="Avalie-nos para melhores experiências"
-        android:textColor="@color/text_primary"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_text"
-        tools:ignore="HardcodedText" />
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="Avalie-nos para melhores experiências"
+            android:textColor="@color/text_primary"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edit_text"
+            tools:ignore="HardcodedText" />
 
-    <EditText
-        android:id="@+id/edit_text"
-        android:layout_width="match_parent"
-        android:layout_height="125dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="13dp"
-        android:layout_marginEnd="24dp"
-        android:background="@drawable/text_area_evaluation"
-        android:fontFamily="@font/montserrat_semi_bold"
-        android:gravity="top"
-        android:hint="Escreva o que você achou do serviço..."
-        android:inputType="textMultiLine"
-        android:padding="10dp"
-        android:textColor="@color/text_primary"
-        android:textColorHint="@color/text_secondary"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3"
-        tools:ignore="HardcodedText,LabelFor" />
+        <EditText
+            android:id="@+id/edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="125dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="13dp"
+            android:layout_marginEnd="24dp"
+            android:background="@drawable/text_area_evaluation"
+            android:fontFamily="@font/montserrat_semi_bold"
+            android:gravity="top"
+            android:hint="Escreva o que você achou do serviço..."
+            android:inputType="textMultiLine"
+            android:padding="10dp"
+            android:textColor="@color/text_primary"
+            android:textColorHint="@color/text_secondary"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView3"
+            tools:ignore="HardcodedText,LabelFor" />
 
-    <RatingBar
-        android:id="@+id/ratingBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="77dp"
-        android:layout_marginTop="15dp"
-        android:theme="@style/RatingBar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        <RatingBar
+            android:id="@+id/ratingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="77dp"
+            android:layout_marginTop="15dp"
+            android:theme="@style/RatingBar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="17dp"
-        android:layout_marginBottom="12dp"
-        android:fontFamily="@font/montserrat_bold"
-        android:text="*Não obrigatório"
-        android:textColor="@color/text_secondary"
-        app:layout_constraintBottom_toTopOf="@+id/edit_text"
-        app:layout_constraintStart_toEndOf="@+id/textView3"
-        tools:ignore="HardcodedText" />
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="17dp"
+            android:layout_marginBottom="12dp"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="*Não obrigatório"
+            android:textColor="@color/text_secondary"
+            app:layout_constraintBottom_toTopOf="@+id/edit_text"
+            app:layout_constraintStart_toEndOf="@+id/textView3"
+            tools:ignore="HardcodedText" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnNaoObrigado"
-        android:layout_width="171dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="12dp"
-        android:background="@drawable/round_button"
-        android:fontFamily="@font/montserrat_bold"
-        android:text="Não, obrigado"
-        android:textAllCaps="false"
-        android:textColor="@color/red_dark"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ratingBar"
-        tools:ignore="HardcodedText" />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnNaoObrigado"
+            android:layout_width="171dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/round_button"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="Não, obrigado"
+            android:textAllCaps="false"
+            android:textColor="@color/red_dark"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ratingBar"
+            tools:ignore="HardcodedText" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnPronto"
-        android:layout_width="168dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="14dp"
-        android:layout_marginTop="12dp"
-        android:background="@drawable/round_button"
-        android:backgroundTint="@color/green"
-        android:fontFamily="@font/montserrat_bold"
-        android:text="Pronto!"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        app:layout_constraintStart_toEndOf="@+id/btnNaoObrigado"
-        app:layout_constraintTop_toBottomOf="@+id/ratingBar"
-        tools:ignore="HardcodedText" />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnPronto"
+            android:layout_width="168dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/round_button"
+            android:backgroundTint="@color/green"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="Pronto!"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@+id/btnNaoObrigado"
+            app:layout_constraintTop_toBottomOf="@+id/ratingBar"
+            tools:ignore="HardcodedText" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvHabilidades"
-        android:layout_width="361dp"
-        android:layout_height="43dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal"
-        android:scrollbars="horizontal"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        tools:listitem="@layout/service_badge" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvHabilidades"
+            android:layout_width="361dp"
+            android:layout_height="43dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:scrollbars="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView"
+            tools:listitem="@layout/service_badge" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
