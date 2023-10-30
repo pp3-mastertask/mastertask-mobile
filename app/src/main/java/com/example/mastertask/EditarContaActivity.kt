@@ -117,7 +117,7 @@ class EditarContaActivity : AppCompatActivity() {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun afterTextChanged(p0: Editable?) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if ((s?.length ?: 0) >= 3 && (s?.length ?: 0) <= 11) {
+                if ((s?.length ?: 0) >= 3 && (s?.length ?: 0) <= 13) {
                     val formattedText = formatString(s.toString(), "CPF")
                     txtCpf.removeTextChangedListener(this) // Remover novamente o evento
                     txtCpf.setText(formattedText)
@@ -156,14 +156,15 @@ class EditarContaActivity : AppCompatActivity() {
                 if (s != null)
                     if (s.length == 9) {
                         var cep = s.toString().replace("-", "")
-                        val resultado = isValidCEP(cep)
-                        if (resultado != null) {
-                            val enderecoFinalString = resultado.logradouro + " - "
-                            resultado.bairro + ", " + resultado.localidade + " - " + resultado.uf
-                            lbLogradouro.text = "Logradouro:" + enderecoFinalString
-                        } else {
-                            Toast.makeText(this@EditarContaActivity,
-                                "Erro ao consultar o CEP informado", Toast.LENGTH_LONG).show()
+                        isValidCEP(cep) {
+                            if (it != null) {
+                                val enderecoFinalString = it.logradouro + " - "
+                                it.bairro + ", " + it.localidade + " - " + it.uf
+                                lbLogradouro.text = "Logradouro:" + enderecoFinalString
+                            } else {
+                                Toast.makeText(this@EditarContaActivity,
+                                    "Erro ao consultar o CEP informado", Toast.LENGTH_SHORT).show()
+                            }
                         }
                     }
             }
@@ -176,10 +177,10 @@ class EditarContaActivity : AppCompatActivity() {
             for (i in stripped.indices) {
                 when (type) {
                     "CPF" -> {
-                        if (i % 3 == 0 && i > 0) {
+                        if (i % 3 == 0 && i > 0 && i != 9) {
                             append('.')
                         }
-                        if (i == 9) {
+                        if (i == 9 || i == 10) {
                             append('-')
                         }
                     }
@@ -292,7 +293,7 @@ class EditarContaActivity : AppCompatActivity() {
         return if (remainder < 2) 0 else 11 - remainder
     }
 
-    private fun isValidCEP(cep: String): CepResponse? {
+    private fun isValidCEP(cep: String, callback: (CepResponse?) -> Unit) {
         val retrofit = Retrofit.Builder()
             .baseUrl("https://viacep.com.br/ws/")
             .addConverterFactory(GsonConverterFactory.create())
@@ -301,19 +302,23 @@ class EditarContaActivity : AppCompatActivity() {
         val viaCepService = retrofit.create(ViaCepService::class.java)
         val call = viaCepService.getCep(cep)
 
-        try {
-            val response = call.execute()
-
-            if (response.isSuccessful) {
-                val cepData = response.body()
-                return cepData
+        call.enqueue(object : Callback<List<CepResponse>> {
+            override fun onResponse(call: Call<List<CepResponse>>, response: Response<List<CepResponse>>) {
+                if (response.isSuccessful) {
+                    val cepData = response.body()
+                    callback(cepData?.get(0))
+                }
+                else {
+                    callback(null)
+                    Toast.makeText(this@EditarContaActivity, "yo-${response.errorBody().toString()}", Toast.LENGTH_LONG).show()
+                }
             }
-            else
-                Toast.makeText(this, "Erro ao consultar o CEP. Código de status: ${response.code()}", Toast.LENGTH_LONG).show()
-        }
-        catch (e: Exception) { Toast.makeText(this, "Erro ao consultar o CEP", Toast.LENGTH_LONG).show() }
 
-        return null
+            override fun onFailure(call: Call<List<CepResponse>>, t: Throwable) {
+                callback(null)
+                Toast.makeText(this@EditarContaActivity, "BRUH-${t.message.toString()}", Toast.LENGTH_LONG).show()
+            }
+        })
     }
 
     private fun handleConfirmEditAccount() {
@@ -335,18 +340,19 @@ class EditarContaActivity : AppCompatActivity() {
             return
         }
 
-        // Verificar CEP
-        var cep = this.txtCEP.text.toString().replace("-", "")
-        var enderecoFinalString = ""
-        val resultado = isValidCEP(cep)
-        if (resultado != null) {
-            enderecoFinalString = resultado.logradouro + " - " + resultado.bairro + ", " + resultado.localidade + " - " + resultado.uf
-            this.lbLogradouro.setText("Logradouro: " + enderecoFinalString)
-        }
-        else {
-            Toast.makeText(this, "Erro ao consultar o CEP informado", Toast.LENGTH_LONG).show()
-            return
-        }
+//        // Verificar CEP
+//        var cep = this.txtCEP.text.toString().replace("-", "")
+//        var enderecoFinalString = ""
+//        isValidCEP(cep) {
+//            if (it != null) {
+//                enderecoFinalString =
+//                    it.logradouro + " - " + it.bairro + ", " + it.localidade + " - " + it.uf
+//                this.lbLogradouro.setText("Logradouro: " + enderecoFinalString)
+//            }
+//            else {
+//                Toast.makeText(this, "Erro ao consultar o CEP informado", Toast.LENGTH_LONG).show()
+//            }
+//        }
 
         val skillsHashMapList = ArrayList<Any>()
         // Para cada skill adicionada, vamos criar um hashmap, inserí-lo em um array e
@@ -361,13 +367,13 @@ class EditarContaActivity : AppCompatActivity() {
         }
 
         val userUpdatedData = hashMapOf(
-            "cep" to cep,
+            "cep" to this.txtCEP.text.toString(),
             "contato" to this.txtContato.text.toString(),
             "cpf" to cpf,
             "dataInicio" to Timestamp.now(),
             "dataNascimento" to Timestamp(Date(dtNascimento.date)),
             "imagem" to this.auth.currentUser!!.photoUrl.toString(),
-            "endereco" to enderecoFinalString,
+            "endereco" to this.lbLogradouro.text.toString(),
             "habilidades" to skillsHashMapList,
             "numeroResidencia" to this.txtNumero.text.toString(),
             "somaAvaliacoes" to 0.0,

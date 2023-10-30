@@ -7,5 +7,5 @@ import retrofit2.http.Path
 
 interface ViaCepService {
     @GET("{cep}/json/")
-    fun getCep(@Path("cep") cep: String): Call<CepResponse>
+    fun getCep(@Path("cep") cep: String): Call<List<CepResponse>>
 }
