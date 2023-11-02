@@ -93,15 +93,15 @@
                     <CalendarView
                         android:id="@+id/editarConta_calendarioDataNascimento"
                         android:layout_width="match_parent"
-                        android:layout_height="296dp"
-                        android:theme="@style/CustomCalendarMonth"
+                        android:layout_height="wrap_content"
                         android:dateTextAppearance="@style/CalenderViewDateCustomText"
-                        android:weekDayTextAppearance="@style/CalenderViewWeekCustomText"
-                        android:unfocusedMonthDateColor="@color/text_primary"
-                        android:selectedWeekBackgroundColor="@color/text_primary"
-                        android:weekSeparatorLineColor="@color/text_primary"
                         android:focusedMonthDateColor="@color/text_primary"
-                        android:weekNumberColor="@color/text_primary"/>
+                        android:selectedWeekBackgroundColor="@color/text_primary"
+                        android:theme="@style/CustomCalendarMonth"
+                        android:unfocusedMonthDateColor="@color/text_primary"
+                        android:weekDayTextAppearance="@style/CalenderViewWeekCustomText"
+                        android:weekNumberColor="@color/text_primary"
+                        android:weekSeparatorLineColor="@color/text_primary" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -141,7 +141,7 @@
                         android:ems="10"
                         android:hint="_____-___"
                         android:backgroundTint="@color/text_terciary"
-                        android:inputType="text"
+                        android:inputType="number"
                         android:minHeight="48dp"
                         android:textColor="@color/text_primary"
                         android:textColorHint="@color/text_secondary"
@@ -163,7 +163,7 @@
                         android:ems="5"
                         android:hint="XXX"
                         android:backgroundTint="@color/text_terciary"
-                        android:inputType="text"
+                        android:inputType="number"
                         android:minHeight="48dp"
                         android:textColor="@color/text_primary"
                         android:textColorHint="@color/text_secondary"

@@ -1,5 +1,7 @@
 package com.example.mastertask.Fragments
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -110,21 +112,17 @@ class UserFragment : Fragment() {
                                 }
                                 "endereco" -> this.lbAddress.setText(v.toString())
                                 "habilidades" -> {
-                                    val skillsHashMapList = v as ArrayList<Any>
-
-                                    for (hashMap in skillsHashMapList) {
-                                        this.list_skills.add(hashMap as Map<String?, Any?>)
-                                    }
+                                    val skillsHashMapList = v as ArrayList<Map<String?, Any?>>
+                                    this.list_skills.addAll(skillsHashMapList)
+                                    this.badgeAdapter = BadgeViewAdapter(this.list_skills, null)
+                                    this.rvHabilidades.adapter = this.badgeAdapter
+                                    this.badgeAdapter.notifyDataSetChanged()
                                 }
                             }
                         }
                     }
                 }
             }
-
-        this.badgeAdapter = BadgeViewAdapter(this.list_skills, null)
-        this.rvHabilidades.adapter = this.badgeAdapter
-        this.badgeAdapter.notifyDataSetChanged()
     }
 
     fun addEventListeners() {
@@ -134,14 +132,27 @@ class UserFragment : Fragment() {
         }
 
         this.btnSair.setOnClickListener {
-            auth.signOut()
-            val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).build()
-            val googleSignInClient = GoogleSignIn.getClient(requireContext(), gso)
-            googleSignInClient.signOut()
-                .addOnCompleteListener {
-                    val intent = Intent(activity, MainActivity::class.java)
-                    startActivity(intent)
+            val dialogClickListener =
+                DialogInterface.OnClickListener { dialog, which ->
+                    when (which) {
+                        DialogInterface.BUTTON_POSITIVE -> {
+                            auth.signOut()
+                            val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).build()
+                            val googleSignInClient = GoogleSignIn.getClient(requireContext(), gso)
+                            googleSignInClient.signOut()
+                                .addOnCompleteListener {
+                                    val intent = Intent(activity, MainActivity::class.java)
+                                    startActivity(intent)
+                                }
+                        }
+                        DialogInterface.BUTTON_NEGATIVE -> {}
+                    }
                 }
+
+            val builder: AlertDialog.Builder = AlertDialog.Builder(context, R.style.MyDialogTheme)
+            builder.setMessage("Tem certeza que deseja sair de sua conta?")
+                .setPositiveButton("Sair", dialogClickListener)
+                .setNegativeButton("Cancelar", dialogClickListener).show()
         }
     }
 

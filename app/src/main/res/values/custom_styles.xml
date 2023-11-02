@@ -21,4 +21,8 @@
         <item name="colorControlNormal">@color/text_secondary</item>
         <item name="colorControlActivated">@color/green</item>
     </style>
+
+    <style name="MyDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:background">@color/white</item>
+    </style>
 </resources>

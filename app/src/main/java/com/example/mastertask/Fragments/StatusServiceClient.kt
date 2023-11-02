@@ -1,6 +1,7 @@
 package com.example.mastertask.Fragments
 
 import ServicePriceAdapter
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -163,6 +164,14 @@ class StatusServiceClient : Fragment() {
         else
             lbAvaliacaoPrestador.text = (somaAvaliacoes!!.div(numServicosFeitos!!)).toString()
         lbDataPrevista.text = SimpleDateFormat("dd/MM/yyyy").format(dataHora!!.toDate())
+
+        if (status == "Pendente")
+            lbStatusServico.setTextColor(Color.parseColor("#FDC527"))
+        if (status == "Aceito")
+            lbStatusServico.setTextColor(Color.parseColor("#00cc66"))
+        if (status == "Cancelado (prestador)")
+            lbStatusServico.setTextColor(Color.parseColor("#ff3300"))
+
         lbStatusServico.text = status
 
         var precoTotal = 0.0
@@ -188,6 +197,9 @@ class StatusServiceClient : Fragment() {
     }
 
     fun addEventListeners() {
+        if (status == "Pendente" || status == "Cancelado (prestador)")
+            btnConcluir.isEnabled = false
+
         btnConcluir.setOnClickListener {
             val service = Service(id, dataHora, emailCliente, emailTrab, habilidades,
                 "Finalizado (cliente)")

@@ -94,10 +94,15 @@ class EditarContaActivity : AppCompatActivity() {
 
                     btnCancelAddSkill.setOnClickListener{ dg.cancel() }
 
+                    btnAdicionarSkill.text = "Editar"
                     btnAdicionarSkill.setOnClickListener {
                         if (txtNomeSkill.text.toString() != "" && txtPrecoSkill.text.toString() != "") {
                             list_skills[position] = SkillModel(txtNomeSkill.text.toString(), txtPrecoSkill.text.toString().toDouble())
                         }
+
+                        this@EditarContaActivity.recyclerAdapter.notifyDataSetChanged()
+
+                        dg.cancel()
                     }
                     dg.show()
                 }
@@ -239,16 +244,7 @@ class EditarContaActivity : AppCompatActivity() {
     }
 
     private fun handleCancelEditAccount() {
-        if (this.areFieldsEmpty()) {
-            val dg: Dialog = Dialog(this)
-
-            dg.requestWindowFeature(Window.FEATURE_NO_TITLE)
-            dg.setCancelable(true)
-            dg.setContentView(R.layout.cancel_edit_account_dialog)
-            dg.show()
-        }
-        else
-            this.finish()
+        this.finish()
     }
 
     private fun areFieldsEmpty(): Boolean {
@@ -414,6 +410,7 @@ class EditarContaActivity : AppCompatActivity() {
                                 "cep" -> this.txtCEP.setText(v.toString())
                                 "contato" -> this.txtContato.setText(v.toString())
                                 "cpf" -> this.txtCpf.setText(v.toString())
+                                "dataNascimento" -> this.dtNascimento.setDate((v as Timestamp).toDate().time)
                                 "endereco" -> this.lbLogradouro.setText("Logradouro: " + v.toString())
                                 "habilidades" -> {
                                     val skillsHashMapList = v as ArrayList<Any>

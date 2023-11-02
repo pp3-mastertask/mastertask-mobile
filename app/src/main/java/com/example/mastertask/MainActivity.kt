@@ -90,12 +90,17 @@ class MainActivity : AppCompatActivity() {
             if (account != null) {
                 this.db.collection("usuarios")
                     .document(account.email.toString()).get().addOnSuccessListener {
-                        if (it.data!!["cpf"] == "") {
-                            this.insertAccountIntoDatabase(account)
-                            this.handleShowPage(account, EditarContaActivity())
+                        if (it.data != null) {
+                            if (it.data!!["cpf"] == "") {
+                                this.handleShowPage(account, EditarContaActivity())
+                            }
+                            else {
+                                this.handleShowPage(account, Application())
+                            }
                         }
                         else {
-                            this.handleShowPage(account, Application())
+                            this.insertAccountIntoDatabase(account)
+                            this.handleShowPage(account, EditarContaActivity())
                         }
                     }
             }

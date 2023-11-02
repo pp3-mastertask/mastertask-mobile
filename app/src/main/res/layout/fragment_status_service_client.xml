@@ -308,7 +308,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
-        android:layout_marginTop="516dp"
+        android:layout_marginTop="508dp"
         android:text="Status"
         android:textAlignment="center"
         android:textColor="@color/text_primary"
