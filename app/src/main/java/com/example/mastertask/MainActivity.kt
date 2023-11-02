@@ -18,6 +18,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import java.util.Date
 
 class MainActivity : AppCompatActivity() {
 
@@ -112,13 +113,15 @@ class MainActivity : AppCompatActivity() {
     private fun insertAccountIntoDatabase(account: GoogleSignInAccount) {
         try {
             val createdUserData = hashMapOf(
-                "dataInicio" to Timestamp.now(),
+                "cep" to "",
                 "contato" to "",
                 "cpf" to "",
+                "dataInicio" to Timestamp.now(),
                 "dataNascimento" to Timestamp(-1, 0),
                 "imagem" to account.photoUrl.toString(),
                 "endereco" to "",
                 "habilidades" to ArrayList<HashMap<*,*>>(),
+                "numeroResidencia" to 0,
                 "somaAvaliacoes" to 0.0,
                 "nome" to account.displayName.toString(),
                 "numServicosFeitos" to 0
