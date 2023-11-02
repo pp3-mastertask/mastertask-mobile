@@ -2,6 +2,7 @@ package com.example.mastertask
 
 import android.app.Dialog
 import android.content.Intent
+import android.icu.util.Calendar
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
@@ -49,6 +50,8 @@ class EditarContaActivity : AppCompatActivity() {
 
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
     private val db = Firebase.firestore
+
+    private var selectedDate : Timestamp = Timestamp.now()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -118,6 +121,13 @@ class EditarContaActivity : AppCompatActivity() {
         this.btnAddSkill          .setOnClickListener({ this.createAddSkillDialog() })
         this.btnCancelEditAccount .setOnClickListener({ this.handleCancelEditAccount() })
         this.btnConfirmEditAccount.setOnClickListener({ this.handleConfirmEditAccount() })
+        this.dtNascimento.setOnDateChangeListener(object: CalendarView.OnDateChangeListener {
+            override fun onSelectedDayChange(view: CalendarView, year: Int, month: Int, day: Int) {
+                val c = java.util.Calendar.getInstance()
+                c.set(year, month, day)
+                selectedDate = Timestamp(Date(c.timeInMillis))
+            }
+        })
 
         this.txtCpf.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
@@ -339,7 +349,7 @@ class EditarContaActivity : AppCompatActivity() {
             "contato" to this.txtContato.text.toString(),
             "cpf" to cpf,
             "dataInicio" to Timestamp.now(),
-            "dataNascimento" to Timestamp(Date(dtNascimento.date)),
+            "dataNascimento" to selectedDate,
             "imagem" to this.auth.currentUser!!.photoUrl.toString(),
             "endereco" to this.lbLogradouro.text.toString().removePrefix("Logradouro: "),
             "habilidades" to skillsHashMapList,

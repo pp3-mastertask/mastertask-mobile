@@ -48,6 +48,8 @@ class SelectedService : Fragment() {
     private var emailTrab: String? = null
     private var habilidades: List<Map<String?, Any?>>? = null
 
+    private var selectedDate : Timestamp = Timestamp.now()
+
     private var selectedSkills: ArrayList<Map<String?, Any?>>? = ArrayList()
 
     lateinit var nameWorker: TextView
@@ -135,13 +137,21 @@ class SelectedService : Fragment() {
                 val currentUser = FirebaseAuth.getInstance().currentUser!!
                 val userEmail = currentUser.email.toString()
                  val y = ServiceConfirmClient.newInstance(nome!!, imgUrl!!, endereco!!, contato!!,
-                     somaAvaliacoes!!, numServicosFeitos!!, Timestamp.now(), userEmail, emailTrab!!,
-                     "Pendente")
+                     somaAvaliacoes!!, numServicosFeitos!!, selectedDate, userEmail,
+                     emailTrab!!, "Pendente")
                  y.setHabilidades(selectedSkills!!)
                  parentFragmentManager.beginTransaction()
                      .replace(R.id.fragment_container, y).commit()
             }
         }
+
+        calendar.setOnDateChangeListener(object: CalendarView.OnDateChangeListener {
+            override fun onSelectedDayChange(view: CalendarView, year: Int, month: Int, day: Int) {
+                val c = java.util.Calendar.getInstance()
+                c.set(year, month, day)
+                selectedDate = Timestamp(Date(c.timeInMillis))
+            }
+        })
     }
 
     fun initViews(view : View) {
