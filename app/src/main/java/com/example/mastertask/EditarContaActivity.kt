@@ -13,6 +13,7 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import br.com.colman.simplecpfvalidator.isCpf
 import com.example.mastertask.Adapters.EditAccountSkillsAdapter
 import com.example.mastertask.Data.Responses.CepResponse
 import com.example.mastertask.Models.SkillModel
@@ -259,36 +260,6 @@ class EditarContaActivity : AppCompatActivity() {
         return false
     }
 
-    private fun isValidCPF(cpf: String): Boolean {
-        val cleanedCPF = cpf.replace("\\D".toRegex(), "")
-
-        if (cleanedCPF.length != 11) {
-            return false
-        }
-
-        if (cleanedCPF.toSet().size == 1) {
-            return false
-        }
-
-        val firstDigit = calculateDigit(cleanedCPF.substring(0, 9))
-        val secondDigit = calculateDigit(cleanedCPF.substring(0, 10) + firstDigit)
-
-        return cleanedCPF.substring(9).toInt() == firstDigit && cleanedCPF.substring(10).toInt() == secondDigit
-    }
-
-    private fun calculateDigit(partialCPF: String): Int {
-        var sum = 0
-        var multiplier = partialCPF.length + 1
-
-        for (digit in partialCPF) {
-            sum += digit.toString().toInt() * multiplier
-            multiplier--
-        }
-
-        val remainder = sum % 11
-        return if (remainder < 2) 0 else 11 - remainder
-    }
-
     private fun isValidCEP(cep: String, callback: (CepResponse?) -> Unit) {
         val retrofit = Retrofit.Builder()
             .baseUrl("https://api.postmon.com.br/v1/cep/")
@@ -331,7 +302,7 @@ class EditarContaActivity : AppCompatActivity() {
 
         // Verificar CPF
         val cpf = this.txtCpf.text.toString()
-        if (!isValidCPF(cpf)) {
+        if (cpf.isCpf(charactersToIgnore = listOf('.', '-'))) {
             Toast.makeText(this, "O CPF digitado não é válido!", Toast.LENGTH_LONG).show()
             return
         }
