@@ -1,6 +1,8 @@
 package com.example.mastertask.Fragments
 
 import ServicePriceAdapter
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -189,29 +191,60 @@ class StatusServiceWorker : Fragment() {
             btnConcluir.isEnabled = false
         else {
             btnConcluir.setOnClickListener {
-                val service = Service(
-                    id,
-                    dataHora,
-                    emailCliente,
-                    emailTrab,
-                    habilidades,
-                    "Finalizado (prestador)"
-                )
-                serviceViewModel.update(service)
+                val dialogClickListener =
+                    DialogInterface.OnClickListener { dialog, which ->
+                        when (which) {
+                            DialogInterface.BUTTON_POSITIVE -> {
+                                val service = Service(
+                                    id,
+                                    dataHora,
+                                    emailCliente,
+                                    emailTrab,
+                                    habilidades,
+                                    "Finalizado (prestador)"
+                                )
+                                serviceViewModel.update(service)
 
-                parentFragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, ServicesFragment()).commit()
+                                parentFragmentManager.beginTransaction()
+                                    .replace(R.id.fragment_container, ServicesFragment()).commit()
+                            }
+                            DialogInterface.BUTTON_NEGATIVE -> {}
+                        }
+                    }
+
+                val builder: AlertDialog.Builder = AlertDialog.Builder(context, R.style.MyDialogTheme)
+                builder.setMessage("Tem certeza que deseja finalizar o serviço?")
+                    .setPositiveButton("Concluir", dialogClickListener)
+                    .setNegativeButton("Voltar", dialogClickListener).show()
             }
             if (status == "Cancelado (cliente)")
                 btnCancelar.isEnabled = false
             else {
                 btnCancelar.setOnClickListener {
-                    val service = Service(id, dataHora, emailCliente, emailTrab, habilidades,
-                        "Cancelado (prestador)")
-                    serviceViewModel.update(service)
+                    val dialogClickListener =
+                        DialogInterface.OnClickListener { dialog, which ->
+                            when (which) {
+                                DialogInterface.BUTTON_POSITIVE -> {
+                                    val service = Service(
+                                        id,
+                                        dataHora,
+                                        emailCliente,
+                                        emailTrab,
+                                        habilidades,
+                                        "Cancelado (prestador)")
+                                    serviceViewModel.update(service)
 
-                    parentFragmentManager.beginTransaction()
-                        .replace(R.id.fragment_container, ServicesFragment()).commit()
+                                    parentFragmentManager.beginTransaction()
+                                        .replace(R.id.fragment_container, ServicesFragment()).commit()
+                                }
+                                DialogInterface.BUTTON_NEGATIVE -> {}
+                            }
+                        }
+
+                    val builder: AlertDialog.Builder = AlertDialog.Builder(context, R.style.MyDialogTheme)
+                    builder.setMessage("Tem certeza que deseja cancelar o serviço?")
+                        .setPositiveButton("Cancelar serviço", dialogClickListener)
+                        .setNegativeButton("Voltar", dialogClickListener).show()
                 }
             }
         }
