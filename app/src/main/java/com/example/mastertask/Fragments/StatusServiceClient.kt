@@ -1,6 +1,9 @@
 package com.example.mastertask.Fragments
 
 import ServicePriceAdapter
+import android.app.AlertDialog
+import android.content.DialogInterface
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,12 +17,15 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mastertask.Adapters.BadgeViewAdapter
 import com.example.mastertask.Data.Service
+import com.example.mastertask.MainActivity
 import com.example.mastertask.Models.ServiceViewModel
 import com.google.firebase.Timestamp
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.*
 import com.example.mastertask.R
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.squareup.picasso.Picasso
 import kotlin.collections.ArrayList
 
@@ -201,24 +207,50 @@ class StatusServiceClient : Fragment() {
             btnConcluir.isEnabled = false
 
         btnConcluir.setOnClickListener {
-            val service = Service(id, dataHora, emailCliente, emailTrab, habilidades,
-                "Finalizado (cliente)")
-            serviceViewModel.update(service)
-            val y = WorkerEvaluationFragment.newInstance(id!!, imgUrl!!, nome!!, endereco!!,
-                somaAvaliacoes!!, numServicosFeitos!!, emailTrab!!)
-            y.setHabilidades(habilidades!!)
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, y).commit()
+            val dialogClickListener =
+                DialogInterface.OnClickListener { dialog, which ->
+                    when (which) {
+                        DialogInterface.BUTTON_POSITIVE -> {
+                            val service = Service(id, dataHora, emailCliente, emailTrab, habilidades,
+                                "Finalizado (cliente)")
+                            serviceViewModel.update(service)
+                            val y = WorkerEvaluationFragment.newInstance(id!!, imgUrl!!, nome!!, endereco!!,
+                                somaAvaliacoes!!, numServicosFeitos!!, emailTrab!!)
+                            y.setHabilidades(habilidades!!)
+                            parentFragmentManager.beginTransaction()
+                                .replace(R.id.fragment_container, y).commit()
+                        }
+                        DialogInterface.BUTTON_NEGATIVE -> {}
+                    }
+                }
+
+            val builder: AlertDialog.Builder = AlertDialog.Builder(context, R.style.MyDialogTheme)
+            builder.setMessage("Tem certeza que deseja finalizar o serviço?")
+                .setPositiveButton("Concluir", dialogClickListener)
+                .setNegativeButton("Voltar", dialogClickListener).show()
         }
 
-       btnCancelar.setOnClickListener {
-            val service = Service(id, dataHora, emailCliente, emailTrab, habilidades,
-                "Cancelado (cliente)")
-            serviceViewModel.update(service)
+        btnCancelar.setOnClickListener {
+            val dialogClickListener =
+                DialogInterface.OnClickListener { dialog, which ->
+                    when (which) {
+                        DialogInterface.BUTTON_POSITIVE -> {
+                            val service = Service(id, dataHora, emailCliente, emailTrab, habilidades,
+                               "Cancelado (cliente)")
+                            serviceViewModel.update(service)
 
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, ServicesFragment()).commit()
-        }
+                            parentFragmentManager.beginTransaction()
+                               .replace(R.id.fragment_container, ServicesFragment()).commit()
+                        }
+                        DialogInterface.BUTTON_NEGATIVE -> {}
+                    }
+                }
+
+            val builder: AlertDialog.Builder = AlertDialog.Builder(context, R.style.MyDialogTheme)
+            builder.setMessage("Tem certeza que deseja cancelar o serviço?")
+                .setPositiveButton("Cancelar serviço", dialogClickListener)
+                .setNegativeButton("Voltar", dialogClickListener).show()
+       }
     }
 
     companion object {
